@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   modules: ['@vueuse/motion/nuxt'],
+
   postcss: {
     plugins: {
       tailwindcss: {},

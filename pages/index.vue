@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="max-w-7xl mx-auto px-10">
     <div class="flex justify-between mt-14">
@@ -14,7 +16,7 @@
           ที่จะมอบประสบการณ์สุดพิเศษให้แก่ลูกค้าทุกท่าน
         </h3>
         <button
-          class="font-light py-2 px-4 text-white border rounded-xl mt-2 bg-gradient-to-r from-yellow via-orange-500 to-red"
+          class="font-light py-2 px-4 text-white border rounded-xl mt-2 bg-gradient-to-r from-yellow via-orange-400 to-red"
         >
           เริ่มต้นการใช้งาน
         </button>
@@ -33,14 +35,31 @@
       <img class="h-3/4 w-96" src="@/assets/images/GoldenTiara2.png" alt="" />
     </div>
 
-    <div class="mt-16 border border-red">
-      <h1 class="text-xl font-semibold">จำนำกับเราดีอย่างไร</h1>
+    <div class="mt-16">
+      <h1 class="text-3xl font-semibold">จำนำกับเราดีอย่างไร</h1>
 
-      <div class="flex justify-between mt-20">
-        <div class="w-60 h-60 bg-red" v-motion-pop-visible: delay="200"></div>
-        <div class="w-60 h60 bg-red" v-motion-pop-visible: delay="2000"></div>
-        <div class="w-60 h-60 bg-red" v-motion-pop-visible></div>
+      <div class="flex justify-between mt-10">
+
+        <div class= "w-72 border-4 border-yellow  rounded-[20px] p-2" v-motion-slide-visible-bottom
+        :delay="300">
+          <img class="h-72 w-60 object-contain mx-auto" src="@/assets/images/zeroPercent.png" alt="">
+          <p class=" font-light text-xl text-center mt-6">ดอก 0% เดือนแรก</p>
+        </div>
+
+        <div class= "w-72 border-4 border-orange-400  rounded-[20px] p-2" v-motion-slide-visible-bottom
+        :delay="300">
+          <img class="h-72 w-60 object-cover mx-auto" src="@/assets/images/qrPay.png" alt="">
+          <p class=" font-light text-xl text-center mt-6">จ่ายสะดวกผ่าน QR </p>
+        </div>
+
+        <div class= "w-72 border-4 border-red rounded-[20px] p-2" v-motion-slide-visible-bottom
+        :delay="300">
+          <img class="h-72 w-60 object-contain mx-auto" src="@/assets/images/fastPay.png" alt="">
+          <p class=" font-light text-xl text-center mt-6">รับเงินทันที</p>
+        </div>
+
       </div>
+
     </div>
 
     <div class="grid grid-cols-4 gap-10 mt-10">
