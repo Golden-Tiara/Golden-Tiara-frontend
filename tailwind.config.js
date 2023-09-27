@@ -7,20 +7,25 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
     "./nuxt.config.{js,ts}",
     "./app.vue",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
 
     extend: {
       colors: {
-        'red': '#FA2323',
-        'yellow': '#D49521',
         'gold': '#D2AC47',
-        'darkblue': '##122345'
+        'darkblue': '#122345',
+        'background': '#FDF6EC',
+        'darkgold': '#836B0B'
       },
+      fontFamily: {
+
+      },  
     },
   },
   plugins: [
-    require('tailwindcss-animated')
+    require('tailwindcss-animated'),
+    require('flowbite/plugin')
 ],
 }
 
