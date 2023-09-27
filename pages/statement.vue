@@ -1,7 +1,6 @@
 <template>
-    
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="pb-4 bg-white dark:bg-gray-900">
+    <div class="relative overflow-x-auto">
         <div class="relative max-w-sm">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -24,81 +23,72 @@
            <div class="mt-5 flex justify-left gap-x-2">
                 <button type="button" 
                 class="text-white item-right bg-darkblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                Create</button>
+                Create</button> 
             </div>
-
-    </div>
+        </div>
+        <br>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3 rounded-l-lg">
+                    รายการ
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    รหัสรายการ
+                    รายรับ
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    ชื่อ
+                <th scope="col" class="px-6 py-3 rounded-r-lg">
+                    รายจ่าย
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    เลขบัตรประชาชนของลูกค้า
+                <th scope="col" class="px-6 py-3 rounded-r-lg">
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    รหัสพนักงานที่รับรายการ
+                <th scope="col" class="px-6 py-3 rounded-r-lg">
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    วันที่ทำการจำนำ
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    จำนวนเงินที่ได้รับ
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    อัตราดอกเบี้ย
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    วันที่่ครบกำหนด
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    สถานะของรายการ
-                </th>
-                <th scope="col" class="px-6 py-3">
-                </th>
-
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
+            <tr class="bg-white dark:bg-gray-800">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    000
+                    ลูกค้าจำนำ
                 </th>
-                <td class="px-6 py-4">
-                    ลุค เดอ ยอง
-                </td>
-                <td class="px-6 py-4">
-                    1908888
-                </td>
-                <td class="px-6 py-4">
-                    A01
-                </td>
-                <td class="px-6 py-4">
-                    12/08/2023
-                </td>
                 <td class="px-6 py-4">
                     20000 บาท
                 </td>
                 <td class="px-6 py-4">
-                     0.25%
+                    0 บาท
                 </td>
                 <td class="px-6 py-4">
-                     13/09/2023
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                 </td>
                 <td class="px-6 py-4">
-                     กำลังจำนำ
+                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                </td>
+            </tr>
+            <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    โอนเงินให้ลูกค้า
+                </th>
+                <td class="px-6 py-4">
+                    0 บาท
+                </td>
+                <td class="px-6 py-4">
+                    30000 บาท
+                </td>
+                <td class="px-6 py-4">
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+                <td class="px-6 py-4">
+                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                </td>
+            </tr>
+            <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    ลูกค้าเสียดอก
+                </th>
+                <td class="px-6 py-4">
+                   2000 บาท
+                </td>
+                <td class="px-6 py-4">
+                    0 บาท
                 </td>
                 <td class="px-6 py-4">
                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -108,6 +98,13 @@
                 </td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr class="font-semibold text-gray-900 dark:text-white">
+                <th scope="row" class="px-6 py-3 text-base">Total</th>
+                <td class="px-6 py-3">22000 บาท</td>
+                <td class="px-6 py-3">30000 บาท</td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
     <div class="flex justify-between mt-14">
-      <div class="items-center front-mono my-auto">
+      <div class="items-center front-mono my-auto flex">
         <h3 class="text-lg font-light">ยินดีต้อนรับสู่ร้านจำนำ</h3>
         <h1 class="text-7xl font-semibold">
           <span class="text-yellow">G</span>olden
