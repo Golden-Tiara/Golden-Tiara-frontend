@@ -20,7 +20,7 @@
             เริ่มต้นการใช้งาน
           </button>
         </div>
-        <img class="w-7/12" src="@/assets/images/pawnShopTest.png" alt=""/>
+        <img class="w-7/12" src="@/assets/images/pawnshop.png" alt=""/>
       </div>
     </div>
   </header>
@@ -51,7 +51,6 @@
           <div class="flex items-center">
             <div class="w-72">
               <h1 class="text-4xl text-darkgold">เชื่อถือได้</h1>
-              <p class="text-gray-600 mt-2">Lorem</p>
             </div>
           </div>
         </div>
@@ -79,7 +78,7 @@
         <div class="flex items-center">
           <div class="w-72" v-motion-slide-visible-right :delay="500">
             <h1 class="text-4xl text-darkgold">สอบถามสะดวก</h1>
-            <p>Lorem</p>
+        
           </div>
         </div>
       </div>
@@ -105,7 +104,7 @@
         <div class="flex items-center">
           <div class="w-72" v-motion-slide-visible-right :delay="900">
             <h1 class="text-4xl text-darkgold">ดีลง่าย จ่ายไว</h1>
-            <p>lorem</p>
+          
           </div>
         </div>
       </div>
@@ -129,7 +128,7 @@
         <div class="flex items-center">
           <div class="w-72" v-motion-slide-visible-right :delay="1200">
             <h1 class="text-4xl text-darkgold">ชำระผ่าน QR</h1>
-            <p>lorem</p>
+         
           </div>
         </div>
       </div>
