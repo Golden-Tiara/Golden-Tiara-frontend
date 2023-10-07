@@ -15,7 +15,7 @@ module.exports = {
         'red': '#FA2323',
         'yellow': '#D49521',
         'gold': '#D2AC47',
-        'darkblue': '##122345'
+        'darkblue': '#122345'
       },
     },
   },
