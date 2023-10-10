@@ -26,7 +26,6 @@
 
             <!-- Step 2: Additional Information -->
             <div v-if="currentStep === 2">
-              <!-- Add fields for national_id, name, surname, phone_number, and image_path here -->
               <div>
                 <label for="national_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">เลขบัตรประจำตัวประชาชน</label>
                 <input type="text" name="national_id" id="national_id" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required="">
