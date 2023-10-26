@@ -66,7 +66,7 @@
         </button>
 
         <button type="button"  id="successButton" data-modal-toggle="successModal" class="text-white bg-gray-500 hover:bg-[gray]/80 focus:ring-4 focus:outline-none focus:ring-gray/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-gray/80 dark:focus:ring-[gray/40 mr-2 mb-2 flex" 
-        @onclick="ShowModal"
+        @click="ShowModal"
         >
             จ่ายเงินจำนำแล้ว
         </button>
@@ -115,11 +115,11 @@
               <span class="sr-only">Success</span>
             </div>
             <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-black">
-              Successfully removed product.
+              Successfully.
             </p>
             <button
               type="button"
-              class="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
+              class="bg-[#D2AC47] py-2 px-3 text-sm font-medium text-center text-black rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
               @click="closeModal"
             >
               Continue
@@ -142,6 +142,7 @@
         this.modalVisible = true; // เมื่อคลิกปุ่ม "Open Modal"
       },
       closeModal() {
+        console.log("Closing modal");
         this.modalVisible = false; // เมื่อคลิกปุ่ม "Close modal" หรือ "Continue"
       },
     },
