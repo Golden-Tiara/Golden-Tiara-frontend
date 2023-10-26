@@ -1,48 +1,93 @@
-
 <template>
-  <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-        <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-        Flowbite
-      </a>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign in to your account
-          </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
-            <div>
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-              <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
-            </div>
-            <div>
-              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-              <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-star
+  <div class="pt-8 pb-8 flex items-center justify-center">
+    <div class="card-white w-[500px]">
+      <div class="flex flex-col">
+        <h2 class=" text-2xl text-center font-bold text-gray-800 text-left mb-5">
+          เข้าสู่ระบบ
+        </h2>
+        <form @submit.prevent="onFormSubmit" class="w-full">
+          <div id="input" class="flex flex-col w-full my-5">
+            <label for="username" class="text-gray-500 mb-2">หมายเลขบัตรประชาชน</label>
+            <input type="text" v-model="national_id" required autocomplete="off" placeholder="โปรดกรอกหมายเลขบัตรประชาชน"
+              class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
+          </div>
+          <div id="input" class="flex flex-col w-full my-5">
+            <label for="password" class="text-gray-500 mb-2">รหัสผ่าน</label>
+            <input type="password" v-model="password" required placeholder="โปรดกรอกรหัสผ่าน"
+              class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
+          </div>
 
-              t">
-                <div class="flex items-center h-5">
-                  <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
-                </div>
-                <div class="ml-3 text-sm">
-                  <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
-                </div>
-              </div>
-              <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+          <div id="button" class="flex flex-col w-full my-5">
+            <button type="submit"
+              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              เข้าสู่ระบบ</button>
+            <div class="flex justify-evenly mt-5 ">
+              <a href="/auth/register" class="w-full text-center underline font-medium text-gray-500">สร้างบัญชีใหม่</a>
             </div>
-            <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-            </p>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
-  </section>
+  </div>
 </template>
-<script setup lang="ts" >
+
+
+
+<script>
+import { useAuthStore } from '~/stores/useAuthStore.ts'
+export default {
+  setup() {
+    const auth_store = useAuthStore()
+    return { auth_store }
+  },
+  data() {
+    return {
+      national_id: '',
+      password: '',
+      error: null,
+      disabledButton: false,
+      auth: null,
+      user: null
+    }
+  },
+  watch: {
+    auth_store: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        this.auth = this.auth_store.getAuth
+        this.user = JSON.parse(this.auth_store.getUser)
+      }
+    },
+  },
+  async mounted() {
+    if (typeof window !== 'undefined') {
+      const item = localStorage.getItem('key')
+    }
+    if (this.auth_store.isAuthen) {
+      this.$router.push("/");
+    }
+  },
+
+  methods: {
+    async onFormSubmit() {
+      this.error = null
+
+      this.disabledButton = true
+      try {
+        if (await this.auth_store.login(this.national_id, this.password)) {
+          this.$router.push('/')
+
+        } else {
+          this.disabledButton = false
+        }
+
+      } catch (error) {
+        console.error(error.response.data)
+        this.disabledButton = false
+      }
+    }
+  },
+}
 
 </script>
