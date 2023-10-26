@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
     <div class="flex justify-evenly mt-20 front-mono my-auto">
+
+
       <div
         class="flex flex-col w-80 max-w-sm bg-white border-2 border-gold rounded-lg shadow px-4
         transition duration-500 transform hover:opacity-90 hover:scale-110"
@@ -25,7 +27,7 @@
         <div class="flex justify-center mb-4">
           <a
             href="#"
-            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-l from-gold to-darkgold "
+            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
             click here
             <svg
@@ -71,7 +73,7 @@
         <div class="flex justify-center mb-4">
           <a
             href="#"
-            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-4 focus:outline-none focus:ring-darkgold"
+            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
             click here
             <svg
@@ -119,7 +121,7 @@
         <div class="flex justify-center mb-4">
           <a
             href="#"
-            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-r from-gold to-darkgold focus:ring-4 focus:outline-none focus:ring-darkgold"
+            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
             click here
             <svg
