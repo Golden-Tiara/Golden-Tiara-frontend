@@ -116,10 +116,8 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const pageTitle = `Examination No. ${route.params.id}`
-const { data: examination } = await useMyFetch<any>(
-  `examination/${route.params.id}`, {}
-)
-
+  const route = useRoute()
+  const { data: examination } = await useMyFetch<any>(
+    `examination/${route.params.id}`, {}
+  )
 </script>
