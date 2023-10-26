@@ -24,7 +24,7 @@
                   <div class="flex items-center justify-center">
                     <img 
                       :src="previewUrl"
-                      class="max-h-60 px-auto w-auto object-cover"
+                      class="max-h-60 px-auto w-60 object-cover"
                     />
                   </div>
                 </div>

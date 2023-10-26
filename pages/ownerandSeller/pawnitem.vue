@@ -7,7 +7,7 @@
           <!-- Create new table -->
           <button
             type="button"
-            class="text-white flex justify-between bg-darkblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-7 py-5"
+            class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
           >
             <span class="mr-2">
               <svg
@@ -34,8 +34,12 @@
         <div class="flex mt-20 mb-5">
           <!-- Date -->
           <div>
-            <input class="border border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold" 
-            type="date" name="" id="">
+            <input
+              class="border border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+              type="date"
+              name=""
+              id=""
+            />
           </div>
           <label for="table-search" class="sr-only">Search</label>
           <!-- Item Search -->
@@ -63,17 +67,18 @@
             <input
               type="text"
               id="table-search"
-              class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold "
+              class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
               placeholder="Search for items"
             />
           </div>
           <!-- Search Button -->
-          <button class="px-4 text-base bg-darkblue hover:bg-blue-800 ml-5 rounded-lg text-white">
+          <button
+            class="px-4 text-base bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold ml-5 rounded-lg text-white"
+          >
             ค้นหา
           </button>
         </div>
       </div>
-
 
       <!-- Table -->
       <table
@@ -83,7 +88,6 @@
           class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center"
         >
           <tr>
-            <th scope="col" class="px-6 py-4"></th>
             <th scope="col" class="px-6 py-4">รหัสรายการ</th>
             <th scope="col" class="px-6 py-4">ชื่อ</th>
             <th scope="col" class="px-6 py-4">เลขบัตรประชาชนของลูกค้า</th>
@@ -97,29 +101,17 @@
             <th scope="col" class="px-6 py-4"></th>
           </tr>
         </thead>
+
         <tbody>
-          <tr
-            class="bg-white border-b border-gold"
-          >
-            <td class="w-5 p-7">
-              <div class="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
-                />
-                <label for="checkbox-table-search-1" class="sr-only"
-                  >checkbox</label
-                >
-              </div>
-            </td>
+          <tr class="bg-white border-b border-gold">
             <th
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
               001
             </th>
-            <td class="py-4 text-center">สมชาย
+            <td class="py-4 text-center">
+              สมชาย
               <span>สมพร</span>
             </td>
             <td class="py-4 text-center">1908888</td>
@@ -128,9 +120,9 @@
             <td class="py-4 text-center text-green-600">20000</td>
             <td class="py-4 text-center">0.25%</td>
             <td class="py-4 text-center">13/09/2023</td>
-            <td class="py-4  text-center">
+            <td class="py-4 text-center">
               <span
-                class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm"
+                class="px-7 py-2 font-semibold leading-tight text-red-700 bg-red-100 rounded"
               >
                 รอยืนยัน
               </span>
@@ -150,42 +142,32 @@
               >
             </td>
           </tr>
-          <tr
-            class="py-4 bg-white border-b border-gold"
-          >
-            <td class="w-5 p-7">
-              <div class="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
-                />
-                <label for="checkbox-table-search-1" class="sr-only"
-                  >checkbox</label
-                >
-              </div>
-            </td>
+
+          <tr class="bg-white border-b border-gold">
             <th
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              002
+              001
             </th>
-            <td class="py-4 text-center">จอน</td>
+            <td class="py-4 text-center">
+              สมชาย
+              <span>สมพร</span>
+            </td>
             <td class="py-4 text-center">1908888</td>
             <td class="py-4 text-center">A01</td>
             <td class="py-4 text-center">12/08/2023</td>
             <td class="py-4 text-center text-green-600">20000</td>
             <td class="py-4 text-center">0.25%</td>
             <td class="py-4 text-center">13/09/2023</td>
-            <td class="py-4  text-center">
+            <td class="py-4 text-center">
               <span
-                class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-sm"
+                class="px-2 py-2 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
               >
                 กำลังดำเนินการ</span
               >
             </td>
-            <td class="py-4 px-6 text-center">
+            <td class="text-center py-4 px-6">
               <a
                 href="#"
                 class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
@@ -200,52 +182,42 @@
               >
             </td>
           </tr>
-          <tr
-            class="bg-white border-b border-gold"
-          >
-            <td class="w-5 p-7">
-              <div class="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
-                />
-                <label for="checkbox-table-search-1" class="sr-only"
-                  >checkbox</label
-                >
-              </div>
-            </td>
+
+          <tr class="bg-white border-b border-gold">
             <th
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              003
+              001
             </th>
-            <td class="py-4 text-center">เต้</td>
+            <td class="py-4 text-center">
+              สมชาย
+              <span>สมพร</span>
+            </td>
             <td class="py-4 text-center">1908888</td>
             <td class="py-4 text-center">A01</td>
             <td class="py-4 text-center">12/08/2023</td>
             <td class="py-4 text-center text-green-600">20000</td>
             <td class="py-4 text-center">0.25%</td>
             <td class="py-4 text-center">13/09/2023</td>
-            <td class="py-4   text-center">
+            <td class="py-4 text-center">
               <span
-                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"
+                class="px-8 py-2 font-semibold leading-tight text-green-700 bg-green-100 rounded"
               >
                 เสร็จสิ้น
               </span>
             </td>
-            <td class="py-4 text-center px-6">
+            <td class="text-center py-4 px-6">
               <a
                 href="#"
-                class="font-medium text-center text-purple-600 hover:text-purple-800 hover:underline"
+                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
                 >Edit</a
               >
             </td>
             <td class="px-6 py-4">
               <a
                 href="#"
-                class="font-medium text-center text-red-600 dark:text-red-500 hover:underline"
+                class="font-medium text-red-600 dark:text-red-500 hover:underline"
                 >Remove</a
               >
             </td>
