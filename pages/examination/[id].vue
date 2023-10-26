@@ -122,5 +122,4 @@ const { data: examination } = await useMyFetch<any>(
   `examination/${route.params.id}`, {}
 )
 
-console.log(examination)
 </script>
