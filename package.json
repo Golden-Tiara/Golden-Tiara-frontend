@@ -20,8 +20,11 @@
   "dependencies": {
     "@vueuse/motion": "^2.0.0",
     "flowbite": "^1.8.1",
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1",
+    "pdfmake": "^0.2.7",
     "puppeteer": "^21.3.1",
     "puppeteer-core": "^21.3.1",
-    "vue-router": "^4.2.5"
+    "survey-pdf": "^1.9.111"
   }
 }

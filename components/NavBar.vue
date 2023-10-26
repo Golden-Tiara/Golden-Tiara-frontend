@@ -23,7 +23,7 @@
         <div class="md:order-2 pl-8">
           <button
             type="button"
-            class="text-white font-light bg-darkblue hover:bg-gradient-to-l from-gold to-darkgold focus:ring-4 focus:outline-none rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
+            class="text-white font-light bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-4 focus:outline-none rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
           >
             เข้าสู่ระบบ
           </button>
@@ -58,28 +58,29 @@
           <li>
             <MenuLink
               to="/services"
-              class="relative font-normal text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              class="relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
+"
               >เซอร์วิส
             </MenuLink>
           </li>
           <li>
             <MenuLink
               href="#"
-              class="relative font-normal text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              class="relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
               >ราคาทอง
             </MenuLink>
           </li>
           <li>
             <MenuLink
               href="#"
-              class="relative font-normal text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              class="relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
               >สอบถาม
             </MenuLink>
           </li>
           <li>
             <MenuLink
               href="#"
-              class="relative font-normal text-base w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              class="relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
               >ติดต่อเรา
             </MenuLink>
           </li>
@@ -245,13 +246,3 @@
     </div>
   </nav> -->
 </template>
-
-<script setup>
-import { onMounted } from "vue";
-import { initFlowbite } from "flowbite";
-
-// initialize components based on data attribute selectors
-onMounted(() => {
-  initFlowbite();
-});
-</script>
