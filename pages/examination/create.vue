@@ -319,8 +319,8 @@
   </section>
 </template>
 
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
     const { data: examinations, pending } = await useMyFetch<any>("examination", {})
     console.log(examinations)
-</script>
+</script> -->
