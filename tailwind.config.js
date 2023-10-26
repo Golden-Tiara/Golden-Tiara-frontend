@@ -8,6 +8,8 @@ module.exports = {
     "./nuxt.config.{js,ts}",
     "./app.vue",
     "./node_modules/flowbite/**/*.js",
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
 
@@ -24,8 +26,8 @@ module.exports = {
     },
   },
   plugins: [
+    require('flowbite/plugin'),
     require('tailwindcss-animated'),
-    require('flowbite/plugin')
 ],
 }
 
