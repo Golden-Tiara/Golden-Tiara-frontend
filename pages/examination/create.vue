@@ -313,93 +313,14 @@
               <!-- End popup modal -->
             </td>
           </tr>
-
-
-
-
-          
-          <tr class="py-4 bg-white border-b border-gold">
-            <td class="w-5 p-7">
-              <div class="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label for="checkbox-table-search-1" class="sr-only"
-                  >checkbox</label
-                >
-              </div>
-            </td>
-            <th
-              scope="row"
-              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              002
-            </th>
-            <td class="py-4 text-center">จอน</td>
-            <td class="py-4 text-center">1908888</td>
-            <td class="py-4 text-center">1908888</td>
-
-            <td class="py-4 px-6 text-center">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
-                >แก้ไข</a
-              >
-            </td>
-            <td class="px-6 py-4">
-              <a
-                class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer"
-                data-modal-target="popup-modal-remove"
-                data-modal-toggle="popup-modal-remove"
-                >ลบทิ้ง
-            </a>
-
-            </td>
-          </tr>
-          <tr class="bg-white border-b border-gold">
-            <td class="w-5 p-7">
-              <div class="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <label for="checkbox-table-search-1" class="sr-only"
-                  >checkbox</label
-                >
-              </div>
-            </td>
-            <th
-              scope="row"
-              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              003
-            </th>
-            <td class="py-4 text-center">เต้</td>
-            <td class="py-4 text-center">1908888</td>
-            <td class="py-4 text-center">1908888</td>
-
-            <td class="py-4 text-center px-6">
-              <a
-                href="#"
-                class="font-medium text-center text-purple-600 hover:text-purple-800 hover:underline"
-                >แก้ไข</a
-              >
-            </td>
-            <td class="px-6 py-4">
-              <a
-                href="#"
-                class="font-medium text-center text-red-600 dark:text-red-500 hover:underline cursor-pointer"
-                data-modal-target="popup-modal-remove"
-                data-modal-toggle="popup-modal-remove"
-                >ลบทิ้ง</a
-              >
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
   </section>
 </template>
+
+<!-- <script setup lang="ts">
+import useMyFetch from '~/composables/useMyFetch';
+    const { data: examinations, pending } = await useMyFetch<any>("examination", {})
+    console.log(examinations)
+</script> -->
