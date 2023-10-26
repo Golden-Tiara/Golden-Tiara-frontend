@@ -23,7 +23,7 @@
         <div class="md:order-2 pl-8">
           <button
             type="button"
-            class="text-white font-light bg-darkblue hover:bg-gradient-to-l from-gold to-darkgold focus:ring-4 focus:outline-none rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
+            class="text-white font-light bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-4 focus:outline-none rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
           >
             เข้าสู่ระบบ
           </button>

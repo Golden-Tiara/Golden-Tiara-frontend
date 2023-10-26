@@ -165,7 +165,11 @@
             <th scope="col" class="px-6 py-4"></th>
           </tr>
         </thead>
+
+
+
         <tbody>
+
           <tr class="bg-white border-b border-gold">
             <td class="w-5 p-7">
               <div class="flex items-center">
