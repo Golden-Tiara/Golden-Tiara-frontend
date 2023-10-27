@@ -1,37 +1,39 @@
 <template>
-  <div>
-    <div class="filters">
-      <input v-model="search" type="text" placeholder="Search..." @input="applyFilter" />
-      <!-- สามารถเพิ่ม filters อื่นๆ ที่นี่ -->
+  <div class="p-6">
+    <div class="filters mb-4">
+      <input v-model="search" type="text" placeholder="Search..." @input="applyFilter" class="border-2 border-gold1-400 p-2 rounded" />
     </div>
 
-    <table>
-      <thead>
-      <tr>
-        <th v-for="field in fields" :key="field.key" @click="sortTable(field.key)">
-          {{ field.label }}
-          <span v-if="sortKey === field.key">{{ sortOrder }}</span>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item in paginatedData" :key="item.contractCode">
-        <td>{{ item.contractCode }}</td>
-        <td>{{ item.loanNumber }}</td>
-        <td>{{ item.employeeId }}</td>
-        <td>{{ item.amount }}</td>
-        <td>{{ item.status }}</td>
-        <td>{{ item.withdrawalTime }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse border-2 border-gold1-400">
+        <thead>
+        <tr>
+          <th v-for="field in fields" :key="field.key" @click="sortTable(field.key)" class="border-b-2 border-gold1-400 p-3 bg-gold-100">
+            {{ field.label }}
+            <span v-if="sortKey === field.key">{{ sortOrder }}</span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in paginatedData" :key="item.contractCode" class="border-b-2 border-gold1-400 hover:bg-gold1-200">
+          <td class="p-3">{{ item.contractCode }}</td>
+          <td>{{ item.loanNumber }}</td>
+          <td>{{ item.employeeId }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.withdrawalTime }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div class="pagination">
-      <button @click="page--" :disabled="page <= 1">Prev</button>
-      <button @click="page++" :disabled="page >= pageCount">Next</button>
+    <div class="pagination mt-4 flex">
+      <button @click="page--" :disabled="page <= 1" class="mr-2 bg-gold1-400 text-white px-4 py-2 rounded disabled:bg-gold1-300 disabled:text-black disabled:cursor-not-allowed">Prev</button>
+      <button @click="page++" :disabled="page >= pageCount" class="bg-gold1-400 text-white px-4 py-2 rounded disabled:bg-gold1-300 disabled:text-black disabled:cursor-not-allowed">Next</button>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -52,7 +54,7 @@ export default {
       ],
       withdrawals: [
         { contractCode: '001', loanNumber: 'LN-123', employeeId: 'E-001', amount: 5000, status: 'Approved', withdrawalTime: '2023-10-01 10:00' },
-        // ... ข้อมูลอื่นๆ ...
+
       ],
     };
   },

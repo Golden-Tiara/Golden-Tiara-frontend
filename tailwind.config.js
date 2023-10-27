@@ -16,6 +16,12 @@ module.exports = {
     extend: {
       colors: {
         'gold': '#D2AC47',
+        'gold1': {
+          100: '#FFF8DC', // Lighter gold shade for backgrounds
+          200: '#FAD02E', // Gold color for hover states
+          300: '#EEDC82', // Light gold for disabled state
+          400: '#DAA520', // Default gold color
+        },
         'darkblue': '#122345',
         'background': '#FDF6EC',
         'darkgold': '#836B0B',
