@@ -13,7 +13,7 @@
             <!-- มีข้อมูล -->
             <section
               v-if="previewUrl"
-              class="mx-auto bg-white rounded-lg shadow-md items-center -mt-10"
+              class="mx-auto bg-white rounded-lg shadow-md items-center -mt-20"
             >
               <div class="px-4 py-8">
                 รูปตัวอย่าง
@@ -24,7 +24,7 @@
                   <div class="flex items-center justify-center">
                     <img 
                       :src="previewUrl"
-                      class="max-h-60 px-auto w-auto object-cover"
+                      class="max-h-60 px-auto w-60 object-cover"
                     />
                   </div>
                 </div>
@@ -54,7 +54,7 @@
             <!-- ไม่มีรูป -->
             <section
               v-else
-              class="mx-auto bg-white rounded-lg shadow-md items-center -mt-10"
+              class="mx-auto bg-white rounded-lg shadow-md items-center -mt-20"
             >
               <div class="flex items-center justify-center w-full">
                 <label
@@ -124,7 +124,7 @@
                   </div>
                   <input
                     type="email"
-                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder=""
                   />
                 </div>
@@ -135,7 +135,7 @@
                 <label for="" class="text-xs font-semibold px-1"
                   >ความบริสุทธิ์</label
                 >
-                <div class="flex">
+                <div class="flex mb-20">
                   <div
                     class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
                   >
@@ -143,32 +143,12 @@
                   </div>
                   <input
                     type="text"
-                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                    placeholder="99.5%"
+                    class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
             </div>
-            <div class="flex -mx-3">
-              <div class="w-full px-3 mb-12">
-                <label for="" class="text-xs font-semibold px-1"
-                  >คำอธิบายเพิ่มเติม</label
-                >
-                <div class="flex">
-                  <div
-                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
-                  >
-                    <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
-                  </div>
-                  <textarea
-                    type="text"
-                    rows="2"
-                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                    placeholder="*************************"
-                  />
-                </div>
-              </div>
-            </div>
+            
             <div class="flex -mx-3">
               <div class="w-full px-3 mb-5">
                 <button
