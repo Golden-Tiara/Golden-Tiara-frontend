@@ -5,15 +5,15 @@
         <h2 class=" text-2xl text-center font-bold text-gray-800 text-left mb-5">
           เข้าสู่ระบบ
         </h2>
-        <form @submit.prevent="onFormSubmit" class="w-full">
+        <form @submit.prevent="submit">
           <div id="input" class="flex flex-col w-full my-5">
             <label for="username" class="text-gray-500 mb-2">หมายเลขบัตรประชาชน</label>
-            <input type="text" v-model="national_id" required autocomplete="off" placeholder="โปรดกรอกหมายเลขบัตรประชาชน"
+            <input type="text" v-model="formData.national_id" required autocomplete="off" placeholder="โปรดกรอกหมายเลขบัตรประชาชน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
           </div>
           <div id="input" class="flex flex-col w-full my-5">
             <label for="password" class="text-gray-500 mb-2">รหัสผ่าน</label>
-            <input type="password" v-model="password" required placeholder="โปรดกรอกรหัสผ่าน"
+            <input type="password" v-model="formData.password" required placeholder="โปรดกรอกรหัสผ่าน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
           </div>
 
@@ -33,61 +33,69 @@
 
 
 
-<script>
-import { useAuthStore } from '~/stores/useAuthStore.ts'
-export default {
-  setup() {
-    const auth_store = useAuthStore()
-    return { auth_store }
-  },
-  data() {
-    return {
-      national_id: '',
-      password: '',
-      error: null,
-      disabledButton: false,
-      auth: null,
-      user: null
-    }
-  },
-  watch: {
-    auth_store: {
-      immediate: true,
-      deep: true,
-      handler(newValue, oldValue) {
-        this.auth = this.auth_store.getAuth
-        this.user = JSON.parse(this.auth_store.getUser)
+<script setup lang="ts">
+import { useAuthStore } from "~/stores/useAuthStore";
+import axios from "axios";
+const auth = useAuthStore();
+
+const formData = reactive({
+  national_id: "",
+  password: "",
+});
+
+const errorMessage = reactive({
+  national_id: "",
+  password: "",
+});
+
+
+async function submit() {
+  errorMessage.national_id = "";
+  errorMessage.password = "";
+
+  if (!formData.national_id) {
+    errorMessage.national_id = "national_id is required.";
+  }
+  if (!formData.password) {
+    errorMessage.password = "Password is required.";
+  }
+
+  if (errorMessage.national_id || errorMessage.password) {
+    return;
+  }
+
+
+  const { data: response, error } = await axios.post('http://localhost/api/auth/login', formData);
+
+  console.log(response)
+
+  if (error) {
+    console.log(error.value.data["message"]);
+    errorMessage.password = error.value.data["message"];
+    return;
+  }
+  if (response !== null) {
+
+    const { data: response2, error2 } = await axios.post('http://localhost/api/auth/me', {}, {
+      headers: {
+        Authorization: 'Bearer ' + response.access_token
+
       }
-    },
-  },
-  async mounted() {
-    if (typeof window !== 'undefined') {
-      const item = localStorage.getItem('key')
+    });
+
+    const user = response2;
+    console.log(user)
+    if (user) {
+      let national_id = user["national_id"];
+      let name = user["name"];
+      let surname = user["surname"];
+      let phone_number = user["phone_number"];
+
+      console.log(national_id, name, surname, phone_number)
+      auth.setUser(national_id, name, surname, phone_number);
+      console.log("Auth user:", auth.user);
+        await navigateTo("/");
     }
-    if (this.auth_store.isAuthen) {
-      this.$router.push("/");
-    }
-  },
-
-  methods: {
-    async onFormSubmit() {
-      this.error = null
-
-      this.disabledButton = true
-      try {
-        if (await this.auth_store.login(this.national_id, this.password)) {
-          this.$router.push('/')
-
-        } else {
-          this.disabledButton = false
-        }
-
-      } catch (error) {
-        console.error(error.response.data)
-        this.disabledButton = false
-      }
-    }
-  },
+  }
 }
-
 </script>
