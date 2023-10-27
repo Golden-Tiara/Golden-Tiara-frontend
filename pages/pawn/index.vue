@@ -89,123 +89,34 @@
         >
           <tr>
             <th scope="col" class="px-6 py-4">รหัสรายการ</th>
-            <th scope="col" class="px-6 py-4">ชื่อ</th>
             <th scope="col" class="px-6 py-4">เลขบัตรประชาชนของลูกค้า</th>
-            <th scope="col" class="px-6 py-4">รหัสพนักงานที่รับรายการ</th>
-            <th scope="col" class="px-6 py-4">วันที่ทำการจำนำ</th>
-            <th scope="col" class="px-6 py-4">จำนวนเงินที่ได้รับ (บาท)</th>
-            <th scope="col" class="px-6 py-4">อัตราดอกเบี้ย</th>
-            <th scope="col" class="px-6 py-4">วันที่ครบกำหนด</th>
             <th scope="col" class="px-6 py-4">สถานะของรายการ</th>
+            <th scope="col" class="px-6 py-4">วันทำสัญญา</th>
+            <th scope="col" class="px-6 py-4">วันสิ้นสุดสัญญา</th>
             <th scope="col" class="px-6 py-4"></th>
             <th scope="col" class="px-6 py-4"></th>
           </tr>
         </thead>
 
         <tbody>
-          <tr class="bg-white border-b border-gold">
-            <th
+          <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id">
+            <td
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              001
-            </th>
+            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
+            </td>
             <td class="py-4 text-center">
-              สมชาย
-              <span>สมพร</span>
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.customer_id }}</nuxt-link>
             </td>
-            <td class="py-4 text-center">1908888</td>
-            <td class="py-4 text-center">A01</td>
-            <td class="py-4 text-center">12/08/2023</td>
-            <td class="py-4 text-center text-green-600">20000</td>
-            <td class="py-4 text-center">0.25%</td>
-            <td class="py-4 text-center">13/09/2023</td>
             <td class="py-4 text-center">
-              <span
-                class="px-7 py-2 font-semibold leading-tight text-red-700 bg-red-100 rounded"
-              >
-                รอยืนยัน
-              </span>
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.status }}</nuxt-link>
             </td>
-            <td class="text-center py-4 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
-                >Edit</a
-              >
-            </td>
-            <td class="px-6 py-4">
-              <a
-                href="#"
-                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                >Remove</a
-              >
-            </td>
-          </tr>
-
-          <tr class="bg-white border-b border-gold">
-            <th
-              scope="row"
-              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              001
-            </th>
             <td class="py-4 text-center">
-              สมชาย
-              <span>สมพร</span>
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.contract_date }}</nuxt-link>
             </td>
-            <td class="py-4 text-center">1908888</td>
-            <td class="py-4 text-center">A01</td>
-            <td class="py-4 text-center">12/08/2023</td>
-            <td class="py-4 text-center text-green-600">20000</td>
-            <td class="py-4 text-center">0.25%</td>
-            <td class="py-4 text-center">13/09/2023</td>
-            <td class="py-4 text-center">
-              <span
-                class="px-2 py-2 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
-              >
-                กำลังดำเนินการ</span
-              >
-            </td>
-            <td class="text-center py-4 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
-                >Edit</a
-              >
-            </td>
-            <td class="px-6 py-4">
-              <a
-                href="#"
-                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                >Remove</a
-              >
-            </td>
-          </tr>
-
-          <tr class="bg-white border-b border-gold">
-            <th
-              scope="row"
-              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              001
-            </th>
-            <td class="py-4 text-center">
-              สมชาย
-              <span>สมพร</span>
-            </td>
-            <td class="py-4 text-center">1908888</td>
-            <td class="py-4 text-center">A01</td>
-            <td class="py-4 text-center">12/08/2023</td>
-            <td class="py-4 text-center text-green-600">20000</td>
-            <td class="py-4 text-center">0.25%</td>
-            <td class="py-4 text-center">13/09/2023</td>
-            <td class="py-4 text-center">
-              <span
-                class="px-8 py-2 font-semibold leading-tight text-green-700 bg-green-100 rounded"
-              >
-                เสร็จสิ้น
-              </span>
+            <td class="py-4 text-center text-green-600">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
             </td>
             <td class="text-center py-4 px-6">
               <a
@@ -227,3 +138,8 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import useMyFetch from '~/composables/useMyFetch';
+  const { data: pawns, pending } = await useMyFetch<any>("pawn", {})
+</script>
