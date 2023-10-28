@@ -24,6 +24,7 @@
     "@mdi/font": "^7.3.67",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/motion": "^2.0.0",
+    "axios": "^1.5.1",
     "flowbite": "^1.8.1",
     "flowbite-vue": "^0.1.0",
     "html2pdf.js": "^0.10.1",
