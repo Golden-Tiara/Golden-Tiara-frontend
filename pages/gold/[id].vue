@@ -1,48 +1,44 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
-    <!-- Card 1 -->
     <div class="flex justify-center mt-10">
       <div
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12 "
       >
-        <img
+        <img v-if="gold.image_path"
           class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
-          src="@/assets/images/G00.jpg"
+          :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
         />
+        <img v-else
+          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          src="@/assets/images/gold-default.png"
+          alt=""
+        />
+
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
-            G00
+            {{ gold.id }}
           </h5>
           <p class="mb-3 font-bold text-gray-700 text-base ">
-            เลขสัญญาตรวจสอบทอง: 100
+            เลขสัญญาตรวจสอบทอง: {{ gold.examination_id }}
           </p>
           <p class="mb-3 font-normal text-gray-700 text-base">
-            เลขจำนำทอง: 100
+            เลขสัญญาจำนำทอง: {{ gold.pawn_id }}
           </p>
           <p class="mb-3 font-normal text-base text-gray-700 mr-5">
-            น้ำหนักทอง: 2 บาท
+            น้ำหนักทอง: {{ gold.weight }}
           </p>
 
           <p class="mb-3 font-normal text-gray-700 text-base">
-            ความบริสุทธ์: 99%
+            ความบริสุทธ์: {{ gold.purity }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
-            คำอธิบาย: ทองเก่ารับซื้อจากลูกค้า
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base mr-5">
-            ราคาปัจจุบัน:
-            <span class="mb-3 font-normal text-green-500">60000</span> บาท
-          </p>
-
           <p class="mb-3 font-normal text-gray-700 text-base">
             สถานะ:
-            <span
-              class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
-            >
-              อยู่ระหว่างตรวจสอบ</span
-            >
+            <span class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded">
+              {{ gold.status }}
+            </span>
           </p>
+
           <div class="flex mt-8">
             <button
               type="button"
@@ -60,6 +56,12 @@
         </div>
       </div>
     </div>
-    <!-- End Card 1 -->
   </div>
 </template>
+
+<script setup lang="ts">
+  const route = useRoute()
+  const { data: gold } = await useMyFetch<any>(
+    `gold/${route.params.id}`, {}
+  )
+</script>
