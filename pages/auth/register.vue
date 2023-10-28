@@ -38,12 +38,12 @@
             </div>
 
 
-<!--            <div>-->
-<!--              <label for="image_path" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพของคุณ</label>-->
-<!--            <input  type="file" name="image_path" id="image_path" @change="onFileChange"-->
-<!--                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"-->
-<!--                   required="">-->
-<!--            </div>-->
+            <div>
+              <label for="image_path" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รูปภาพของคุณ</label>
+              <input type="file" name="image_path" id="image_path" @change="onFileChange"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     required="">
+            </div>
             <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
               มีบัญชีผู้ใช้งานแล้ว? <a href="/auth/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
@@ -60,8 +60,15 @@ import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useAuthStore } from "~/stores/useAuthStore";
 const auth = useAuthStore();
+const uploadedFile = ref(null);
 function onFileChange(event) {
-  formData.imageFile = event.target.files[0];
+  const file = event.target.files[0];
+  if (!file) {
+    return;
+  }
+  const randomFileName = Math.random().toString(36).substring(2, 15) + '.' + file.name.split('.').pop();
+  formData.image_path = randomFileName;
+  uploadedFile.value = file;
 }
 const formData = reactive({
   national_id: "",
@@ -69,7 +76,7 @@ const formData = reactive({
   name: "",
   surname: "",
   phone_number: "",
-  image_path: "null"
+  image_path: ""
 });
 
 const errorMessage = reactive({
@@ -78,7 +85,7 @@ const errorMessage = reactive({
   name: "",
   surname: "",
   phone_number: "",
-  image_path: "null"
+  image_path: ""
 });
 const imagePath = ref("");
 
@@ -87,14 +94,14 @@ async function onSubmit() {
     errorMessage[key] = "";
   });
   let isFormValid = true;
-  // Object.keys(formData).forEach(key => {
-  //   if (!formData[key]) {
-  //     errorMessage[key] = `${key} is required.`;
-  //     isFormValid = false;
-  //     console.log(errorMessage[key])
-  //     console.log(errorMessage)
-  //   }
-  // });
+  Object.keys(formData).forEach(key => {
+    if (!formData[key]) {
+      errorMessage[key] = `${key} is required.`;
+      isFormValid = false;
+      console.log(errorMessage[key])
+      console.log(errorMessage)
+    }
+  });
   // Validate National ID
   if (formData.national_id.length !== 13) {
     errorMessage.national_id = "หมายเลขบัตรประชาชนต้องมี 13 ตัวอักษร";
@@ -117,27 +124,26 @@ async function onSubmit() {
   if (!isFormValid)
     return;
   console.log(formData)
-  // let registrationData = new FormData();
-  // Object.keys(formData).forEach(key => {
-  //   if (key !== 'image') {
-  //     registrationData.append(key, formData[key]);
-  //   }
-  // });
+  let registrationData = new FormData();
+  Object.keys(formData).forEach(key => {
+    registrationData.append(key, formData[key]);
+  });
+  if (uploadedFile.value) {
+    registrationData.append('image', uploadedFile.value, formData.image_path); // ใช้ชื่อไฟล์แบบสุ่มเป็นชื่อไฟล์
+  }
 
-  // if (formData.image) {
-  //   registrationData.append('image', formData.image);
-  // }
+
   console.log(formData);
   console.error();
   try {
-    const { data: response } = await axios.post('http://localhost/api/auth/register', formData);
+    const { data: response } = await axios.post('http://localhost/api/auth/register', registrationData);
     console.log("Response การลงทะเบียน:", response);
-    await navigateTo("/login");
+    await navigateTo("/auth/login");
 
     if (response.success && response.data) {
       imagePath.value = response.data.image_path;
       auth.setUser(name, surname, national_id, phone_number);
-      await navigateTo("/login");
+      await navigateTo("/auth/login");
     }
     else {
       console.log(response)
