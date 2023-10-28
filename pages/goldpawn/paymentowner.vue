@@ -70,7 +70,7 @@
         >
             จ่ายเงินจำนำแล้ว
         </button>
-        <div
+      <div
         id="successModal"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
         :class="{'hidden': !modalVisible}"

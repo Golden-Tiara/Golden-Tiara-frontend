@@ -118,15 +118,6 @@
             <td class="py-4 text-center text-green-600">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
             </td>
-            <td class="text-center py-4 px-6">
-              <a
-                href="#"
-                id="editButton" data-modal-toggle="editModal"
-                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
-                @click="editPawn(pawn.id)"
-                >Edit</a
-              >
-            </td>
             <td class="px-6 py-4">
               <a
                 href="#"
@@ -141,27 +132,29 @@
         :class="{'hidden': !modalVisible}"
       >
         
-<form>
-  <div class="mb-6">
-    <label for="customer-id" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">เลขบัตรประชาชนของลูกค้า</label>
-    <input type="text" id="customer-id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="formData.customer_id">
-  </div>
-  <div class="mb-6">
-    <label for="status" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">สถานะของรายการ</label>
-    <input type="text" id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="formData.status">
-  </div>
-  <div class="mb-6">
-    <label for="contract_date" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">วันทำสัญญา</label>
-    <input type="text" id="contract_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="formData.contract_date">
-  </div>
-  <div class="mb-6">
-    <label for="expiry_date" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">วันสิ้นสุดสัญญา</label>
-    <input type="text" id="expiry_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="formData.expiry_date">
-  </div>
-  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-  @click="updatePawn(pawn, formData)"
-  >Update</button>
-</form>
+    <form @submit.prevent="onSubmit" class="bg-white p-8 w-96 rounded-lg shadow-lg">
+      <h2 class="text-2xl mb-4">แก้ไขข้อมูลจำนำ</h2>
+      <div class="mb-4">
+        <label for="customer-id" class="block text-sm font-medium text-gray-700">เลขบัตรประชาชนของลูกค้า</label>
+        <input type="text" id="customer-id" v-model="formData.customer_id" class="w-full border rounded-md py-2 px-3">
+      </div>
+      <div class="mb-4">
+        <label for="status" class="block text-sm font-medium text-gray-700">สถานะของรายการ</label>
+        <input type="text" id="status" v-model="formData.status" class="w-full border rounded-md py-2 px-3">
+      </div>
+      <div class="mb-4">
+        <label for="contract_date" class="block text-sm font-medium text-gray-700">วันทำสัญญา</label>
+        <input type="date" id="contract_date" v-model="formData.contract_date" class="w-full border rounded-md py-2 px-3">
+      </div>
+      <div class="mb-6">
+        <label for="expiry_date" class="block text-sm font-medium text-gray-700">วันสิ้นสุดสัญญา</label>
+        <input type="date" id="expiry_date" v-model="formData.expiry_date" class="w-full border rounded-md py-2 px-3">
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">บันทึก</button>
+      </div>
+    </form>
+
 
        </div>
           </tr>
@@ -171,68 +164,50 @@
   </section>
 </template>
 
-
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
-const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
+// Fetch 'Pawn' data using useMyFetch
+const { data: pawns, pending } = await useMyFetch<any>("pawn");
+console.log(pawns);
+const validation = ref([]);
 
+// Define reactive properties
+const modalVisible = ref(false);
 const formData = ref({
+  contract_id: '',
   customer_id: '',
   status: '',
   contract_date: '',
   expiry_date: '',
 });
-const editingPawnId = ref(null);
-const modalVisible = ref(false);
-
-const editPawn = (pawnID) => {
-  editingPawnId.value = pawnID;
-};
-
+// Define the deletePawn function (similar to the delete functionality)
 const deletePawn = async (pawnID: number) => {
-  console.log(pawnID);
-  if (confirm('Are you sure you want to delete this data')) {
+  if (confirm('Are you sure you want to delete this data?')) {
     try {
-      const response = await axios.delete(`http://localhost:3000/pawn/${pawnID}`);
-      alert(response.data.message);
+      const response = await useMyFetch<any>(`pawn/${pawnID}`, {
+        method: "DELETE"
+      });
 
-      // Update the data after deletion
-      const updatedPawns = pawns.value.filter((pawn) => pawn.id !== pawnID);
-      pawns.value = updatedPawns;
-    } catch (error: any) {
-      if (error.response) {
-        if (error.response.status === 404) {
-          alert(error.response.data.message);
-        }
+      if (response.status === 200) {
+        const updatedPawns = pawns.value.filter((pawn: any) => pawn.id !== pawnID);
+        pawns.value = updatedPawns;
+        window.location.reload(); // Optional
       }
+    } catch (error) {
+      alert("An error occurred while deleting the pawn.");
     }
   }
 };
 
-const updatePawn = async (pawn, updatedData) => {
-  try {
-    const response = await axios.put(`http://localhost:3000/pawn/${pawn.id}`, updatedData);
-    alert(response.data.message);
-
-    // Update the pawn data in the list after a successful update
-    pawns.value = pawns.value.map((currentPawn) => {
-      if (currentPawn.id === pawn.id) {
-        return { ...currentPawn, ...updatedData };
-      }
-      return currentPawn;
-    });
-
-    // Hide the modal after the update
-    modalVisible.value = false;
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status === 404) {
-        alert(error.response.data.message);
-      }
-    }
-  }
-};
 </script>
+
+
+
+
+
+
+
