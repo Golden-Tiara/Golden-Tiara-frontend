@@ -10,11 +10,13 @@
             <label for="username" class="text-gray-500 mb-2">หมายเลขบัตรประชาชน</label>
             <input type="text" v-model="formData.national_id" required autocomplete="off" placeholder="โปรดกรอกหมายเลขบัตรประชาชน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
+            <p v-if="errorMessage.national_id" class="text-red-600 text-sm">{{ errorMessage.national_id }}</p>
           </div>
           <div id="input" class="flex flex-col w-full my-5">
             <label for="password" class="text-gray-500 mb-2">รหัสผ่าน</label>
             <input type="password" v-model="formData.password" required placeholder="โปรดกรอกรหัสผ่าน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
+            <p v-if="errorMessage.password" class="text-red-600 text-sm">{{ errorMessage.password }}</p>
           </div>
 
           <div id="button" class="flex flex-col w-full my-5">
