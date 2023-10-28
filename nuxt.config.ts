@@ -7,11 +7,14 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  
   modules: [
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    
   ],
+  
   postcss: {
     plugins: {
       tailwindcss: {},
