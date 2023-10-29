@@ -3,7 +3,7 @@
     class="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5"
   >
     <div
-      class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden"
+      class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden h-[460px]"
       style="max-width: 1000px"
     >
       <div class="md:flex w-full">
@@ -18,7 +18,10 @@
                 <div
                   class="max-w-sm mb-3 py-2 bg-gray-100 border-dashed border-2 border-gold rounded-lg items-center mx-auto text-center cursor-pointer"
                 >
-                  <div class="flex items-center justify-center">
+                  <div
+                    v-if="previewUrl"
+                    class="flex items-center justify-center"
+                  >
                     <img
                       :src="previewUrl"
                       class="max-h-60 px-auto w-60 object-cover"
@@ -30,7 +33,7 @@
                   <div class="w-full flex items-center">
                     <label class="cursor-pointer">
                       <span
-                        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded-full"
+                        class="bg-gold hover:bg-blue-700 text-white py-2 px-6 rounded-full"
                         >เลือกรูป</span
                       >
                       <input
@@ -87,7 +90,7 @@
                   </div>
                   <label class="mb-4 cursor-pointer">
                     <span
-                      class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded-full"
+                      class="bg-gold hover:bg-blue-700 text-white py-2 px-6 rounded-full"
                       >เลือกรูป</span
                     >
                     <input
@@ -110,53 +113,70 @@
           </div>
 
           <form @submit.prevent="onSubmit()">
-            <div class="flex -mx-3">
-              <div class="w-full px-3 mb-5">
-                <label for="weight" class="text-xs font-semibold px-1"
-                  >น้ำหนัก(บาท)</label
-                >
-                <div class="flex">
-                  <div
-                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+            <div class="mb-5">
+              <div class="flex -mx-3">
+                <div class="w-full px-3">
+                  <label for="weight" class="text-xs font-semibold px-1"
+                    >น้ำหนัก(บาท)</label
                   >
-                    <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+                  <div class="flex">
+                    <div
+                      class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+                    >
+                      <i
+                        class="mdi mdi-email-outline text-gray-400 text-lg"
+                      ></i>
+                    </div>
+                    <input
+                      v-model="formData.weight"
+                      type="number"
+                      id="weight"
+                      @input="updateWeight"
+                      class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                      placeholder=""
+                    />
                   </div>
-                  <input
-                    v-model="formData.weight"
-                    type="number"
-                    id="weight"
-                    @input="updateWeight"
-                    class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                    placeholder=""
-                  />
                 </div>
               </div>
+              <p v-if="errorMessage.weight" class="text-red-500">
+                {{ errorMessage.weight }}
+              </p>
             </div>
-            <div class="flex -mx-3">
-              <div class="w-full px-3 mb-5">
-                <label for="purity" class="text-xs font-semibold px-1"
-                  >ความบริสุทธิ์</label
-                >
-                <div class="flex mb-20">
-                  <div
-                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+            <div class="mb-20">
+              <div class="flex -mx-3">
+                <div class="w-full px-3">
+                  <label for="purity" class="text-xs font-semibold px-1"
+                    >ความบริสุทธิ์</label
                   >
-                    <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+                  <div class="flex">
+                    <div
+                      class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+                    >
+                      <i
+                        class="mdi mdi-email-outline text-gray-400 text-lg"
+                      ></i>
+                    </div>
+                    <input
+                      v-model="formData.purity"
+                      type="number"
+                      id="purity"
+                      @input="updatePurity"
+                      class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500"
+                    />
                   </div>
-                  <input
-                    v-model="formData.purity"
-                    type="number"
-                    id="purity"
-                    @input="updatePurity"
-                    class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500"
-                  />
                 </div>
               </div>
+              <p v-if="errorMessage.purity" class="text-red-500">
+                {{ errorMessage.purity }}
+              </p>
             </div>
 
             <div class="flex -mx-3">
               <div class="w-full px-3 mb-5">
                 <button
+                  @click="onSubmit"
+                  data-modal-target="popup-modal"
+                  data-modal-toggle="popup-modal"
                   class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
                 >
                   บันทึกรายการ
@@ -164,9 +184,209 @@
               </div>
             </div>
 
-            <div v-if="errorMessage" class="text-red-500 mt-2">
-              {{ errorMessage }}
+            <!-- popup modal -->
+            <!-- เช็คถ้า weightและ purityไม่เป็นช่องว่าง -->
+            <div  v-if="formData.weight && formData.purity">
+              <div
+                ref="modal"
+                id="popup-modal"
+                tabindex="-1"
+                class=" flex justify-center items-center fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+              >
+                <div class="relative w-full max-w-md max-h-full">
+                  <div
+                    class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+                  >
+                    <button
+                      type="button"
+                      class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                      data-modal-hide="popup-modal"
+                      @click="closeModal"
+                    >
+                      <svg
+                        class="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                      <span
+                        @click="closeModal"
+                        class="sr-only"
+                        onclick="window.location.reload();"
+                        >Close modal</span
+                      >
+                    </button>
+
+                    <div class="p-6 text-center">
+                      <svg
+                        class="mx-auto mb-4"
+                        width="50px"
+                        height="50px"
+                        viewBox="0 0 117 117"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <title />
+
+                        <desc />
+
+                        <defs />
+
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          id="Page-1"
+                          stroke="none"
+                          stroke-width="1"
+                        >
+                          <g fill-rule="nonzero" id="correct">
+                            <path
+                              d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z"
+                              fill="#17AB13"
+                              id="Shape"
+                            />
+
+                            <path
+                              d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z"
+                              fill="#4A4A4A"
+                              id="Shape"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                      <h3
+                        class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                      >
+                        ยืนยันการบันทึกรายการหรือไม่?
+                      </h3>
+                      <button
+                       
+                        type="button"
+                        @click="closeModal"
+                        onclick="window.location.reload();"
+                        class="text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                      >
+                        บันทึกรายการ
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <!-- End popup modal -->
+
+
+            <!-- <div  v-else>
+              <div
+                ref="modal"
+                id="popup-modal"
+                tabindex="-1"
+                class=" flex justify-center items-center fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+              >
+                <div class="relative w-full max-w-md max-h-full">
+                  <div
+                    class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+                  >
+                    <button
+                      type="button"
+                      class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                      data-modal-hide="popup-modal"
+                      @click="closeModal"
+                    >
+                      <svg
+                        class="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                      <span
+                        @click="closeModal"
+                        class="sr-only"
+                        onclick="window.location.reload();"
+                        >Close modal</span
+                      >
+                    </button>
+
+                    <div class="p-6 text-center">
+                      <svg
+                        class="mx-auto mb-4"
+                        width="50px"
+                        height="50px"
+                        viewBox="0 0 117 117"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <title />
+
+                        <desc />
+
+                        <defs />
+
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          id="Page-1"
+                          stroke="none"
+                          stroke-width="1"
+                        >
+                          <g fill-rule="nonzero" id="correct">
+                            <path
+                              d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z"
+                              fill="#17AB13"
+                              id="Shape"
+                            />
+
+                            <path
+                              d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z"
+                              fill="#4A4A4A"
+                              id="Shape"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                      <h3
+                        class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                      >
+                        ยืนยันการบันทึกรายการหรือไม่?
+                      </h3>
+                      <button
+                       
+                        type="button"
+                        @click="closeModal"
+                        class="text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                      >
+                        บันทึกรายการ
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+
+
+
+
           </form>
         </div>
       </div>
@@ -176,11 +396,19 @@
 
 <script setup>
 import { ref } from "vue";
+import { reactive } from "vue";
 
-const errorMessage = ref("");
+const image_path = ref(null);
 const previewUrl = ref(null);
 const selectedFile = ref(null);
 const dropzone = ref(null);
+const modal = ref(null);
+
+const closeModal = () => {
+  if (modal.value) {
+    modal.value.classList.add("hidden");
+  }
+};
 
 const previewImage = (event) => {
   const file = event.target.files ? event.target.files[0] : null; // ตรวจสอบว่ามี files หรือไม่
@@ -198,16 +426,16 @@ const previewImage = (event) => {
 
 const dragOver = (event) => {
   event.preventDefault();
-  dropzone.value.classList.add("border-blue-500");
+  dropzone.value.classList.add("border-gold");
 };
 
 const dragLeave = () => {
-  dropzone.value.classList.remove("border-blue-500");
+  dropzone.value.classList.remove("border-gold");
 };
 
 const dropImage = (event) => {
   event.preventDefault();
-  dropzone.value.classList.remove("border-blue-500");
+  dropzone.value.classList.remove("border-gold");
 
   const file = event.dataTransfer.files[0];
   previewUrl.value = null; // Clear the old image
@@ -230,7 +458,12 @@ const previewFile = (file) => {
   }
 };
 
-const formData = ref({
+const formData = reactive({
+  weight: "",
+  purity: "",
+});
+
+const errorMessage = reactive({
   weight: "",
   purity: "",
 });
@@ -245,6 +478,31 @@ const updatePurity = (event) => {
 
 const onSubmit = async () => {
   const { weight, purity } = formData;
+  Object.keys(errorMessage).forEach((key) => {
+    errorMessage[key] = "";
+  });
+
+  let isFormValid = true;
+
+  Object.keys(formData).forEach((key) => {
+    if (!formData[key]) {
+      // เช็คถ้าไม่มีข้อมูลขึ้น error
+      errorMessage[key] = `${key} is required.`;
+      isFormValid = false;
+      console.log(errorMessage[key]);
+      console.log(errorMessage);
+    }
+
+    if (isFormValid) {
+      // เมื่อข้อมูลถูกต้อง ให้เปิด Modal
+      const modal = document.getElementById("popup-modal");
+      modal.classList.remove("hidden"); // ลบ class "hidden" ที่ซ่อน Modal
+    }
+  });
+
+  console.log("formData", formData.value);
+  console.log("previewUrl", previewUrl.value);
+  console.log("errorMessage", errorMessage);
 
   const formDataToSend = new FormData();
   formDataToSend.append("weight", weight);
@@ -252,6 +510,7 @@ const onSubmit = async () => {
   if (selectedFile.value) {
     formDataToSend.append("image", selectedFile.value);
   }
+  console.log("formDataToSend", formDataToSend);
 
   try {
     const { data: response, error } = await useMyFetch("gold", {
@@ -266,17 +525,6 @@ const onSubmit = async () => {
 async function submit() {
   errorMessage.weight = "";
   errorMessage.purity = "";
-
-  if (!formData.weight) {
-    errorMessage.weight = "national_id is required.";
-  }
-  if (!formData.purity) {
-    errorMessage.purity = "purity is required.";
-  }
-
-  if (errorMessage.weight || errorMessage.purity) {
-    return;
-  }
 
   const { data: response, error } = await axios.post(
     "http://localhost/api/auth/login",
@@ -304,13 +552,13 @@ async function submit() {
     const user = response2;
     console.log(user);
     if (user) {
-      let national_id = user["national_id"];
+      let weight = user["weight"];
       let name = user["name"];
       let surname = user["surname"];
       let phone_number = user["phone_number"];
 
-      console.log(national_id, name, surname, phone_number);
-      auth.setUser(national_id, name, surname, phone_number);
+      console.log(weight, name, surname, phone_number);
+      auth.setUser(weight, name, surname, phone_number);
       console.log("Auth user:", auth.user);
       await navigateTo("/");
     }
