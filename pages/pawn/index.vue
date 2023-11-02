@@ -238,6 +238,8 @@
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+const auth = useAuthStore();
 definePageMeta({
   middleware: 'authenticated' //Auth checker
 })

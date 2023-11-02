@@ -39,7 +39,7 @@
                 name="national_id"
                 id="national_id"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@company.com"
+                placeholder="เลขบัตรประชาชน 13 หลัก"
                 required
               />
               <p v-if="errorMessage.national_id" class="text-red-500">
@@ -77,7 +77,7 @@
                 name="name"
                 id="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@company.com"
+                placeholder="สุขใจ"
                 required
               />
               <p v-if="errorMessage.name" class="text-red-500">
@@ -97,7 +97,7 @@
                 name="surname"
                 id="surname"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@company.com"
+                placeholder="รวยสบาย"
                 required
               />
               <p v-if="errorMessage.name" class="text-red-500">
@@ -116,7 +116,7 @@
                 name="phoneNumber"
                 id="phoneNumber"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@company.com"
+                placeholder="0XXXXXXXXX"
                 required
               />
               <p v-if="errorMessage.phone_number" class="text-red-500">

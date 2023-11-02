@@ -75,6 +75,8 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
+  import { useAuthStore } from '~/stores/useAuthStore';
+  const auth = useAuthStore();
 
   const route = useRoute();
   const showConfirmationModal = ref(false);

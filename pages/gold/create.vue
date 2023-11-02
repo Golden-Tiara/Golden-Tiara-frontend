@@ -168,7 +168,8 @@
 
 <script>
 import { ref } from "vue";
-
+import { useAuthStore } from '~/stores/useAuthStore';
+const auth = useAuthStore();
 const image_path = ref(null);
 const previewUrl = ref(null);
 const selectedFile = ref(null);

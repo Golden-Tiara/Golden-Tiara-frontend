@@ -1,6 +1,6 @@
 <template>
   <!-- Not Logged In -->
-  <nav v-if="isLogin" class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20 font-kanit">
+  <nav v-if="!isLogin" class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20 font-kanit">
     <div
       class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
     >
@@ -94,7 +94,7 @@
   </nav>
 
   <!-- Logged In -->
-   <nav v-if="!isLogin" class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20">
+   <nav v-else class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <div class="flex items-center md:order-2">
         <span class="mr-4">สวัสดี, {{ userName }}</span>

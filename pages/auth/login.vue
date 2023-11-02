@@ -10,13 +10,13 @@
             <label for="username" class="text-gray-500 mb-2">หมายเลขบัตรประชาชน</label>
             <input type="text" v-model="formData.national_id" required autocomplete="off" placeholder="โปรดกรอกหมายเลขบัตรประชาชน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
-            <p v-if="errorMessage.national_id" class="text-red-600 text-sm">{{ errorMessage.national_id }}</p>
+            <p v-if="errorMessage" class="text-red-600 text-sm">{{ errorMessage }}</p>
           </div>
           <div id="input" class="flex flex-col w-full my-5">
             <label for="password" class="text-gray-500 mb-2">รหัสผ่าน</label>
             <input type="password" v-model="formData.password" required placeholder="โปรดกรอกรหัสผ่าน"
               class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg" />
-            <p v-if="errorMessage.password" class="text-red-600 text-sm">{{ errorMessage.password }}</p>
+            <p v-if="errorMessage" class="text-red-600 text-sm">{{ errorMessage }}</p>
           </div>
 
           <div id="button" class="flex flex-col w-full my-5">
@@ -37,67 +37,33 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
-import axios from "axios";
-const auth = useAuthStore();
 
-const formData = reactive({
-  national_id: "",
-  password: "",
-});
-
-const errorMessage = reactive({
-  national_id: "",
-  password: "",
-});
-
+const auth = await useAuthStore()
+const errorMessage = ref<string | undefined>("")
+const formData = reactive({ national_id: "", password: "" })
 
 async function submit() {
-  errorMessage.national_id = "";
-  errorMessage.password = "";
-
-  if (!formData.national_id) {
-    errorMessage.national_id = "เลขบัตรประชาชนนี้ถูกใช้แล้ว";
-  }
-  if (!formData.password) {
-    errorMessage.password = "Password is required.";
-  }
-
-  if (errorMessage.national_id || errorMessage.password) {
-    return;
-  }
-
-
-  const { data: response, error } = await axios.post('http://localhost/api/auth/login', formData);
-
-  console.log(response)
-
-  if (error) {
-    console.log(error.value.data["message"]);
-    errorMessage.password = error.value.data["message"];
-    return;
-  }
-  if (response !== null) {
-
-    const { data: response2, error2 } = await axios.post('http://localhost/api/auth/me', {}, {
-      headers: {
-        Authorization: 'Bearer ' + response.access_token
-
+  const { data: response, error } = await useMyFetch<any>('auth/login', {
+    method: 'POST',
+    body: formData
+  })
+  if (response.value !== null) {
+    const { access_token, token_type } = response.value
+    if (access_token !== "") {
+      auth.setNewToken(access_token)
+      const { data: user, error } = await useMyFetch<any>('auth/me', {
+        method: 'POST'
+      })
+      if (user.value !== null) {
+        auth.setUser(user.value.name, user.value.email, user.value.role, user.value.username, user.value.address,user.value.id)
+        await navigateTo('/')
+      } else {
+        auth.clear()
+        errorMessage.value = "โปรดลองอีกครั้ง"
       }
-    });
-
-    const user = response2;
-    console.log(user)
-    if (user) {
-      let national_id = user["national_id"];
-      let name = user["name"];
-      let surname = user["surname"];
-      let phone_number = user["phone_number"];
-
-      console.log(national_id, name, surname, phone_number)
-      auth.setUser(national_id, name, surname, phone_number);
-      console.log("Auth user:", auth.user);
-        await navigateTo("/auth/me");
     }
+  } else {
+    errorMessage.value = error.value?.data.message
   }
 }
 </script>
