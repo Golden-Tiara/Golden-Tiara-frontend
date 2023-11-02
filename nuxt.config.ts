@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  
   modules: [
       '@vueuse/motion/nuxt',
     '@pinia/nuxt',
@@ -10,16 +11,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL,
+      apiBaseURL: "http://localhost/api/",
     },
   },
 
-
-  modules: [
-    '@vueuse/motion/nuxt',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
-  ],
+  
   postcss: {
     plugins: {
       tailwindcss: {},

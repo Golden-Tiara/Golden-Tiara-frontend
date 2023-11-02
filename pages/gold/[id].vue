@@ -40,18 +40,31 @@
           </p>
 
           <div class="flex mt-8">
-            <button
+            <button 
               type="button"
               class="text-white bg-green-600 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center mr-5"
+              @click="confirmAction('pass')"
             >
               ตรวจสอบผ่าน
             </button>
             <button
               type="button"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center"
+              @click="confirmAction('not pass')"
             >
               ตรวจสอบไม่ผ่าน
             </button>
+          </div>
+
+          <div v-if="showConfirmationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-8 rounded-lg">
+              <h2 class="text-xl font-bold mb-4">ยืนยันการดำเนินการ</h2>
+              <p>คุณแน่ใจที่ต้องการดำเนินการนี้หรือไม่?</p>
+              <div class="mt-4 flex justify-end">
+                <button @click="updateStatus" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">ยืนยัน</button>
+                <button @click="cancelAction" class="px-4 py-2 bg-red-600 text-white rounded-lg">ยกเลิก</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -60,8 +73,38 @@
 </template>
 
 <script setup lang="ts">
-  const route = useRoute()
-  const { data: gold } = await useMyFetch<any>(
-    `gold/${route.params.id}`, {}
-  )
+  import { ref } from 'vue';
+  import { useRoute } from 'vue-router';
+
+  const route = useRoute();
+  const showConfirmationModal = ref(false);
+  const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});
+
+  let statusToUpdate = ''; // สถานะที่ต้องการอัปเดต
+
+  const confirmAction = (status: string) => {
+    statusToUpdate = status;
+    showConfirmationModal.value = true;
+  }
+
+  const cancelAction = () => {
+    showConfirmationModal.value = false;
+  }
+
+  const updateStatus = async () => {
+    try {
+      const goldId = gold.value.id;
+      await useMyFetch<any>(`gold/${goldId}`, {
+        method: 'PUT',
+        body: { status: statusToUpdate }
+      });
+      window.location.reload();
+
+      const { data } = await useMyFetch<any>(`gold/${goldId}`, {});
+      gold.value = data;
+      showConfirmationModal.value = false; // ซ่อน modal เมื่อการอัปเดตสถานะเสร็จสมบูรณ์
+    } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการอัปเดตสถานะ: ", error);
+    }
+  }
 </script>

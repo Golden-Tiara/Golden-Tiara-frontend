@@ -1,11 +1,10 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
-    <div class="flex justify-evenly mt-20 front-mono my-auto">
-
+    <div class="md:flex justify-evenly   front-mono my-auto ">
 
       <div
-        class="flex flex-col w-80 max-w-sm bg-white border-2 border-gold rounded-lg shadow px-4
-        transition duration-500 transform hover:opacity-90 hover:scale-110"
+        class=" flex flex-col w-80 max-w-sm bg-white border-2 border-gold rounded-lg shadow px-4
+        transition duration-500 transform hover:opacity-90 hover:scale-110 md:mt-20 mt-10"
       >
         <MenuLink to="">
           <img
@@ -51,7 +50,7 @@
 
       <div
         class="flex flex-col max-w-sm w-80 bg-white border-2 border-gold rounded-lg shadow px-4
-        transition duration-500 transform hover:opacity-90 hover:scale-110"
+        transition duration-500 transform hover:opacity-90 hover:scale-110 md:mt-20 mt-10 "
       >
         <a href="#">
           <img
@@ -99,7 +98,7 @@
 
       <div
         class="flex flex-col max-w-sm w-80 bg-white border-2 border-gold rounded-lg shadow px-4
-        transition duration-500 transform hover:opacity-90 hover:scale-110"
+        transition duration-500 transform hover:opacity-90 hover:scale-110 md:mt-20 mt-10"
       >
         <a href="#">
           <img
