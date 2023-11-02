@@ -4,11 +4,17 @@
       <div
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12 "
       >
-        <img
+        <img v-if="gold.image_path"
           class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
-          src="@/assets/images/G00.jpg"
+          :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
         />
+        <img v-else
+          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          src="@/assets/images/gold-default.png"
+          alt=""
+        />
+
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
             {{ gold.id }}

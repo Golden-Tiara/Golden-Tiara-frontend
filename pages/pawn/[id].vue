@@ -6,7 +6,14 @@
         <div
           class="max-w-sm flex-none bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
-            <img class="rounded-t-lg max-h-72 w-72 dark:bg-gray-800" src="@/assets/images/G00.jpg" alt="" />
+            <img v-if="gold.image_path"
+              class="rounded-t-lg max-h-72 w-72 dark:bg-gray-800"
+              :src="`http://localhost/images/gold/${gold.image_path}`" alt=""
+            />
+            <img v-else
+              class="rounded-t-lg max-h-72 w-72 dark:bg-gray-800"
+              src="@/assets/images/gold-default.png" alt=""
+              />
           </a>
           <div class="p-5">
             <a href="#">
