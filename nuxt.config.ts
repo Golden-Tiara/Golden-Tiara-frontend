@@ -11,17 +11,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL,
+      apiBaseURL: "http://localhost/api/",
     },
   },
 
-
-  modules: [
-    '@vueuse/motion/nuxt',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
-    
-  ],
   
   postcss: {
     plugins: {
