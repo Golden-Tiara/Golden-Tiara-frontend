@@ -103,7 +103,6 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '~/stores/useAuthStore';
-const auth = useAuthStore();
 const route = useRoute()
 const { data: examination } = await useMyFetch<any>(
   `examination/${route.params.id}`, {}

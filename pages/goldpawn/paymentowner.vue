@@ -132,7 +132,6 @@
 </template>
 <script>
 import { useAuthStore } from '~/stores/useAuthStore';
-const auth = useAuthStore();
   export default {
     data() {
       return {

@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '~/stores/useAuthStore';
-const auth = useAuthStore();
+
 definePageMeta({
   middleware: 'authenticated' //Auth checker
 })
