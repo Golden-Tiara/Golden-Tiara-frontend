@@ -122,92 +122,63 @@
               <a
                 href="#"
                 class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                @click="deletePawn(pawn.id)"
+                @click="confirmAction(pawn.id)"
                 >Remove</a
               >
             </td>
-            <div
-        id="editModal"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
-        :class="{'hidden': !modalVisible}"
-      >
-        
-    <form @submit.prevent="onSubmit" class="bg-white p-8 w-96 rounded-lg shadow-lg">
-      <h2 class="text-2xl mb-4">แก้ไขข้อมูลจำนำ</h2>
-      <div class="mb-4">
-        <label for="customer-id" class="block text-sm font-medium text-gray-700">เลขบัตรประชาชนของลูกค้า</label>
-        <input type="text" id="customer-id" v-model="formData.customer_id" class="w-full border rounded-md py-2 px-3">
-      </div>
-      <div class="mb-4">
-        <label for="status" class="block text-sm font-medium text-gray-700">สถานะของรายการ</label>
-        <input type="text" id="status" v-model="formData.status" class="w-full border rounded-md py-2 px-3">
-      </div>
-      <div class="mb-4">
-        <label for="contract_date" class="block text-sm font-medium text-gray-700">วันทำสัญญา</label>
-        <input type="date" id="contract_date" v-model="formData.contract_date" class="w-full border rounded-md py-2 px-3">
-      </div>
-      <div class="mb-6">
-        <label for="expiry_date" class="block text-sm font-medium text-gray-700">วันสิ้นสุดสัญญา</label>
-        <input type="date" id="expiry_date" v-model="formData.expiry_date" class="w-full border rounded-md py-2 px-3">
-      </div>
-      <div class="flex justify-end">
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">บันทึก</button>
-      </div>
-    </form>
-
-
-       </div>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
+  <div v-if="showConfirmationModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-8 rounded-lg">
+      <h2 class="text-xl font-bold mb-4">Confirmation</h2>
+      <p>Are you sure you want to delete this pawn?</p>
+      <div class="mt-4 flex justify-end">
+        <button @click="deleteConfirmed" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">Yes</button>
+        <button @click="cancelAction" class="px-4 py-2 bg-red-600 text-white rounded-lg">No</button>
+      </div>
+    </div>
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
-import axios from 'axios';
 import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-// Fetch 'Pawn' data using useMyFetch
-const { data: pawns, pending } = await useMyFetch<any>("pawn");
-console.log(pawns);
-const validation = ref([]);
+const showConfirmationModal = ref(false);
+const route = useRoute();
+const { data: pawns, pending } = await useMyFetch<any>('pawn');
+const pawnToDelete = ref<number | null>(null);
 
-// Define reactive properties
-const modalVisible = ref(false);
-const formData = ref({
-  contract_id: '',
-  customer_id: '',
-  status: '',
-  contract_date: '',
-  expiry_date: '',
-});
-// Define the deletePawn function (similar to the delete functionality)
-const deletePawn = async (pawnID: number) => {
-  if (confirm('Are you sure you want to delete this data?')) {
-    try {
-      const response = await useMyFetch<any>(`pawn/${pawnID}`, {
-        method: "DELETE"
-      });
+const confirmAction = (pawnID: number) => {
+  pawnToDelete.value = pawnID;
+  showConfirmationModal.value = true;
+};
 
-      if (response.status === 200) {
-        const updatedPawns = pawns.value.filter((pawn: any) => pawn.id !== pawnID);
-        pawns.value = updatedPawns;
-        window.location.reload(); // Optional
-      }
-    } catch (error) {
-      alert("An error occurred while deleting the pawn.");
+const deleteConfirmed = async () => {
+  try {
+    const pawnID = pawnToDelete.value;
+    const response = await useMyFetch<any>(`pawn/${pawnID}`, {
+      method: "DELETE"
+    });
+    window.location.reload();
+    if (response.status === 200) {
+      const updatedPawns = pawns.value.filter((pawn: any) => pawn.id !== pawnID);
+      pawns.value = updatedPawns;
+
+      // Close the modal after successful deletion
+      showConfirmationModal.value = false;
     }
+  } catch (error) {
+    alert("An error occurred while deleting the pawn.");
   }
 };
 
+const cancelAction = () => {
+  showConfirmationModal.value = false;
+};
 </script>
-
-
-
-
-
-
-
