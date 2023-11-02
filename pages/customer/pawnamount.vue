@@ -71,91 +71,40 @@
             <th scope="col" class="px-6">จำนวนเงินที่ชำระแล้ว(บาท)</th>
             <th scope="col" class="px-6">วันกำหนดชำระครั้งต่อไป</th>
             <th scope="col" class="px-6">วันที่ครบกำหนด</th>
-            <th scope="col" class="px-6"></th>
-            <th scope="col" class="px-6"></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
+          <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id">
+            <td
               scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_term}}</nuxt-link>
             </td>
-          </tr>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
-              scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.total_term }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_amount }}</nuxt-link>
             </td>
-          </tr>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
-              scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <td class="py-4 text-center text-green-600">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.next_payment }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
-            </td>
+            <td class="py-4 text-center text-green-600">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
+            </td>    
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import useMyFetch from '~/composables/useMyFetch';
+const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
+</script>
+
