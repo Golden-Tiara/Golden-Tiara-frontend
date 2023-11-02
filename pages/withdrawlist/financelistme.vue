@@ -68,7 +68,9 @@
 <script>
 import upSvg from "@/assets/images/icons/up.svg";
 import downSvg from "@/assets/images/icons/down.svg";
-
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 export default {
   data() {
     return {

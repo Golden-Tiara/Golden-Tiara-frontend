@@ -238,6 +238,9 @@
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 
 const showConfirmationModal = ref(false);
 const route = useRoute();

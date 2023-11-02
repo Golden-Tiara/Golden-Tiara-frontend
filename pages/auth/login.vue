@@ -96,7 +96,7 @@ async function submit() {
       console.log(national_id, name, surname, phone_number)
       auth.setUser(national_id, name, surname, phone_number);
       console.log("Auth user:", auth.user);
-        await navigateTo("/auth/profile-edit");
+        await navigateTo("/auth/me");
     }
   }
 }

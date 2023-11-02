@@ -232,3 +232,8 @@
     </div>
   </div>
 </template>
+<script>
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+</script>

@@ -127,4 +127,7 @@
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
 const { data: examinations, pending } = await useMyFetch<any>("examination", {})
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 </script>

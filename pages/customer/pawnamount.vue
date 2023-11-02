@@ -159,3 +159,8 @@
     </div>
   </section>
 </template>
+<script>
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+</script>

@@ -49,6 +49,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
 import useMyFetch from '~/composables/useMyFetch';
 const { data: golds, pending } = await useMyFetch<any>("gold", {})
 </script>

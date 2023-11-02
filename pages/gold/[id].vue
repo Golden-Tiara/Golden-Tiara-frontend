@@ -81,6 +81,9 @@
   const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});
 
   let statusToUpdate = ''; // สถานะที่ต้องการอัปเดต
+  definePageMeta({
+    middleware: 'authenticated' //Auth checker
+  })
 
   const confirmAction = (status: string) => {
     statusToUpdate = status;

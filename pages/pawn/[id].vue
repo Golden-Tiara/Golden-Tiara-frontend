@@ -185,6 +185,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
 const route = useRoute()
 const { data: pawn } = await useMyFetch<any>(
   `pawn/${route.params.id}`, {}

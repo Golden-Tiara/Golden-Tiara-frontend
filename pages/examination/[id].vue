@@ -106,4 +106,7 @@ const route = useRoute()
 const { data: examination } = await useMyFetch<any>(
   `examination/${route.params.id}`, {}
 )
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 </script>
