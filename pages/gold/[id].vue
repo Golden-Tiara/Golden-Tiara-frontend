@@ -4,7 +4,7 @@
       <div
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12 "
       >
-        <img v-if="gold.image_path"
+        <!-- <img v-if="gold.image_path"
           class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
@@ -13,7 +13,7 @@
           class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           src="@/assets/images/gold-default.png"
           alt=""
-        />
+        /> -->
 
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
@@ -76,24 +76,6 @@
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useAuthStore } from '~/stores/useAuthStore';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
   const route = useRoute();
   const showConfirmationModal = ref(false);
   const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});

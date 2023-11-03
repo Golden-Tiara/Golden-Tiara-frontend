@@ -21,7 +21,7 @@
           </nuxt-link>
         </div>
 
-        <!-- Citizen ID Input Box -->
+        <!--examination ID Input Box -->
         <div class="flex mt-20 mb-5">
           <!-- Search -->
           <input
