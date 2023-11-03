@@ -32,25 +32,25 @@
           </nuxt-link>
         </div>
 
-        <!-- Citizen ID Input Box -->
+        <!--examination ID Input Box -->
         <div class="flex mt-20 mb-5">
           <!-- Search -->
           <input
-            v-model="search"
-            @input="applyFilter"
+            v-model="searchIdText"
+            @input="searchExaminationById"
             type="number"
-            id="table-search"
+            id="examination-id-search"
             class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขสัญญตรวจสอบ"
           />
 
           <!-- Search -->
-          <!-- Citizen ID Input -->
+          <!-- Customer ID Input -->
           <input
-            v-model="search"
-            @input="applyFilter"
+            v-model="searchIdDate"
+            @input="searchExaminationById"
             type="number"
-            id="table-search"
+            id="customer-id-search"
             class="block py-2.5 ml-4 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขบัตรประชาชน"
           />
@@ -64,13 +64,6 @@
             <option value="saab">2</option>
             <option value="opel">3</option>
           </select>
-
-          <!-- Add Button -->
-          <!-- <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-            class="block ml-5 text-white bg-darkblue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button">
-            ค้นหาข้อมูล
-          </button> -->
         </div>
       </div>
 
@@ -92,7 +85,7 @@
         <tbody>
           <tr
             class="bg-white border-b border-gold"
-            v-for="examination of examinations"
+            v-for="examination of paginatedExaminations"
             :key="examination.id"
           >
             <td
@@ -121,6 +114,31 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="pagination mt-6 flex items-center justify-center mb-14">
+        <button
+          @click="page--"
+          :disabled="page <= 1"
+          class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+          :class="{
+            'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+              page <= 1,
+          }"
+        >
+          Prev
+        </button>
+        <button
+          @click="page++"
+          :disabled="page >= Math.ceil(examinations.length / perPage)"
+          class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+          :class="{
+            'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+              page >= Math.ceil(examinations.length / perPage),
+          }"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </section>
 
@@ -218,10 +236,63 @@
 
 <script setup lang="ts">
 import useMyFetch from "~/composables/useMyFetch";
-import { useAuthStore } from '~/stores/useAuthStore';
-const { data: examinations, pending } = await useMyFetch<any>("examination", {});
+import { useAuthStore } from "~/stores/useAuthStore";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 definePageMeta({
-  middleware: 'authenticated' //Auth checker
-})
+  middleware: "authenticated", //Auth checker
+});
+
+const { data: examinations, pending } = await useMyFetch<any>(
+  "examination",
+  {}
+);
+
+const page = ref(1); // เพิ่ม ref สำหรับ page
+const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
+const searchIdDate = ref("");
+const searchIdText = ref("");
+
+// const paginatedExaminations = computed(() => {
+//   if (Array.isArray(examinations.value)) {
+//     const start = (page.value - 1) * perPage.value;
+//     const end = start + perPage.value;
+//     return examinations.value.slice(start, end);
+//   } else {
+//     return [];
+//   }
+// });
+
+const searchExaminationById = () => {
+  const filteredExaminations = examinations.value.filter(examination => {
+    // Filtering by date and text
+    const dateCondition = !searchIdDate.value || examination.contract_date === searchIdDate.value;
+    const textCondition = !searchIdText.value || examination.id.toString().toLowerCase().includes(searchIdText.value.toLowerCase());
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+    return dateCondition && textCondition;
+  });
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+  // Set the filtered pawns back to the original pawns
+  examinations.value = filteredExaminations;
+};
+
+// const searchExaminationById = () => {
+//   if (searchIdText.value.trim() === "") {
+//     // ถ้า searchIdText เป็นช่องว่าง ให้แสดงทั้งหมด
+//     examinations.value = [...examinations.value]; // ใช้ spread operator เพื่อทำการ copy ข้อมูล
+//   } else {
+//     const searchTerm = searchIdText.value.toLowerCase().trim();
+//     const filteredExaminations = examinations.value.filter((examination) => {
+//       return examination.id.toString().includes(searchTerm);
+//     });
+//     examinations.value = filteredExaminations;
+//   }
+// };
 </script>
