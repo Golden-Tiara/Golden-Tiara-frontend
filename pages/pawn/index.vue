@@ -246,7 +246,7 @@ definePageMeta({
 
 const showConfirmationModal = ref(false);
 const route = useRoute();
-const { data: pawns, pending } = await useMyFetch<any>('pawn');
+const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
 const pawnToDelete = ref<number | null>(null);
 
 const confirmAction = (pawnID: number) => {
@@ -275,16 +275,6 @@ const deleteConfirmed = async () => {
 
 const cancelAction = () => {
   showConfirmationModal.value = false;
+  window.location.reload();
 };
 </script>
-
- <!-- <div v-if="showConfirmationModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-8 rounded-lg">
-      <h2 class="text-xl font-bold mb-4">Confirmation</h2>
-      <p>Are you sure you want to delete this pawn?</p>
-      <div class="mt-4 flex justify-end">
-        <button @click="deleteConfirmed" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">Yes</button>
-        <button @click="cancelAction" class="px-4 py-2 bg-red-600 text-white rounded-lg">No</button>
-      </div>
-    </div>
-  </div> -->
