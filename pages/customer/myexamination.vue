@@ -5,11 +5,8 @@
           <div class="flex justify-between items-center mt-12">
             <h1 class="text-5xl text-gold">ตารางจำนำ</h1>
             <!-- Create new table -->
-            
-              
-          </div>
-  
-          <!-- Search Box -->
+                </div>
+    <!-- Search Box -->
           <div class="flex mt-20 mb-5">
             <!-- Date -->
             <div>
@@ -93,6 +90,11 @@
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 
 const searchIdDate = ref('');
 const searchIdText = ref('');
@@ -109,12 +111,10 @@ const { data: examinations, pending } = await useMyFetch<any>('examination', {})
     }
     return dateCondition && textCondition;
   });
-  if (filteredExaminations.length === 0){
     if (searchIdText.value === '') {
       // Reload the page if the text search field is empty
       window.location.reload();
     }
-  }
   // Set the filtered pawns back to the original pawns
   examinations.value = filteredExaminations;
 };

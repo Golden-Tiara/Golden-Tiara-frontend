@@ -23,82 +23,40 @@
 
         <!-- Citizen ID Input Box -->
         <div class="flex mt-20 mb-5">
-            <!-- Date -->
-            <div>
-              <input
-                v-model="searchIdDate"
-                class="border text-gray-500 border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-                type="date"
-                name=""
-                id=""
-                @input="applyFilter_date"  
-              />
-            </div>
-            <label for="table-search" class="sr-only">Search</label>
-            <!-- Item Search -->
-            <div class="relative">
-              <div
-                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-              >
-                <svg
-                  class="w-4 h-4 text-gray-500"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-              <!-- Search -->
-              <input
-                v-model="searchIdText"
-                type="text"
-                id="table-search"
-                @input="applyFilter"  
-                class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-                placeholder="Search for items"
-              />
-            </div>
-            <!-- Search Button -->
-          </div>
-        </div>
           <!-- Search -->
           <input
-            v-model="search"
-            @input="applyFilter"
+            v-model="searchIdText"
+            @input="applyFilter_id"
             type="number"
-            id="table-search"
+            id="examination-id-search"
             class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขสัญญตรวจสอบ"
           />
 
           <!-- Search -->
-          <!-- Citizen ID Input -->
+          <!-- Customer ID Input -->
           <input
-            v-model="search"
-            @input="applyFilter"
+            v-model="searchIdText1"
+            @input= "applyFilter_customerid"
             type="number"
-            id="table-search"
+            id="customer-id-search"
             class="block py-2.5 ml-4 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขบัตรประชาชน"
           />
 
           <select
-            name="cars"
-            id="cars"
+            v-model="searchIdText2"
+            @change="applyFilter_status"
+            type="string"
+            id="status-id-search"
             class="ml-4 px-4 border-2 rounded-lg border-gold"
           >
-            <option value="volvo">1</option>
-            <option value="saab">2</option>
-            <option value="opel">3</option>
+            <option value="" disabled selected hidden>กรุณาเลือกสถานะ</option>
+            <option value="inprogress">inprogress</option>
+            <option value="finish">finish</option>
           </select>
+        </div>
+      </div>
 
           <!-- Add Button -->
           <!-- popup modal -->
@@ -194,30 +152,59 @@ import { useRoute } from 'vue-router';
 
 const searchIdDate = ref('');
 const searchIdText = ref('');
+const searchIdText1 = ref('');
+const searchIdText2 = ref('');
 const route = useRoute();
+
 const { data: examinations, pending } = await useMyFetch<any>('examination', {});
-  const applyFilter = () => {
+  const applyFilter_id= () => {
   const filteredExaminations = examinations.value.filter(examination => {
-    // Filtering by date and text
-    const dateCondition = !searchIdDate.value || examination.contract_date === searchIdDate.value;
-    const textCondition = !searchIdText.value || examination.id.toString().toLowerCase().includes(searchIdText.value.toLowerCase());
-    if (searchIdText.value === '') {
-      // Reload the page if the text search field is empty
-      window.location.reload();
-    }
-    return dateCondition && textCondition;
+    // Check if examination ID contains the searchIdText value
+    return examination.id.toString().includes(searchIdText.value);
   });
-  if (filteredExaminations.length === 0){
-    if (searchIdText.value === '') {
+
+  examinations.value = filteredExaminations;
+
+  if (searchIdText.value === '') {
       // Reload the page if the text search field is empty
       window.location.reload();
     }
-  }
   // Set the filtered pawns back to the original pawns
   examinations.value = filteredExaminations;
 };
 
-// Function to filter examinations by date
+const applyFilter_customerid= () => {
+  const filteredExaminations = examinations.value.filter(examination => {
+    // Check if examination ID contains the searchIdText value
+    return examination.customer_id.toString().includes(searchIdText1.value);
+  });
+
+  examinations.value = filteredExaminations;
+
+  if (searchIdText1.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+  // Set the filtered pawns back to the original pawns
+  examinations.value = filteredExaminations;
+};
+
+const applyFilter_status = () => {
+  if (searchIdText2.value === '') {
+    // Reload the page if the select field is empty
+    window.location.reload();
+    return; // กลับออกจากฟังก์ชันเพื่อไม่ทำงานขั้นต่อไป
+  }
+
+  const filteredExaminations = examinations.value.filter(examination => {
+    // Check if examination status matches the selected status in searchIdText2
+    return examination.status === searchIdText2.value;
+  });
+
+  examinations.value = filteredExaminations;
+};
+
+
 const applyFilter_date = () => {
 
   const filteredExaminations = examinations.value.filter(examination => {

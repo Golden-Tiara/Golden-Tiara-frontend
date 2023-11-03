@@ -102,10 +102,14 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/useAuthStore';
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 
 const searchIdDate = ref('');
 const searchIdText = ref('');
@@ -122,12 +126,10 @@ const applyFilter = () => {
     }
     return dateCondition && textCondition;
   });
-  if (filteredPawns.length === 0){
     if (searchIdText.value === '') {
       // Reload the page if the text search field is empty
       window.location.reload();
     }
-  }
   // Set the filtered pawns back to the original pawns
   pawns.value = filteredPawns;
 };
