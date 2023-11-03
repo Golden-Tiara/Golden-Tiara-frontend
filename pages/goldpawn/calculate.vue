@@ -1,40 +1,33 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
-    <div class="md:flex md:justify-center md:items-center">
-      <div
-        class="md:flex md:w-full"
-        style="max-width: 1000px"
+    <table
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center"
       >
-        <div class="md:black md:w-1/2">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-8 border border-gold"
+        <tr>
+          <th scope="col" class="px-6 py-3">รหัส</th>
+          <th scope="col" class="px-6 py-3">น้ำหนัก</th>
+          <th scope="col" class="px-6 py-3">ความบริสุทธ์</th>
+          <th scope="col" class="px-6 py-3">คำอธิบาย</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-gold"
+        >
+          <th
+            scope="row"
+            class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
           >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center"
-            >
-              <tr>
-                <th scope="col" class="px-6 py-3">รหัส</th>
-                <th scope="col" class="px-6 py-3">น้ำหนัก</th>
-                <th scope="col" class="px-6 py-3">ความบริสุทธ์</th>
-                <th scope="col" class="px-6 py-3">คำอธิบาย</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-gold"
-              >
-                <th
-                  scope="row"
-                  class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
-                >
-                  I00
-                </th>
-                <td class="px-6 py-3 text-center">1890000000000</td>
-                <td class="px-6 py-3 text-center">18/09/2023</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            I00
+          </th>
+          <td class="px-6 py-3 text-center">1890000000000</td>
+          <td class="px-6 py-3 text-center">18/09/2023</td>
+        </tr>
+      </tbody>
+    </table>
 
         <form class="mt-8 border border-gold rounded px-6 py-5 md:w-1/2">
           <div class="relative z-0 w-full mb-6 group">
@@ -136,3 +129,9 @@
     </div>
   </div>
 </template>
+<script>
+import { useAuthStore } from '~/stores/useAuthStore';
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+</script>

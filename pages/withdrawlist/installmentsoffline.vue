@@ -143,7 +143,21 @@
 </template>
 
 <script>
+import { useAuthStore } from '~/stores/useAuthStore';
 
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+export default {
+  setup() {
+    let auth;
 
+    onMounted(() => {
+      auth = useAuthStore();
+    });
+
+    return {};
+  },
+}
 
 </script>

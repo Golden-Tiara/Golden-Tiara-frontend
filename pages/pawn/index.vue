@@ -118,20 +118,14 @@
             <td class="py-4 text-center text-green-600">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
             </td>
-            <td class="text-center py-4 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:text-purple-800 hover:underline"
-                >Edit</a
-              >
-            </td>
             <td class="px-6 py-4">
               <a
               data-modal-target="popup-modal-remove"
                 data-modal-toggle="popup-modal-remove"
                 href="#"
                 class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                >ลบทิ้ง</a
+                @click="confirmAction(pawn.id)"
+                >Remove</a
               >
             </td>
             <!-- popup modal -->
@@ -140,7 +134,8 @@
               tabindex="-1"
               class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
             >
-              <div class="relative w-full max-w-md max-h-full">
+              <div v-if="showConfirmationModal" 
+                class="relative w-full max-w-md max-h-full">
                 <div class="relative bg-white rounded-lg shadow">
                   <button
                     type="button"
@@ -213,17 +208,16 @@
                     >
                       ยืนยันการลบรายการชิ้นนี้หรือไม่?
                     </h3>
-                    <button
+                      <button
                       data-modal-hide="popup-modal-remove"
                       type="button"
-                      onclick="window.location.reload();"
+                      @click="deleteConfirmed"
                       class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-6 py-2.5 text-center mr-2"
                     >
                       ยืนยัน
                     </button>
-                    <button
-                      data-modal-hide="popup-modal-remove"
-                      type="button"
+                    <button 
+                      @click="cancelAction"
                       class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                     >
                       ยกเลิก
@@ -239,7 +233,58 @@
   </section>
 </template>
 
+
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
-  const { data: pawns, pending } = await useMyFetch<any>("pawn", {})
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
+const showConfirmationModal = ref(false);
+const route = useRoute();
+const { data: pawns, pending } = await useMyFetch<any>('pawn');
+const pawnToDelete = ref<number | null>(null);
+
+const confirmAction = (pawnID: number) => {
+  pawnToDelete.value = pawnID;
+  showConfirmationModal.value = true;
+};
+
+const deleteConfirmed = async () => {
+  try {
+    const pawnID = pawnToDelete.value;
+    const response = await useMyFetch<any>(`pawn/${pawnID}`, {
+      method: "DELETE"
+    });
+    window.location.reload();
+    if (response.status === 200) {
+      const updatedPawns = pawns.value.filter((pawn: any) => pawn.id !== pawnID);
+      pawns.value = updatedPawns;
+
+      // Close the modal after successful deletion
+      showConfirmationModal.value = false;
+    }
+  } catch (error) {
+    alert("An error occurred while deleting the pawn.");
+  }
+};
+
+const cancelAction = () => {
+  showConfirmationModal.value = false;
+};
 </script>
+
+ <!-- <div v-if="showConfirmationModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-8 rounded-lg">
+      <h2 class="text-xl font-bold mb-4">Confirmation</h2>
+      <p>Are you sure you want to delete this pawn?</p>
+      <div class="mt-4 flex justify-end">
+        <button @click="deleteConfirmed" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">Yes</button>
+        <button @click="cancelAction" class="px-4 py-2 bg-red-600 text-white rounded-lg">No</button>
+      </div>
+    </div>
+  </div> -->

@@ -41,4 +41,10 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/useAuthStore';
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
 </script>

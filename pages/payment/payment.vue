@@ -34,7 +34,14 @@
 </template>
 
 <script>
+import { useAuthStore } from '~/stores/useAuthStore';
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
 export default {
+
   data() {
     return {
       recipientName: "John Doe",
