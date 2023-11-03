@@ -204,24 +204,4 @@ const applyFilter_status = () => {
   examinations.value = filteredExaminations;
 };
 
-
-const applyFilter_date = () => {
-
-  const filteredExaminations = examinations.value.filter(examination => {
-    const formattedDate = convertDate(examination.contract_date);
-    return formattedDate === searchIdDate.value;
-  });
-
-  examinations.value = filteredExaminations;
-};
-
-// Function to convert date to yyyy-mm-dd format
-function convertDate(inputFormat) {
-  const date = new Date(inputFormat);
-  const year = date.getFullYear();
-  const month = `0${date.getMonth() + 1}`.slice(-2);
-  const day = `0${date.getDate()}`.slice(-2);
-  return `${year}-${month}-${day}`;
-}
-
 </script>
