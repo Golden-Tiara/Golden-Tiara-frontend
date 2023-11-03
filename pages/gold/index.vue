@@ -41,7 +41,6 @@
             </button>
           </nuxt-link>
         </div>
-        <div></div>
       </a>
     </div>
 
@@ -51,4 +50,6 @@
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
 const { data: golds, pending } = await useMyFetch<any>("gold", {})
+
+
 </script>

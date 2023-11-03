@@ -359,5 +359,9 @@ export default {
     next();
   },
 
+  // paginate
+
+  
+
 };
 </script>

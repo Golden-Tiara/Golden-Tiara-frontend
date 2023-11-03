@@ -4,18 +4,18 @@
       <div class="flex justify-between">
         <div class="items-center front-mono my-auto">
           <h3 class="text-lg font-light">ยินดีต้อนรับสู่ร้านจำนำ</h3>
-          <h1 class="text-7xl font-semibold">
+          <h1 class="text-3xl md:text-7xl font-semibold">
             <span class="text-gold">G</span>olden
           </h1>
-          <h1 class="text-7xl font-semibold">
+          <h1 class="text-3xl md:text-7xl font-semibold">
             <span class="text-gold">T</span>iara
           </h1>
 
-          <h3 class="mt-4 text-lg font-light">
+          <h3 class="md:mt-4 md:text-lg text-sm font-light">
             ที่จะมอบประสบการณ์สุดพิเศษให้แก่ลูกค้าทุกท่าน
           </h3>
           <button
-            class="font-light py-2 px-4 text-white border rounded-lg mt-2 bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold"
+            class="font-light md:py-2 md:px-4 md:text-lg text-sm px-2 py-1 text-white border rounded-lg mt-1 md:mt-2 bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold"
           >
             เริ่มต้นการใช้งาน
           </button>
@@ -24,6 +24,7 @@
       </div>
     </div>
   </header>
+
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#FDF6EC"
@@ -34,11 +35,13 @@
 
   <!-- Golden Tiara Promotion -->
   <!--      Certification-->
-  <div>
+  <div class="mt-20">
     <!--    Container-->
-    <div class="flex justify-around  rounded-lg mt-32" 
-    v-motion-pop-visible-once
-    :delay="300">
+    <div
+      class="flex justify-around rounded-lg "
+      v-motion-pop-visible-once
+      :delay="300"
+    >
       <!--image-->
       <div>
         <img
@@ -48,61 +51,74 @@
       </div>
       <!--content-->
       <div class="flex items-center">
-          <h1 class="text-2xl md:text-6xl text-darkgold">เชื่อถือได้</h1>
-       
+        <h1 class="text-2xl md:text-6xl text-darkgold">เชื่อถือได้</h1>
       </div>
     </div>
+  </div>
 
-
-
+  <div class="bg-gray-50 py-14 mt-20">
     <!--      Easy Ask-->
-
     <!--  Container-->
-    <div class="flex justify-around rounded-lg mt-32"  
-    v-motion-pop-visible-once
-    :delay="500">
-     <!--content-->
-    <div class="flex items-center">
-          <h1 class="text-2xl md:text-6xl text-darkgold">สอบถามสะดวก</h1>
+    <div
+      class="flex justify-around rounded-lg "
+      v-motion-pop-visible-once
+      :delay="500"
+    >
+      <!--content-->
+      <div class="flex items-center">
+        <h1 class="text-2xl md:text-6xl text-darkgold">สอบถามสะดวก</h1>
       </div>
       <!--image-->
       <div>
-        <img class="w-40 h-40 md:w-80 md:h-80" src="@/assets/images/promotion/ask.svg" />
+        <img
+          class="w-40 h-40 md:w-80 md:h-80"
+          src="@/assets/images/promotion/ask.svg"
+        />
       </div>
-      
     </div>
+  </div>
 
-    <!--      Fast Deal-->
-    <!--  Container-->
-
-    <div class="flex justify-around rounded-lg mt-32"  
-    v-motion-pop-visible-once
-    :delay="700">
+  <!--Fast Deal-->
+  <!--Container-->
+  <div class="mt-20">
+    <div
+      class="flex justify-around rounded-lg "
+      v-motion-pop-visible-once
+      :delay="700"
+    >
       <!--image-->
       <div>
-        <img class="w-40 h-40 md:w-80 md:h-80" src="@/assets/images/promotion/deal.svg" />
+        <img
+          class="w-40 h-40 md:w-80 md:h-80"
+          src="@/assets/images/promotion/deal.svg"
+        />
       </div>
       <!--content-->
       <div class="flex items-center">
-          <h1 class="text-2xl md:text-6xl text-darkgold">ดีลง่าย จ่ายไว</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold">ดีลง่าย จ่ายไว</h1>
       </div>
     </div>
+  </div>
 
-    <!--      QR PAY-->
-
-    <!--  Container-->
-    <div class="flex justify-around rounded-lg mt-32"  
-    v-motion-pop-visible-once
-    :delay="3000">
-     <!--content-->
-     <div class="flex items-center">
-          <h1 class="text-2xl md:text-6xl text-darkgold">ชำระผ่าน QR</h1>
+  <!--QR PAY-->
+  <!--Container-->
+  <div class="bg-gray-50 py-14 mt-20">
+    <div
+      class="flex justify-around rounded-lg "
+      v-motion-pop-visible-once
+      :delay="3000"
+    >
+      <!--content-->
+      <div class="flex items-center">
+        <h1 class="text-2xl md:text-6xl text-darkgold">ชำระผ่าน QR</h1>
       </div>
       <!--image-->
       <div>
-        <img class="w-40 h-40 md:w-80 md:h-80" src="@/assets/images/promotion/onlinePay.svg" />
+        <img
+          class="w-40 h-40 md:w-80 md:h-80"
+          src="@/assets/images/promotion/onlinePay.svg"
+        />
       </div>
-     
     </div>
   </div>
 
@@ -125,7 +141,7 @@
   <!-- QnA Board -->
   <h1 class="text-center text-4xl font-semibold text-darkgold">สอบถาม</h1>
   <div class="max-w-7xl mx-auto px-10" id="q&a">
-    <div class="w-full bg-white rounded-lg border border-gold mx-auto mt-10">
+    <div class="w-full bg-white rounded-lg border border-gold mx-auto mt-20">
       <div class="flex flex-col gap-5 m-3">
         <!-- Comment Container -->
         <div>
@@ -545,7 +561,7 @@
         </h1>
         <section class="mb-10">
           <div
-            class="block rounded-lg bg-white shadow-[0px_20px_40px_10px_#CDF0EA]"
+            class="block rounded-lg bg-white "
           >
             <div class="flex flex-wrap items-center">
               <div

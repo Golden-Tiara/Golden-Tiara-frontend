@@ -17,9 +17,7 @@
       </MenuLink>
 
       
-
-
-      <div class="md:order-2 pl-20">
+      <div class="md:order-2 md:pl-20 ">
           <MenuLink
             to="auth/login"
             type="button"
@@ -58,7 +56,7 @@
       
 
       <div
-        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 md:ml-5"
         id="navbar-sticky"
       >
       
