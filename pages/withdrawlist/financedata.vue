@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto px-10" >
     <h5 class="mt-10 font-bold text-2xl text-center">ข้อมูลการเบิกเงิน</h5>
 
-    <div class=" mt-10 flex items-center justify-center" >
+    <div class=" mt-10 items-center justify-center" >
       <div class="  bg-white border border-gold rounded-lg shadow md:flex-row md:w-10/12"
       v-for="transaction in transactions"
         :key="transaction.id"
@@ -30,14 +30,14 @@
             วันเวลาเบิก: {{transaction.transaction_dateTime  }}
           </p>
           <div class="flex mb-4 mt-6">
-            <button @click="confirmAction('pass', transaction)" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">ยืนยัน</button>
-            <button @click="confirmAction('not pass', transaction)" class="px-4 py-2 bg-red-600 mr-2 border text-white rounded-lg">ยกเลิกการเบิกเงิน</button>
+            <button @click="confirmAction('completed', transaction)" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">ยืนยัน</button>
+            <button @click="confirmAction('rejected', transaction)" class="px-4 py-2 bg-red-600 mr-2 border text-white rounded-lg">ยกเลิกการเบิกเงิน</button>
           </div>
            <div v-if="showConfirmationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white p-8 rounded-lg">
               <h2 class="text-xl font-bold mb-4">ยืนยันการดำเนินการ</h2>
               <p>คุณแน่ใจที่ต้องการดำเนินการนี้หรือไม่?</p>
-              <div class="mt-4 flex justify-end">
+              <div class="mt-4 flex justify-end"  >
                 <button @click="updateStatus" class="px-4 py-2 bg-green-600 mr-2 border text-white rounded-lg">ยืนยัน</button>
                 <button @click="cancelAction" class="px-4 py-2 bg-red-600 text-white rounded-lg">ยกเลิก</button>
               </div>
@@ -86,8 +86,10 @@ const updateStatus = async () => {
       selectedTransaction.value = data;
       showConfirmationModal.value = false;
     } catch (error) {
-      console.error("Error updating status: ", error);
+      console.error("Error updating status: ", error); 
+      window.alert("ไม่สามารถ update สถานะได้");
     }
   }
 };
+
 </script>

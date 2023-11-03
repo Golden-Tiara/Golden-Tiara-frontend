@@ -21,21 +21,54 @@
 
         <!-- Citizen ID Input Box -->
         <div class="flex mt-20 mb-5">
-          <!-- Citizen ID Input -->
-          <div class="relative">
-            <!-- Search -->
-            <input type="text" id="table-search"
-              class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-              placeholder="หาข้อมูล" />
+            <!-- Date -->
+            <div>
+              <input
+                v-model="searchIdDate"
+                class="border text-gray-500 border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+                type="date"
+                name=""
+                id=""
+                @input="applyFilter_date"  
+              />
+            </div>
+            <label for="table-search" class="sr-only">Search</label>
+            <!-- Item Search -->
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-500"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <!-- Search -->
+              <input
+                v-model="searchIdText"
+                type="text"
+                id="table-search"
+                @input="applyFilter"  
+                class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+                placeholder="Search for items"
+              />
+            </div>
+            <!-- Search Button -->
           </div>
+        </div>
 
           <!-- Add Button -->
-          <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-            class="block ml-5 text-white bg-darkblue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button">
-            ค้นหาข้อมูล
-          </button>
-
           <!-- popup modal -->
           <div id="popup-modal" tabindex="-1"
             class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -89,7 +122,6 @@
           </div>
           <!-- End popup modal -->
         </div>
-      </div>
 
       <!-- Table -->
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold">
@@ -120,11 +152,57 @@
         </tbody>
 
       </table>
-    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
-const { data: examinations, pending } = await useMyFetch<any>("examination", {})
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const searchIdDate = ref('');
+const searchIdText = ref('');
+const route = useRoute();
+const { data: examinations, pending } = await useMyFetch<any>('examination', {});
+  const applyFilter = () => {
+  const filteredExaminations = examinations.value.filter(examination => {
+    // Filtering by date and text
+    const dateCondition = !searchIdDate.value || examination.contract_date === searchIdDate.value;
+    const textCondition = !searchIdText.value || examination.id.toString().toLowerCase().includes(searchIdText.value.toLowerCase());
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+    return dateCondition && textCondition;
+  });
+  if (filteredExaminations.length === 0){
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+  }
+  // Set the filtered pawns back to the original pawns
+  examinations.value = filteredExaminations;
+};
+
+// Function to filter examinations by date
+const applyFilter_date = () => {
+
+  const filteredExaminations = examinations.value.filter(examination => {
+    const formattedDate = convertDate(examination.contract_date);
+    return formattedDate === searchIdDate.value;
+  });
+
+  examinations.value = filteredExaminations;
+};
+
+// Function to convert date to yyyy-mm-dd format
+function convertDate(inputFormat) {
+  const date = new Date(inputFormat);
+  const year = date.getFullYear();
+  const month = `0${date.getMonth() + 1}`.slice(-2);
+  const day = `0${date.getDate()}`.slice(-2);
+  return `${year}-${month}-${day}`;
+}
+
 </script>

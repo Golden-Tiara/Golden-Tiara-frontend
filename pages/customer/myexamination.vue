@@ -14,6 +14,7 @@
             <!-- Date -->
             <div>
               <input
+                v-model="searchIdDate"
                 class="border text-gray-500 border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
                 type="date"
                 name=""
@@ -44,18 +45,15 @@
               </div>
               <!-- Search -->
               <input
+                v-model="searchIdText"
                 type="text"
                 id="table-search"
+                @input="applyFilter"  
                 class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
                 placeholder="Search for items"
               />
             </div>
             <!-- Search Button -->
-            <button
-              class="px-4 text-base bg-darkblue hover:bg-blue-800 ml-5 rounded-lg text-white"
-            >
-              ค้นหา
-            </button>
           </div>
         </div>
         <table
@@ -71,7 +69,7 @@
             </tr>
           </thead>
                     <tbody>
-          <tr class="bg-white border-b border-gold" v-for="examination of examinations" :key="examination.id">
+          <tr class="bg-white border-b border-gold" v-for="examination of examinations" :key="examination.id" @click="sortTable(field.key)">
             <td
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -93,6 +91,32 @@
 
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const searchIdDate = ref('');
+const searchIdText = ref('');
+const route = useRoute();
 const { data: examinations, pending } = await useMyFetch<any>('examination', {});
+  const applyFilter = () => {
+  const filteredExaminations = examinations.value.filter(examination => {
+    // Filtering by date and text
+    const dateCondition = !searchIdDate.value || examination.contract_date === searchIdDate.value;
+    const textCondition = !searchIdText.value || examination.id.toString().toLowerCase().includes(searchIdText.value.toLowerCase());
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+    return dateCondition && textCondition;
+  });
+  if (filteredExaminations.length === 0){
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+  }
+  // Set the filtered pawns back to the original pawns
+  examinations.value = filteredExaminations;
+};
 </script>
 
