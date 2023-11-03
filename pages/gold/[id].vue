@@ -5,12 +5,12 @@
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12 "
       >
         <img v-if="gold.image_path"
-          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
         />
         <img v-else
-          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           src="@/assets/images/gold-default.png"
           alt=""
         />
@@ -43,14 +43,14 @@
             <button 
               type="button"
               class="text-white bg-green-600 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center mr-5"
-              @click="confirmAction('pass')"
+              @click="confirmAction('verified')"
             >
               ตรวจสอบผ่าน
             </button>
             <button
               type="button"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center"
-              @click="confirmAction('not pass')"
+              @click="confirmAction('unverified')"
             >
               ตรวจสอบไม่ผ่าน
             </button>
@@ -76,6 +76,23 @@
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useAuthStore } from '~/stores/useAuthStore';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   const route = useRoute();
   const showConfirmationModal = ref(false);
