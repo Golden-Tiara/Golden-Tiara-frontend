@@ -66,7 +66,10 @@
 <script>
 import upSvg from "@/assets/images/icons/up.svg";
 import downSvg from "@/assets/images/icons/down.svg";
-
+import { useAuthStore } from '~/stores/useAuthStore';
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 export default {
   data() {
     return {
@@ -96,6 +99,13 @@ export default {
         },
       ],
     };
+  },
+  setup() {
+    let auth;
+    onMounted(() => {
+      auth = useAuthStore();
+    });
+    return {};
   },
   computed: {
     filteredData() {

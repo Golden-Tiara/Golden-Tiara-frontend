@@ -127,6 +127,8 @@
               >
             </td>
             <!-- popup modal -->
+
+            
             <div
               id="popup-modal-remove"
               tabindex="-1"
@@ -236,6 +238,11 @@
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 
 const searchIdDate = ref('');
 const searchIdText = ref('');

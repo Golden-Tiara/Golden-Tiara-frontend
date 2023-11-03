@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto px-10" >
+  <div class="max-w-7xl mx-auto px-10">
     <h5 class="mt-10 font-bold text-2xl text-center">ข้อมูลการเบิกเงิน</h5>
 
     <div class=" mt-10 items-center justify-center" >
@@ -43,22 +43,27 @@
               </div>
             </div>
           </div>
-      </div>
         </div>
+      </div>
     </div>
   </div>
-    
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
+
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 const showConfirmationModal = ref(false);
-const { data: transactions } = await useMyFetch<any>('transaction', {});
+const { data: transactions } = await useMyFetch<any>("transaction", {});
 
-let statusToUpdate = '';
+let statusToUpdate = "";
 
 let selectedTransaction = ref<any>(null);
 
@@ -77,12 +82,15 @@ const updateStatus = async () => {
     try {
       const transactionId = selectedTransaction.value.id;
       await useMyFetch<any>(`transaction/${transactionId}`, {
-        method: 'PUT',
-        body: { status: statusToUpdate }
+        method: "PUT",
+        body: { status: statusToUpdate },
       });
       window.location.reload();
 
-      const { data } = await useMyFetch<any>(`transaction/${transactionId}`, {});
+      const { data } = await useMyFetch<any>(
+        `transaction/${transactionId}`,
+        {}
+      );
       selectedTransaction.value = data;
       showConfirmationModal.value = false;
     } catch (error) {
@@ -91,5 +99,4 @@ const updateStatus = async () => {
     }
   }
 };
-
 </script>

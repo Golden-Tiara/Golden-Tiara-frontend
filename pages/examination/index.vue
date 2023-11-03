@@ -6,8 +6,10 @@
           <h1 class="text-5xl text-gold">รายการตรวจสอบทอง</h1>
 
           <nuxt-link :to="`/examination/create`">
-            <button type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5">
+            <button
+              type="button"
+              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
+            >
               <span class="mr-2">
                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 12H18M12 6V18" stroke="#ffff" stroke-width="2" stroke-linecap="round"
@@ -67,6 +69,36 @@
             <!-- Search Button -->
           </div>
         </div>
+          <!-- Search -->
+          <input
+            v-model="search"
+            @input="applyFilter"
+            type="number"
+            id="table-search"
+            class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+            placeholder="เลขสัญญตรวจสอบ"
+          />
+
+          <!-- Search -->
+          <!-- Citizen ID Input -->
+          <input
+            v-model="search"
+            @input="applyFilter"
+            type="number"
+            id="table-search"
+            class="block py-2.5 ml-4 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+            placeholder="เลขบัตรประชาชน"
+          />
+
+          <select
+            name="cars"
+            id="cars"
+            class="ml-4 px-4 border-2 rounded-lg border-gold"
+          >
+            <option value="volvo">1</option>
+            <option value="saab">2</option>
+            <option value="opel">3</option>
+          </select>
 
           <!-- Add Button -->
           <!-- popup modal -->

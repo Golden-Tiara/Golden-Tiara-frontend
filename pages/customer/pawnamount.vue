@@ -102,6 +102,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/useAuthStore';
 import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';

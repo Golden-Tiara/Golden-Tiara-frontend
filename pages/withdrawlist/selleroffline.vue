@@ -21,6 +21,10 @@
 </template>
 
 <script>
+import { useAuthStore } from '~/stores/useAuthStore';
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 export default {
   data() {
     return {
@@ -28,6 +32,13 @@ export default {
       contractId: '',
       showNotFound: false
     };
+  },
+  setup() {
+    let auth;
+    onMounted(() => {
+      auth = useAuthStore();
+    });
+    return {};
   },
   methods: {
     async search() {

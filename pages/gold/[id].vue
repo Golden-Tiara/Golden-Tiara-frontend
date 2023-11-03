@@ -5,12 +5,12 @@
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12 "
       >
         <img v-if="gold.image_path"
-          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
         />
         <img v-else
-          class="object-cover w-auto rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
+          class="object-cover w-auto pl-2 rounded h-4/5 md:h-auto md:w-[500px] md:rounded-none md:rounded-l-lg"
           src="@/assets/images/gold-default.png"
           alt=""
         />
@@ -75,12 +75,33 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
+  import { useAuthStore } from '~/stores/useAuthStore';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   const route = useRoute();
   const showConfirmationModal = ref(false);
   const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});
 
   let statusToUpdate = ''; // สถานะที่ต้องการอัปเดต
+  definePageMeta({
+    middleware: 'authenticated' //Auth checker
+  })
 
   const confirmAction = (status: string) => {
     statusToUpdate = status;
