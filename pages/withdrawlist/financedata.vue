@@ -53,7 +53,7 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 
 definePageMeta({
-  middleware: "authenticated", //Auth checker
+  middleware: ["authenticated", "authentization"]  //Auth checker
 });
 
 import { ref } from "vue";
@@ -61,7 +61,9 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const showConfirmationModal = ref(false);
-const { data: transactions } = await useMyFetch<any>("transaction", {});
+const store = useAuthStore();
+const { data: transactions } = await useMyFetch<any>("transaction", {
+});
 
 let statusToUpdate = "";
 

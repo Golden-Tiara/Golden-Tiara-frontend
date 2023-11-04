@@ -246,11 +246,11 @@ definePageMeta({
 
 const searchIdDate = ref('');
 const searchIdText = ref('');
+const authStore = useAuthStore();
 const showConfirmationModal = ref(false);
 const route = useRoute();
 const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
 const pawnToDelete = ref<number | null>(null);
-
 const confirmAction = (pawnID: number) => {
   pawnToDelete.value = pawnID;
   showConfirmationModal.value = true;
@@ -297,6 +297,7 @@ const applyFilter = () => {
   // Set the filtered pawns back to the original pawns
   pawns.value = filteredPawns;
 };
+
 
 </script>
 
