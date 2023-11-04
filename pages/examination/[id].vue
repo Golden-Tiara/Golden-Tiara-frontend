@@ -1,114 +1,187 @@
-
 <template>
   <section class="max-w-7xl mx-auto p-0">
     <div ref="content">
-      <div class="flex justify-center mt-10">
-        <div class="flex items-center">
-          <img src="@/assets/images/logo.png" class="h-10 mr-3" alt="Golden Tiara" />
-          <span class=" text-3xl font-semibold whitespace-nowrap"><span class="text-gold">G</span>olden
-            <span class="text-gold">T</span>iara</span>
+      <div class="border border-darkgold w-3/6 mx-auto my-6" id="pdf-content">
+        <div class="flex justify-center mt-4">
+          <div class="flex items-center">
+            <img
+              id="golden-tiara-icons"
+              src="@/assets/images/logo.png"
+              class="h-6 mr-3"
+              alt="Golden Tiara"
+            />
+            <span class="text-2xl font-semibold whitespace-nowrap"
+              ><span class="text-gold">G</span>olden
+              <span class="text-gold">T</span>iara</span
+            >
+          </div>
         </div>
-      </div>
-
-      <div class="border border-yellow-500">
         <!-- Info -->
-        <div class="flex justify-evenly  mt-14">
+        <div class="flex justify-evenly mt-4">
           <div>
-            <div class="flex">
-              <p>เลขสัญญาตรวจสอบทอง:</p>
+            <div class="flex text-xs">
+              <p class="">เลขสัญญาตรวจสอบทอง:</p>
               <p class="ml-3">{{ examination.id }}</p>
             </div>
-            <div class="flex mt-7">
-              <p>วันที่เซ็นสัญญา:</p>
-              <p class="ml-3">{{ examination.contract_date }}</p>
+            <div class="flex mt-2 text-xs">
+              <p class="">วันที่เซ็นสัญญา:</p>
+              <p class="ml-3 text-purple-500">
+                {{
+                  new Date(examination.contract_date).toLocaleDateString(
+                    "th-TH",
+                    {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }
+                  )
+                }}
+              </p>
             </div>
           </div>
 
           <div>
-            <div class="flex">
-              <p>เลขบัตรประชาชนลูกค้า:</p>
+            <div class="flex text-xs">
+              <p class="text">เลขบัตรประชาชนลูกค้า:</p>
               <p class="ml-3">{{ examination.customer_id }}</p>
             </div>
-            <div class="flex mt-7">
-              <p>สถานะการตรวจสอบ:</p>
-              <p class="ml-3">{{ examination.status }}</p>
+            <div class="flex mt-2 text-xs">
+              <p class="">สถานะการตรวจสอบ:</p>
+              <p class="ml-3" >
+                <span
+                  v-if="examination.status === 'inprogress'"
+                  id="examination-status"
+                  class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                >
+                  {{ examination.status }}
+                </span>
+                <span
+                  v-else
+                  id="examination-status"
+                  class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                >
+                  {{ examination.status }}
+                </span>
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Gold Card -->
-        <div>
-          <div class="grid-cols-3 grid gap-20 justify-around mt-20 px-auto  mb-20">
-            <div v-for="gold of examination.golds" :key="gold.id">
-              <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow">
-                <a href="#">
-                    <img v-if="gold.image_path"
-                      class="object-cover w-auto rounded h-60 md:h-[250px] md:w-[320px] md:rounded-none md:rounded-l-lg"
-                      :src="`http://localhost/images/gold/${gold.image_path}`" alt="" />
-                    <img v-else
-                      class="object-cover w-auto rounded h-60 md:h-[250px] md:w-[320px] md:rounded-none md:rounded-l-lg"
-                      src="@/assets/images/gold-default.png" alt="" />
-                </a>
-                <div class="p-5 border-t border-gold">
-                  <a href="#">
-                    <div class="flex">
-                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">
-                        รหัส:
-                      </h5>
-                      <h5 class="ml-2 text-xl font-bold tracking-tight text-gray-900">
-                        {{ gold.id }}
-                      </h5>
-                    </div>
-                  </a>
-                  <div class="mb-5 text-sm">
-                    <div class="flex">
-                      <p>น้ำหนัก:</p>
-                      <p class="ml-2">{{ gold.weight }}</p>
-                    </div>
-                    <div class="flex mt-0.5">
-                      <p>ความบริสุทธิ์:</p>
-                      <p class="ml-2">{{ gold.purity }}</p>
-                    </div>
-                    <div class="flex mt-0.5">
-                      <p>สถานะ:</p>
-                      <p class="ml-2 text-blue-500">{{ gold.status }}</p>
-                    </div>
-                  </div>
+        <table
+          class="w-4/6 mx-auto mt-6 text-xs text-left text-gray-500 border border-gold mb-6"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold text-center"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-4">รหัส</th>
+              <th scope="col" class="px-6 py-4">น้ำหนัก</th>
+              <th scope="col" class="px-6 py-4">ความบริสุทธิ์</th>
+              <th scope="col" class="px-6 py-4">สถานะ</th>
+            </tr>
+          </thead>
 
-                  <nuxt-link :to="`/gold/${gold.id}`">
-                    <a href="#"
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-300 bg-darkblue rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                      รายละเอียดทอง
-                      <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M1 5h12m0 0L9 1m4 4L9 9" />
-                      </svg>
-                    </a>
-                  </nuxt-link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <tbody>
+            <tr
+              class="bg-white hover:bg-gray-50 border-b border-gold w-full"
+              v-for="gold of examination.golds"
+              :key="gold.id"
+            >
+              <td
+                scope="row"
+                class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.id }}
+                </nuxt-link>
+              </td>
+
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.weight }}
+                </nuxt-link>
+              </td>
+
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.purity }}
+                </nuxt-link>
+              </td>
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  <span
+                    v-if="gold.status === 'examining'"
+                    class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                  >
+                    {{ gold.status }}
+                  </span>
+                  <span
+                    v-if="gold.status === 'verified'"
+                    class="p-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                  >
+                    {{ gold.status }} </span
+                  ><span
+                    v-if="gold.status === 'unverified'"
+                    class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
+                  >
+                    {{ gold.status }}
+                  </span>
+                </nuxt-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
     <div class="flex justify-center mb-20">
-      <button @click="downloadWithCSS"
-        class="px-6 py-2 bg-gold text-gray-100 rounded-lg text-xl mx-auto ">ดาวโหลดPDF</button>
+      <button
+        @click="downloadPDF"
+        class="px-6 py-2 bg-gold text-gray-100 rounded-lg text-xl mx-auto"
+      >
+        ดาวโหลดPDF
+      </button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/stores/useAuthStore';
-const route = useRoute()
+import { useAuthStore } from "~/stores/useAuthStore";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf"; // Add this import statement
+
+const route = useRoute();
 const { data: examination } = await useMyFetch<any>(
-  `examination/${route.params.id}`, {}
-)
+  `examination/${route.params.id}`,
+  {}
+);
 
 definePageMeta({
-  middleware: 'authenticated' //Auth checker
-})
+  middleware: "authenticated",
+});
+
+const downloadPDF = async () => {
+  const content = document.getElementById("pdf-content");
+  const goldenTiara = document.getElementById("golden-tiara-icons");
+  const examinationStatus = document.getElementById("examination-status")
+
+  goldenTiara?.classList.add("mt-6");
+  examinationStatus?.classList.remove('')
+  examinationStatus?.classList.add('')
+
+  const canvas = await html2canvas(content, {
+    scale: 4, // Adjust scale as needed, e.g., 2 for higher resolution
+    dpi: window.devicePixelRatio * 1200, // Adjust DPI for higher quality
+  });
+
+  const pdf = new jsPDF("p", "mm", "a4"); // Create a new PDF document
+
+  const imgData = canvas.toDataURL("image/png", 0.6); // Use quality parameter to prevent compression
+
+  pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // Add the canvas as an image
+
+  pdf.save("golden_tiara.pdf"); // Save the PDF
+  goldenTiara?.classList.remove("mt-6");
+
+};
 </script>

@@ -23,7 +23,7 @@
         <MenuLink
           to="/auth/login"
           type="button"
-          class="text-white font-light bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-4 focus:outline-none rounded-lg text-sm px-4 py-2 text-center -mr-52 md:mr-10"
+          class="text-white font-light bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-sm px-4 py-2 text-center -mr-52 md:mr-10"
         >
           เข้าสู่ระบบ
         </MenuLink>
