@@ -54,9 +54,26 @@ async function submit() {
       const { data: user, error } = await useMyFetch<any>('auth/me', {
         method: 'POST'
       })
+
       if (user.value !== null) {
-        auth.setUser(user.value.name, user.value.email, user.value.role, user.value.username, user.value.address,user.value.id)
-        await navigateTo('/')
+        console.log(user.value);
+        let name = user.value["name"];
+        let national_id = user.value["national_id"];
+        let surname = user.value["surname"];
+        let phone_number = user.value["phone_number"];
+        let image_path = user.value["image_path"];
+        let role = user.value["role"];
+        auth.setUser(name, national_id, surname, phone_number,image_path, role);
+        console.log(auth.setUser)
+        console.log( auth.setNewToken(access_token))
+        const preLoginRoute = sessionStorage.getItem('preLoginRoute');
+
+        if (preLoginRoute) {
+          navigateTo(preLoginRoute);
+          sessionStorage.removeItem('preLoginRoute'); // ลบเส้นทางที่จัดเก็บไว้หลังจากใช้งาน
+        } else {
+          navigateTo('/');
+        }
       } else {
         auth.clear()
         errorMessage.value = "โปรดลองอีกครั้ง"

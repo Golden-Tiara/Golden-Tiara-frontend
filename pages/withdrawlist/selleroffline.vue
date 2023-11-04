@@ -115,11 +115,11 @@
                   <input v-model="pawn_id" type="number"
                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                          placeholder=" " required />
-                  <label for="examinationId"
+                  <label for="pawn_id"
                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     เลขสัญญาจำนำทอง
                   </label>
-                  <div class="text-red-500" v-if="pawn_idNotFoundError">
+                  <div class="text-red-500" v-if="pawnNotFoundError">
                     ไม่พบข้อมูลสัญญาจำนำทองในระบบ
                   </div>
                 </div>
@@ -152,15 +152,15 @@ export default {
       pawn_id: '',
       customerId: '',
       userNotFoundError: false,
-      pawn_idNotFoundError: false,
+      idNotFoundError: false,
       dataNotMatchError: false,
     };
   },
   computed: {
     isDataValid() {
       const validNationalId = /^\d{13}$/.test(this.nationalId);
-      const validExaminationId = /^[1-9]\d*$/.test(this.pawn_id);
-      return validNationalId & validExaminationId;
+      const validID = /^[1-9]\d*$/.test(this.pawn_id);
+      return validNationalId & validID;
     },
   },
   methods: {
@@ -192,15 +192,16 @@ export default {
       }
 
       try {
-        const { data: examination } = await useMyFetch(`examination/check/${this.pawn_id}`, {});
+        const { data: pawn } = await useMyFetch(`pawn/check/${this.pawn_id}`, {});
+        console.error(this.pawn_id);
 
-        if (examination.value.id != null) {
-          this.customerId = examination.value.customer_id;
-          this.examinationNotFoundError = false;
+        if (pawn.value.pawn_id != null) {
+          this.customerId = pawn.value.customer_id;
+          this.pawnNotFoundError = false;
 
-          console.log('Examination found:', this.pawn_id);
+          console.log('Pawn found:', this.pawn_id);
         } else {
-          this.examinationNotFoundError = true;
+          this.pawnNotFoundError = true;
 
           console.log('No pawn_id found');
         }
@@ -210,12 +211,12 @@ export default {
         console.error('Error:', error);
       }
 
-      if (!this.userNotFoundError & !this.examinationNotFoundError) {
+      if (!this.userNotFoundError & !this.pawnNotFoundError) {
         if (this.nationalId == this.customerId) {
           this.dataNotMatchError = false;
 
           localStorage.setItem('nationalId', this.nationalId);
-          localStorage.setItem('examinationId', this.pawn_id);
+          localStorage.setItem('pawn_id', this.pawn_id);
 
           window.location.href = '/pawn/create'
         }
