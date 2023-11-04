@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-7xl mx-auto px-10">
-    <h5 class="mt-10 font-bold text-2xl text-center">ข้อมูลการเบิกเงิน</h5>
+    <h5 class="mt-10 font-bold text-2xl text-center text-gold">ข้อมูลการเบิกเงิน</h5>
 
     <div class="mt-10">
       <div class="">
         <div
-          class="bg-white border border-gold rounded-lg shadow md:flex-row mt-10"
-          v-for="transaction in transactions"
+          class="bg-white border border-gold  justify-center rounded-lg shadow md:flex-row md:w-1/2 mt-10 mx-auto"
+          v-for="transaction in paginatedTranactions"
           :key="transaction.id"
         >
           <div class="p-4 ml-7 leading-normal">
@@ -88,19 +88,48 @@
           </div>
         </div>
       </div>
+
+      <div class="flex items-center justify-center mb-14 mt-6">
+      <button
+        @click="page--"
+        :disabled="page <= 1"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+            page <= 1,
+        }"
+      >
+        หน้าก่อน
+      </button>
+
+      <button
+        @click="page++"
+        :disabled="page >= Math.ceil(transactions.length / perPage)"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+            page >= Math.ceil(transactions.length / perPage),
+        }"
+      >
+        หน้าถัดไป
+      </button>
+    </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });
 
-import { ref } from "vue";
-import { useRoute } from "vue-router";
+const page = ref(1); // Initialize page to 1
+const perPage = ref(10);
+
 
 const route = useRoute();
 const showConfirmationModal = ref(false);
@@ -119,6 +148,16 @@ const confirmAction = (status: string, transaction: any) => {
 const cancelAction = () => {
   showConfirmationModal.value = false;
 };
+
+const paginatedTranactions = computed(() => {
+  if (Array.isArray(transactions.value)) {
+    const start = (page.value - 1) * perPage.value;
+    const end = start + perPage.value;
+    return transactions.value.slice(start, end);
+  } else {
+    return [];
+  }
+});
 
 const updateStatus = async () => {
   if (selectedTransaction.value) {

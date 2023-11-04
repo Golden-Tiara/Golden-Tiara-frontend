@@ -122,7 +122,7 @@
       </nuxt-link>
     </div>
     <!-- End card -->
-    <div class="pagination mt-6 flex items-center justify-center mb-14">
+    <div class=" mt-6 flex items-center justify-center mb-14">
       <button
         @click="page--"
         :disabled="page <= 1"
@@ -132,7 +132,7 @@
             page <= 1,
         }"
       >
-        Prev
+        ก่อนหน้า
       </button>
       <button
         @click="page++"
@@ -143,7 +143,7 @@
             page >= Math.ceil(golds.length / perPage),
         }"
       >
-        Next
+        หน้าถัดไป
       </button>
     </div>
   </div>

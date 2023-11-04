@@ -32,48 +32,46 @@
           </nuxt-link>
         </div>
 
-        <!-- Citizen ID Input Box -->
+        <!-- Search -->
         <div class="flex mt-20 mb-5">
-          <!-- Search -->
+          <!-- Citizen ID Input Box -->
           <input
             v-model="searchIdText"
             @input="applyFilter_id"
             type="number"
             id="examination-id-search"
-            class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+            class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-40 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขสัญญตรวจสอบ"
           />
 
-          <!-- Search -->
           <!-- Customer ID Input -->
           <input
             v-model="searchIdText1"
             @input="applyFilter_customerid"
             type="number"
             id="customer-id-search"
-            class="block py-2.5 ml-4 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+            class="block py-2.5 ml-4 text-sm text-gray-900 border-2 border-gold rounded-lg w-40 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
             placeholder="เลขบัตรประชาชน"
           />
 
+          <!-- Date sort -->
           <select
             v-model="searchIdText2"
             @change="applyFilter_status"
             type="string"
             id="status-id-search"
-            class="ml-4 px-4 border-2 rounded-lg border-gold text-gray-500"
+            class="ml-4 px-4 border-2 rounded-lg border-gold text-gray-500 w-50"
           >
             <option value="" disabled selected hidden>กรุณาเลือกสถานะ</option>
             <option value="inprogress">inprogress</option>
             <option value="finish">finish</option>
           </select>
-          <div class="flex ml-2 px-4 py-2 bg-darkblue text-white rounded-lg">
-            <button
-              @click="sortExaminationsByDate"
-              class="flex items-center"
-              
-            >
-            <span id="date-sort">กดเพื่อเรียงวันที่</span>
-              
+          <div
+            class="flex ml-4 px-4 py-2 bg-darkblue text-white hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
+          >
+            <button @click="sortExaminationsByDate" class="flex items-center">
+              <span id="date-sort">กดเพื่อเรียงวันที่</span>
+
               <span id="less-to-more" class="flex hidden px-1">
                 น้อยไปมาก
                 <svg
@@ -115,6 +113,7 @@
               </span>
             </button>
           </div>
+          <!-- End date sort -->
         </div>
       </div>
 
@@ -215,7 +214,7 @@
 
     <!-- Table -->
     <table
-      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold"
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-6"
     >
       <thead
         class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center"
@@ -248,9 +247,18 @@
             }}</nuxt-link>
           </td>
           <td class="py-4 text-center">
-            <nuxt-link :to="`/examination/${examination.id}`">{{
-              examination.contract_date
-            }}</nuxt-link>
+            <nuxt-link :to="`/examination/${examination.id}`">
+              {{
+                new Date(examination.contract_date).toLocaleDateString(
+                  "th-TH",
+                  {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  }
+                )
+              }}
+            </nuxt-link>
           </td>
           <td class="py-4 text-center">
             <nuxt-link :to="`/examination/${examination.id}`">
@@ -271,7 +279,8 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination mt-6 flex items-center justify-center mb-14">
+
+    <div class="flex items-center justify-center mb-14">
       <button
         @click="page--"
         :disabled="page <= 1"
@@ -312,6 +321,11 @@ const searchIdText1 = ref("");
 const searchIdText2 = ref("");
 const route = useRoute();
 
+const { data: examinations, pending } = await useMyFetch<any>(
+  "examination",
+  {}
+);
+
 const paginatedExaminations = computed(() => {
   if (Array.isArray(examinations.value)) {
     const start = (page.value - 1) * perPage.value;
@@ -322,10 +336,6 @@ const paginatedExaminations = computed(() => {
   }
 });
 
-const { data: examinations, pending } = await useMyFetch<any>(
-  "examination",
-  {}
-);
 const applyFilter_id = () => {
   const filteredExaminations = examinations.value.filter((examination) => {
     // Check if examination ID contains the searchIdText value
@@ -383,19 +393,16 @@ const sortExaminationsByDate = () => {
       // Sort in ascending order น้อยไปมาก
       examinations.value.sort(
         (a, b) => new Date(a.contract_date) - new Date(b.contract_date),
-        moreToLess.classList.add('hidden'),
-        dateSort.classList.add('hidden'),
+        moreToLess.classList.add("hidden"),
+        dateSort.classList.add("hidden"),
         LessToMore.classList.remove("hidden")
       );
       sortOrder.value = "more"; // Set sorting order to descending มากไปน้อย
-
     } else {
-      LessToMore.classList.add("hidden"),
-      moreToLess.classList.remove("hidden")
+      LessToMore.classList.add("hidden"), moreToLess.classList.remove("hidden");
       // Sort in descending order มากไปน้อย
       examinations.value.sort(
-        (a, b) => new Date(b.contract_date) - new Date(a.contract_date),
-        
+        (a, b) => new Date(b.contract_date) - new Date(a.contract_date)
       );
       sortOrder.value = "less"; // Set sorting order to ascending น้อยไปมาก
     }

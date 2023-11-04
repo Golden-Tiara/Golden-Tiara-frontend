@@ -95,7 +95,7 @@
     </div>
 
     <div class="flex justify-center mb-20">
-      <button @click="downloadWithCSS"
+      <button @click="downloadPDF"
         class="px-6 py-2 bg-gold text-gray-100 rounded-lg text-xl mx-auto ">ดาวโหลดPDF</button>
     </div>
   </section>
@@ -103,6 +103,8 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '~/stores/useAuthStore';
+
+
 const route = useRoute()
 const { data: examination } = await useMyFetch<any>(
   `examination/${route.params.id}`, {}
@@ -111,4 +113,6 @@ const { data: examination } = await useMyFetch<any>(
 definePageMeta({
   middleware: 'authenticated' //Auth checker
 })
+
+
 </script>

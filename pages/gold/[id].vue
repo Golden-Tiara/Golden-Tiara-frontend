@@ -6,13 +6,13 @@
       >
         <img
           v-if="gold.image_path"
-          class="object-cover w-auto pl-2 rounded  md:w-[500px] md:rounded-none md:rounded-l-lg border border-red-500"
+          class="object-cover w-auto pl-2 rounded  md:w-[500px] md:rounded-none md:rounded-l-lg"
           :src="`http://localhost/images/gold/${gold.image_path}`"
           alt=""
         />
         <img
           v-else
-          class="object-cover w-auto pl-2 rounded  md:w-[500px] md:rounded-none md:rounded-l-lg border border-red-500"
+          class="object-cover w-auto pl-2 rounded  md:w-[500px] md:rounded-none md:rounded-l-lg"
           src="@/assets/images/gold-default.png"
           alt=""
         />
