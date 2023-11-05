@@ -215,7 +215,7 @@
       </div>
 
       <div
-        v-if="goldItems !== null"
+        v-if="!isSaveValid"
         class="flex items-center justify-center text-red-500 text-4xl mt-32"
       >
         <p>กรุณากรอกเลขบัตรประชาชนและเพิ่มรายการทองก่อนทำรายการ</p>
@@ -262,7 +262,7 @@
         <p v-if="successMessage" class="text-green-600">{{ successMessage }}</p>
       </div> -->
 
-      <div v-if="goldItems === null" class="flex justify-center">
+      <div v-if="isSaveValid" class="flex justify-center">
         <button
           @click="saveData"
           :disabled="!isSaveValid"
@@ -274,6 +274,8 @@
     </div>
   </section>
   <CompleteEvent></CompleteEvent>
+
+  <p id="reload" class="hidden">suhgousrg</p>
 </template>
 
 <script>
@@ -415,9 +417,12 @@ export default {
 
     async closeModal() {
       const modal = document.getElementById("payment-complete-modal");
+      const reload = document.getElementById("reload");
       if (modal) {
         modal.classList.add("hidden");
       }
+      reload.classList.remove('hidden')
+      reload.classList.add('hidden')
     },
   },
 

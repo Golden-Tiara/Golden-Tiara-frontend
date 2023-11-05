@@ -1249,6 +1249,7 @@ const errorMessage = reactive({
   phone_number: "",
   image_path: "",
 });
+
 const imagePath = ref("");
 
 async function onSubmit() {
@@ -1266,6 +1267,7 @@ async function onSubmit() {
   });
 
   this.formData.national_id = this.formData.national_id.toString();
+  
   // Validate National ID
   if (formData.national_id.length !== 13) {
     errorMessage.national_id = "หมายเลขบัตรประชาชนต้องมี 13 ตัวอักษร";
