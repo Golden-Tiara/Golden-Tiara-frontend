@@ -215,7 +215,7 @@
       </div>
 
       <div
-        v-if="goldItems !== null"
+        v-if="!isSaveValid"
         class="flex items-center justify-center text-red-500 text-4xl mt-32"
       >
         <p>กรุณากรอกเลขบัตรประชาชนและเพิ่มรายการทองก่อนทำรายการ</p>
@@ -262,7 +262,7 @@
         <p v-if="successMessage" class="text-green-600">{{ successMessage }}</p>
       </div> -->
 
-      <div v-if="goldItems === null" class="flex justify-center">
+      <div v-if="isSaveValid" class="flex justify-center">
         <button
           @click="saveData"
           :disabled="!isSaveValid"
