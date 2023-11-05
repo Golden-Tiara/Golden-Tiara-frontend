@@ -274,6 +274,8 @@
     </div>
   </section>
   <CompleteEvent></CompleteEvent>
+
+  <p id="reload" class="hidden">suhgousrg</p>
 </template>
 
 <script>
@@ -415,9 +417,12 @@ export default {
 
     async closeModal() {
       const modal = document.getElementById("payment-complete-modal");
+      const reload = document.getElementById("reload");
       if (modal) {
         modal.classList.add("hidden");
       }
+      reload.classList.remove('hidden')
+      reload.classList.add('hidden')
     },
   },
 
