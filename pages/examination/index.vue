@@ -133,7 +133,18 @@
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.customer_id }}</nuxt-link>
             </td>
             <td class="py-4 text-center">
-              <nuxt-link :to="`/examination/${examination.id}`">{{ examination.contract_date }}</nuxt-link>
+              <nuxt-link :to="`/examination/${examination.id}`">
+              {{
+                new Date(examination.contract_date).toLocaleDateString(
+                  "th-TH",
+                  {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  }
+                )
+              }}
+            </nuxt-link>
             </td>
             <td class="py-4 text-center">
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.status }}</nuxt-link>
