@@ -3,7 +3,7 @@
 
   <nav
     v-if="!isLogin"
-    class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20 font-kanit"
+    class="bg-white w-full border-b border-b-gold sticky top-0 left-0 z-20"
   >
     <div
       class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
@@ -95,7 +95,7 @@
   </nav>
 
   <!-- Logged In -->
-  <nav v-else class="bg-white border-b border-gold">
+  <nav v-else class="bg-white border-b border-gold sticky top-0 left-0 z-20">
     <div
       class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
     >
@@ -117,13 +117,13 @@
           class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
           id="user-menu-button"
           aria-expanded="false"
-          data-dropdown-toggle="user-dropdown"
+          data-dropdown-toggle="user-dropdown-data"
           data-dropdown-placement="bottom"
         >
           <span class="sr-only">Open user menu</span>
           <img
             class="w-10 h-10 rounded-full"
-            :src="`http://localhost/images/gold/${imagePath}`"
+            :src="`http://localhost/images/user/${user.image_path}`"
             alt="user photo"
           />
         </button>
@@ -131,16 +131,20 @@
         <!-- Dropdown menu -->
         <div
           class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
-          id="user-dropdown"
+          id="user-dropdown-data"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900">{{ userName }}</span>
+            <span class="block text-sm text-gray-900 text-center">{{
+              userName
+            }}</span>
+            <span class="block text-sm text-gray-900 text-center">{{
+              user.role
+            }}</span>
           </div>
 
           <ul class="py-2" aria-labelledby="user-menu-button">
             <li v-if="role == 'customer'">
               <MenuLink
-                
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >dfgfggdg</MenuLink
               >
@@ -218,7 +222,7 @@
           </li>
           <li>
             <MenuLink
-              href="#"
+              onclick=""
               class="relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
               >ราคาทอง
             </MenuLink>
@@ -251,15 +255,32 @@ export default {
   setup() {
     const authStore = useAuthStore();
 
+    const user = computed(() => authStore.user);
+    console.log(user.value);
+
     const isLogin = computed(() => authStore.isLogin);
     const userName = computed(() => authStore.user.name);
-    const role = computed(() => authStore.user.surname);
+    const role = computed(() => authStore.user.role);
+    const imagePath = computed(() => authStore.user.image_path);
+
+
+    function scrollToTop() {
+      const element = document.getElementById("content");
+      element.scrollIntoView();
+    }
+
+    function scrollToBottom() {
+      element.scrollIntoView(false);
+    }
+
+    console.log(user.value);
 
     const logout = () => {
       authStore.clear();
     };
 
     return {
+      user,
       role,
       isLogin,
       userName,

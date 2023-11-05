@@ -22,7 +22,9 @@
         </div>
 
         <!--examination ID Input Box -->
+        <!--examination ID Input Box -->
         <div class="flex mt-20 mb-5">
+          <!-- Search -->
           <!-- Search -->
           <input
             v-model="searchIdText"
@@ -30,9 +32,10 @@
             type="number"
             id="examination-id-search"
             class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-            placeholder="เลขสัญญาตรวจสอบ"
+            placeholder="เลขสัญญตรวจสอบ"
           />
 
+          <!-- Search -->
           <!-- Search -->
           <!-- Customer ID Input -->
           <input
@@ -55,6 +58,53 @@
             <option value="inprogress">inprogress</option>
             <option value="finish">finish</option>
           </select>
+          <div
+            class="flex ml-4 px-4 py-2 bg-darkblue text-white hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
+          >
+            <button @click="sortExaminationByDate" class="flex items-center">
+              <span id="date-sort">กดเพื่อเรียงวันที่</span>
+
+              <span id="less-to-more" class="flex hidden px-1">
+                น้อยไปมาก
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="ml-1 h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12 3C12.5523 3 13 3.44772 13 4V17.5858L18.2929 12.2929C18.6834 11.9024 19.3166 11.9024 19.7071 12.2929C20.0976 12.6834 20.0976 13.3166 19.7071 13.7071L12.7071 20.7071C12.3166 21.0976 11.6834 21.0976 11.2929 20.7071L4.29289 13.7071C3.90237 13.3166 3.90237 12.6834 4.29289 12.2929C4.68342 11.9024 5.31658 11.9024 5.70711 12.2929L11 17.5858V4C11 3.44772 11.4477 3 12 3Z"
+                      fill="#ffffff"
+                    ></path>
+                  </g>
+                </svg>
+              </span>
+
+              <span id="more-to-less" class="flex hidden px-1">
+                มากไปน้อย
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ml-1 h-6 w-6"
+                >
+                  <path
+                    d="M12 3C12.2652 3 12.5196 3.10536 12.7071 3.29289L19.7071 10.2929C20.0976 10.6834 20.0976 11.3166 19.7071 11.7071C19.3166 12.0976 18.6834 12.0976 18.2929 11.7071L13 6.41421V20C13 20.5523 12.5523 21 12 21C11.4477 21 11 20.5523 11 20V6.41421L5.70711 11.7071C5.31658 12.0976 4.68342 12.0976 4.29289 11.7071C3.90237 11.3166 3.90237 10.6834 4.29289 10.2929L11.2929 3.29289C11.4804 3.10536 11.7348 3 12 3Z"
+                    fill="#ffffff"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -114,7 +164,8 @@
         </div>
 
       <!-- Table -->
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold">
+      <table v-if="examinations.length > 0"
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-10">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center">
           <tr>
             <th scope="col" class="px-6 py-4">เลขสัญญา</th>
@@ -125,7 +176,7 @@
         </thead>
 
         <tbody>
-          <tr class="bg-white border-b border-gold" v-for="examination of examinations" :key="examination.id">
+          <tr class="bg-white border-b border-gold" v-for="examination of paginatedExaminations" :key="examination.id">
             <td scope="row" class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.id }}</nuxt-link>
             </td>
@@ -133,10 +184,28 @@
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.customer_id }}</nuxt-link>
             </td>
             <td class="py-4 text-center">
-              <nuxt-link :to="`/examination/${examination.id}`">{{ examination.contract_date }}</nuxt-link>
+              <nuxt-link :to="`/examination/${examination.id}`" class="text-purple-500">
+              {{
+                new Date(examination.contract_date).toLocaleDateString(
+                  "th-TH",
+                  {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  }
+                )
+              }}
+            </nuxt-link>
             </td>
             <td class="py-4 text-center">
-              <nuxt-link :to="`/examination/${examination.id}`">{{ examination.status }}</nuxt-link>
+              <nuxt-link :to="`/examination/${examination.id}`">
+                <span v-if="examination.status === 'inprogress'"
+                class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                >{{ examination.status }}</span>
+                <span v-else
+                class="py-1 px-5 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                >{{ examination.status }}</span>
+              </nuxt-link>
             </td>
             <td class="px-6 py-4">
               <a
@@ -251,7 +320,34 @@
           </tr>
         </tbody>
       </table>
+      <h1 v-else class="text-6xl text-center text-red-500 mt-20 font-bold">ไม่พบข้อมูล</h1>
+
   </section>
+  <div v-if="examinations.length >= 10"
+       class="  flex items-center justify-center mb-14  mt-10">
+      <button
+        @click="page--"
+        :disabled="page <= 1"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+            page <= 1,
+        }"
+      >
+        ก่อนหน้า
+      </button>
+      <button
+        @click="page++"
+        :disabled="page >= Math.ceil(examinations.length / perPage)"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+            page >= Math.ceil(examinations.length / perPage),
+        }"
+      >
+        หน้าถัดไป
+      </button>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -259,13 +355,19 @@ import useMyFetch from '~/composables/useMyFetch';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const searchIdDate = ref('');
-const searchIdText = ref('');
-const searchIdText1 = ref('');
-const searchIdText2 = ref('');
+const searchIdDate = ref("");
+const searchIdText = ref("");
+const searchIdText1 = ref("");
+const searchIdText2 = ref("");
+const page = ref(1); // เพิ่ม ref สำหรับ page
+const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
+const sortOrder = ref("less");
 const showConfirmationModal = ref(false);
 const route = useRoute();
 
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
 
 const examinationToDelete = ref<number | null>(null);
 
@@ -273,15 +375,28 @@ const confirmAction = (examinationID: number) => {
   examinationToDelete.value = examinationID;
   showConfirmationModal.value = true;
 };
+
+const paginatedExaminations = computed(() => {
+  if (Array.isArray(examinations.value)) {
+    const start = (page.value - 1) * perPage.value;
+    const end = start + perPage.value;
+    return examinations.value.slice(start, end);
+  } else {
+    return [];
+  }
+});
+
 const deleteConfirmed = async () => {
   try {
     const examinationID = examinationToDelete.value;
     const response = await useMyFetch<any>(`examination/${examinationID}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
     window.location.reload();
     if (response.status === 200) {
-      const updatedExaminations = examinations.value.filter((examination: any) => examination.id !== examinationID);
+      const updatedExaminations = examinations.value.filter(
+        (examination: any) => examination.id !== examinationID
+      );
       examinations.value = updatedExaminations;
       // Close the modal after successful deletion
       showConfirmationModal.value = false;
@@ -296,21 +411,23 @@ const cancelAction = () => {
   window.location.reload();
 };
 
-
-const { data: examinations, pending } = await useMyFetch<any>('examination', {});
-  const applyFilter_id= () => {
-  const filteredExaminations = examinations.value.filter(examination => {
+const { data: examinations, pending } = await useMyFetch<any>(
+  "examination",
+  {}
+);
+const applyFilter_id = () => {
+  const filteredExaminations = examinations.value.filter((examination) => {
     // Check if examination ID contains the searchIdText value
     return examination.id.toString().includes(searchIdText.value);
   });
 
   examinations.value = filteredExaminations;
 
-  if (searchIdText.value === '') {
-      // Reload the page if the text search field is empty
-      window.location.reload();
-    }
-  // Set the filtered pawns back to the original pawns
+  if (searchIdText.value === "") {
+    // Reload the page if the text search field is empty
+    window.location.reload();
+  }
+  // Set the filtered examinations back to the original examinations
   examinations.value = filteredExaminations;
 };
 
@@ -322,23 +439,52 @@ const applyFilter_customerid= () => {
 
   examinations.value = filteredExaminations;
 
-  if (searchIdText1.value === '') {
-      // Reload the page if the text search field is empty
-      window.location.reload();
-    }
-  // Set the filtered pawns back to the original pawns
+  if (searchIdText1.value === "") {
+    // Reload the page if the text search field is empty
+    window.location.reload();
+  }
+  // Set the filtered examinations back to the original examinations
   examinations.value = filteredExaminations;
+};
+
+const sortExaminationByDate = () => {
+  const moreToLess = document.getElementById("more-to-less") as HTMLElement;
+  const LessToMore = document.getElementById("less-to-more") as HTMLElement;
+  const dateSort = document.getElementById("date-sort") as HTMLElement;
+
+  if (examinations.value) {
+    if (sortOrder.value === "less") {
+      // Sort in ascending order น้อยไปมาก
+      examinations.value.sort(
+        (a, b) => new Date(a.contract_date) - new Date(b.contract_date),
+        moreToLess.classList.add("hidden"),
+        dateSort.classList.add("hidden"),
+        LessToMore.classList.remove("hidden")
+      );
+      sortOrder.value = "more"; // Set sorting order to descending มากไปน้อย
+    } else {
+      LessToMore.classList.add("hidden"), moreToLess.classList.remove("hidden");
+      // Sort in descending order มากไปน้อย
+      examinations.value.sort(
+        (a, b) => new Date(b.contract_date) - new Date(a.contract_date)
+      );
+      sortOrder.value = "less"; // Set sorting order to ascending น้อยไปมาก
+    }
+  }
 };
 
 const applyFilter_status = () => {
+  if (searchIdText2.value === "") {
+    // Reload the page if the select field is empty
+    window.location.reload();
+    return; // กลับออกจากฟังก์ชันเพื่อไม่ทำงานขั้นต่อไป
+  }
 
-  const filteredExaminations = examinations.value.filter(examination => {
+  const filteredExaminations = examinations.value.filter((examination) => {
+    // Check if examination status matches the selected status in searchIdText2
     return examination.status === searchIdText2.value;
   });
 
-  // อัพเดตรายการตรวจพร้อมกับข้อมูลที่ถูกกรอง
   examinations.value = filteredExaminations;
- 
 };
-
 </script>
