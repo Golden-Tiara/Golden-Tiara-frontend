@@ -17,6 +17,7 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     isLogin: (state) => state.token !== "",
     userRole: (state) => state.user.role,
+    userID:(state) => state.user.national_id,
   },
   actions: {
     setNewToken(token: string) {

@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import upSvg from "@/assets/images/icons/up.svg";
 import downSvg from "@/assets/images/icons/down.svg";
 import { useAuthStore } from '~/stores/useAuthStore';

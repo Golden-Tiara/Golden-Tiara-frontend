@@ -130,7 +130,7 @@
    </div>
 </div>
 </template>
-<script>
+<script >
 import { useAuthStore } from '~/stores/useAuthStore';
 
 definePageMeta({

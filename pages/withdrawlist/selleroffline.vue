@@ -144,7 +144,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import { useAuthStore } from '~/stores/useAuthStore';
 import {ref} from "vue";
 
