@@ -18,25 +18,30 @@
             </select>
           </div>
           <p class="mb-3 font-bold  text-gray-700 text-base">
+            เลขบัตรประชาชนลูกค้า: {{  national_id  }}
+          </p>
+          <p class="mb-3 font-bold  text-gray-700 text-base">
             จำนวนเงินที่ต้องจ่าย: {{ 10000 }}
           </p>
           <p class="mb-3 font-bold  text-gray-700 text-base">
-            เลขสัญญาจำนำทอง: {{  }}
+            เลขสัญญาจำนำทอง: {{ pawnID }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base ">
-            วันหมดอายุสัญญา: {{ }}
+
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            วันหมดอายุสัญญา: {{ expiry_date }}
+          </p>
+
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            ราคาจำนำทอง: {{ loan_amount }}
           </p>
           <p class="mb-3 font-normal text-gray-700 text-base">
-            ราคาจำนำทอง: {{  }}
+            อัตราดอกเบี้ย: {{ interest_rate }}
           </p>
           <p class="mb-3 font-normal text-gray-700 text-base">
-            อัตราดอกเบี้ย: {{  }}
+            จำนวนงวด: {{ total_term }}
           </p>
           <p class="mb-3 font-normal text-gray-700 text-base">
-            จำนวนงวด: {{  }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
-            สถานะการจำนำ: {{  }}
+            สถานะการจำนำ: {{ shop_payout_status }}
           </p>
         </div>
       </div>
@@ -69,13 +74,13 @@
       <div class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12">
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <p class="mb-3 font-normal text-gray-700 text-base">
-            จำนวนเงินที่จ่ายแล้ว: {{  }}
+            จำนวนเงินที่จ่ายแล้ว: {{ paid_amount }}
           </p>
           <p class="mb-3 font-bold text-gray-700 text-base ">
-            จำนวนงวดที่จ่ายแล้ว: {{  }}
+            จำนวนงวดที่จ่ายแล้ว: {{ paid_term }}
           </p>
           <p class="mb-3 font-normal text-gray-700 text-base">
-            วันจ่ายค่างวดครั้งถัดไป: {{  }}
+            วันจ่ายค่างวดครั้งถัดไป: {{ next_payment }}
           </p>
         </div>
       </div>
@@ -142,28 +147,92 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { useAuthStore } from '~/stores/useAuthStore';
 
+const route = useRoute();
+const authStore = useAuthStore();
+const pawnID = ref('');
+const national_id= ref('');
+const expiry_date = ref('');
+const loan_amount = ref('');
+const interest_rate = ref('');
+const total_term = ref('');
+const shop_payout_status = ref('');
+const paid_amount = ref('');
+const paid_term = ref('');
+const next_payment = ref('');
+const Pawn = ref(null);
+onMounted(async () => {
+  pawnID.value = localStorage.getItem('pawn_id');
+  console.log(pawnID.value);
+  if (pawnID.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  national_id.value = localStorage.getItem('national_id');
+  console.log(national_id.value);
+  if (national_id.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${national_id.value}`);
+    console.log(pawn);
+  }
+  expiry_date.value = localStorage.getItem('pawn_expiry_date');
+  console.log(expiry_date.value);
+  if (expiry_date.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  loan_amount.value = localStorage.getItem('pawn_loan_amount');
+  console.log(loan_amount.value);
+  if (loan_amount.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  interest_rate.value = localStorage.getItem('pawn_interest_rate');
+  console.log(expiry_date.value);
+  if (interest_rate.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  total_term.value = localStorage.getItem('pawn_total_term');
+  console.log(total_term.value);
+  if (total_term.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  shop_payout_status.value = localStorage.getItem('pawn_shop_payout_status');
+  console.log(shop_payout_status.value);
+  if (shop_payout_status.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  paid_amount.value = localStorage.getItem('pawn_paid_amount');
+  console.log(paid_amount.value);
+  if (paid_amount.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  paid_term.value = localStorage.getItem('pawn_paid_term');
+  console.log(paid_term.value);
+  if (paid_term.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+  next_payment.value = localStorage.getItem('pawn_next_payment');
+  console.log(next_payment.value);
+  if (next_payment.value) {
+    const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
+    console.log(pawn);
+  }
+
+
+
+});
+
 definePageMeta({
-  middleware: 'authenticated',
-  //Auth checker
-})
-
-
-export default {
-
-
-  setup() {
-    let auth;
-
-    onMounted(() => {
-      auth = useAuthStore();
-
-    });
-
-    return {};
-  },
-}
-
+  middleware: 'authenticated', // Auth checker
+});
 </script>
+

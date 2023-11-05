@@ -146,6 +146,7 @@
 
 <script>
 import { useAuthStore } from '~/stores/useAuthStore';
+import {ref} from "vue";
 
 definePageMeta({
   middleware: 'authenticated',
@@ -157,6 +158,14 @@ export default {
       national_id: '',
       pawn_id: '',
       customerId: '',
+      expiry_date: '',
+      loan_amount :'',
+      interest_rate : '',
+       total_term : '',
+       shop_payout_status : '',
+       paid_amount : '',
+       paid_term : '',
+       next_payment : '',
       userNotFoundError: false,
       idNotFoundError: false,
       dataNotMatchError: false,
@@ -198,11 +207,23 @@ export default {
       }
 
       try {
-        const { data: pawn } = await useMyFetch(`examination/check/${this.pawn_id}`, {});
+        const { data: pawn } = await useMyFetch(`pawn/check/${this.pawn_id}`, {});
         console.log(this.pawn_id);
+        console.log(pawn.value.expiry_date);
+        console.log(pawn.value.id);
+        console.log(pawn.value.customer_id);
 
-        if (pawn.value.pawn_id != null) {
-          this.customerId = pawn.value.national_id;
+        if (pawn.value.id != null) {
+          this.customerId = pawn.value.customer_id;
+          this.expiry_date = pawn.value.expiry_date;
+          this.loan_amount = pawn.value.loan_amount;
+          this.interest_rate = pawn.value.interest_rate;
+          this.total_term = pawn.value.total_term;
+          this.shop_payout_status = pawn.value.shop_payout_status;
+          this.paid_amount = pawn.value.paid_amount;
+          this.paid_term = pawn.value.paid_term;
+          this.next_payment = pawn.value.next_payment;
+          console.log(pawn.value.customer_id);
           this.pawnNotFoundError = false;
 
           console.log('Pawn found:', this.pawn_id);
@@ -216,15 +237,23 @@ export default {
         // Handle the error, e.g., show an error message
         console.error('Error:', error);
       }
-
+      console.error(this.national_id , this.customerId);
       if (!this.userNotFoundError & !this.pawnNotFoundError) {
-        if (this.national_id == this.customerId) {
+        if (this.national_id.toString() === this.customerId.toString()) {
           this.dataNotMatchError = false;
-
           localStorage.setItem('national_id', this.national_id);
           localStorage.setItem('pawn_id', this.pawn_id);
+          localStorage.setItem('pawn_expiry_date',this.expiry_date);
+          localStorage.setItem('pawn_loan_amount',this.loan_amount);
+          localStorage.setItem('pawn_interest_rate',this.interest_rate);
+          localStorage.setItem('pawn_total_term',this.total_term);
+          localStorage.setItem('pawn_shop_payout_status',this.shop_payout_status);
+          localStorage.setItem('pawn_paid_amount',this.paid_amount);
+          localStorage.setItem('pawn_paid_term',this.paid_term);
+          localStorage.setItem('pawn_next_payment',this.next_payment);
+          //ส่งอะไรไปบ้าง
 
-          window.location.href = '/pawn/create'
+          window.location.href = '/withdrawlist/installmentsoffline'
         }
         else {
           this.dataNotMatchError = true;
