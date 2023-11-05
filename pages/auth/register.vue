@@ -1225,7 +1225,8 @@ function onFileChange(event) {
     return;
   }
   const randomFileName =
-    Math.random().toString(36).substring(2, 15) +
+  
+   Math.random().toString(36).substring(2, 15) +
     "." +
     file.name.split(".").pop();
   formData.image_path = randomFileName;

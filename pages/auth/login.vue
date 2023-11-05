@@ -184,7 +184,6 @@
                 id="nation_id"
                 v-model="formData.national_id"
                 required
-                readonly
                 class="w-full h-12 px-4  text-sm peer border-gold border rounded-lg outline-none"
               />
               <label

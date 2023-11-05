@@ -164,7 +164,8 @@
         </div>
 
       <!-- Table -->
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold">
+      <table v-if="examinations.length > 0"
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-10">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center">
           <tr>
             <th scope="col" class="px-6 py-4">เลขสัญญา</th>
@@ -175,7 +176,7 @@
         </thead>
 
         <tbody>
-          <tr class="bg-white border-b border-gold" v-for="examination of examinations" :key="examination.id">
+          <tr class="bg-white border-b border-gold" v-for="examination of paginatedExaminations" :key="examination.id">
             <td scope="row" class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.id }}</nuxt-link>
             </td>
@@ -183,7 +184,7 @@
               <nuxt-link :to="`/examination/${examination.id}`">{{ examination.customer_id }}</nuxt-link>
             </td>
             <td class="py-4 text-center">
-              <nuxt-link :to="`/examination/${examination.id}`">
+              <nuxt-link :to="`/examination/${examination.id}`" class="text-purple-500">
               {{
                 new Date(examination.contract_date).toLocaleDateString(
                   "th-TH",
@@ -197,7 +198,14 @@
             </nuxt-link>
             </td>
             <td class="py-4 text-center">
-              <nuxt-link :to="`/examination/${examination.id}`">{{ examination.status }}</nuxt-link>
+              <nuxt-link :to="`/examination/${examination.id}`">
+                <span v-if="examination.status === 'inprogress'"
+                class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                >{{ examination.status }}</span>
+                <span v-else
+                class="py-1 px-5 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                >{{ examination.status }}</span>
+              </nuxt-link>
             </td>
             <td class="px-6 py-4">
               <a
@@ -312,7 +320,34 @@
           </tr>
         </tbody>
       </table>
+      <h1 v-else class="text-6xl text-center text-red-500 mt-20 font-bold">ไม่พบข้อมูล</h1>
+
   </section>
+  <div v-if="examinations.length >= 10"
+       class="  flex items-center justify-center mb-14  mt-10">
+      <button
+        @click="page--"
+        :disabled="page <= 1"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+            page <= 1,
+        }"
+      >
+        ก่อนหน้า
+      </button>
+      <button
+        @click="page++"
+        :disabled="page >= Math.ceil(examinations.length / perPage)"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+            page >= Math.ceil(examinations.length / perPage),
+        }"
+      >
+        หน้าถัดไป
+      </button>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -329,6 +364,10 @@ const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
 const sortOrder = ref("less");
 const showConfirmationModal = ref(false);
 const route = useRoute();
+
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
 
 const examinationToDelete = ref<number | null>(null);
 

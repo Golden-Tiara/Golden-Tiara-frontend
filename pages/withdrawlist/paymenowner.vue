@@ -131,6 +131,10 @@
 </div>
 </template>
 <script>
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
  export default {
    data() {
      return {

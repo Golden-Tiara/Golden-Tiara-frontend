@@ -51,6 +51,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     }else if (routeName === 'auth-me' && (userRole === 'seller' || userRole === 'owner'|| userRole === 'customer')) {
       return true;
+    }else if (routeName === 'accountant' && (userRole === 'accountant' || userRole === 'owner')) {
+      return true;
     }
 
 
@@ -70,7 +72,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     } else {
       if (!isAllowedAccess(authStore.userRole, to.name)) {
         console.log(to.name, authStore.userRole, authStore.isLogin)
-        return navigateTo('/unauthorized');
+        return navigateTo('/404Page');
 
       }
     }

@@ -174,6 +174,10 @@ const previewUrl = ref(null);
 const selectedFile = ref(null);
 const dropzone = ref(null);
 
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
 const closeModal = () => {
   const modal = document.getElementById("popup-modal");
   if (modal) {
