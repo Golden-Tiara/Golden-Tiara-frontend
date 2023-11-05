@@ -14,6 +14,7 @@
           <!-- Date -->
           <div>
             <input
+              v-model="searchIdDate"
               class="border text-gray-500 border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
               type="date"
               name=""
@@ -44,18 +45,15 @@
             </div>
             <!-- Search -->
             <input
+              v-model="searchIdText"
               type="text"
               id="table-search"
+              @input="applyFilter"
               class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
               placeholder="Search for items"
             />
           </div>
           <!-- Search Button -->
-          <button
-            class="px-4 text-base bg-darkblue hover:bg-blue-800 ml-5 rounded-lg text-white"
-          >
-            ค้นหา
-          </button>
         </div>
       </div>
       <table
@@ -71,91 +69,69 @@
             <th scope="col" class="px-6">จำนวนเงินที่ชำระแล้ว(บาท)</th>
             <th scope="col" class="px-6">วันกำหนดชำระครั้งต่อไป</th>
             <th scope="col" class="px-6">วันที่ครบกำหนด</th>
-            <th scope="col" class="px-6"></th>
-            <th scope="col" class="px-6"></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
+          <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id"  @click="sortTable(field.key)">
+            <td
               scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_term}}</nuxt-link>
             </td>
-          </tr>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
-              scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.total_term }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
+            <td class="py-4 text-center">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_amount }}</nuxt-link>
             </td>
-          </tr>
-          <tr class="bg-white border-b border-gold hover:bg-gray-50">
-            <th
-              scope="row"
-              class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              000
-            </th>
-            <td class="text-center">4งวด</td>
-            <td class="text-center">10งวด</td>
-            <td class="text-center text-green-600">2000</td>
-            <td class="text-center">12/08/2023</td>
-            <td class="text-center">12/09/2023</td>
-
-            <td class="text-center py-6 px-6">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:underline hover:text-purple-800"
-                >Edit</a
-              >
+            <td class="py-4 text-center text-green-600">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.next_payment }}</nuxt-link>
             </td>
-            <td class="px-6">
-              <a href="#" class="font-medium text-red-600 hover:underline"
-                >Remove</a
-              >
-            </td>
+            <td class="py-4 text-center text-green-600">
+              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
+            </td>    
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import useMyFetch from '~/composables/useMyFetch';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
+
+const searchIdDate = ref('');
+const searchIdText = ref('');
+const route = useRoute();
+const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
+const applyFilter = () => {
+  const filteredPawns = pawns.value.filter(pawn => {
+    // Filtering by date and text
+    const dateCondition = !searchIdDate.value || pawn.contract_date === searchIdDate.value;
+    const textCondition = !searchIdText.value || pawn.id.toString().toLowerCase().includes(searchIdText.value.toLowerCase());
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+    return dateCondition && textCondition;
+  });
+    if (searchIdText.value === '') {
+      // Reload the page if the text search field is empty
+      window.location.reload();
+    }
+  // Set the filtered pawns back to the original pawns
+  pawns.value = filteredPawns;
+};
+</script>
+

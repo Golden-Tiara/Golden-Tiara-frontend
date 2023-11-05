@@ -20,34 +20,51 @@
         </div>
 
         <!-- Search Box -->
-        <div class="flex mt-20 mb-5">
-          <!-- Date -->
-          <div>
-            <input
-              class="border border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-              type="date" name="" id="" />
-          </div>
-          <label for="table-search" class="sr-only">Search</label>
-          <!-- Item Search -->
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
-            </div>
-            <!-- Search -->
-            <input type="text" id="table-search"
-              class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-              placeholder="Search for items" />
-          </div>
-          <!-- Search Button -->
-          <button
-            class="px-4 text-base bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold ml-5 rounded-lg text-white">
-            ค้นหา
-          </button>
-        </div>
+       <!-- Search Box -->
+       <div class="flex mt-20 mb-5">
+  <!-- Date -->
+  <div>
+    <input
+      v-model="searchIdDate"
+      class="border border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+      type="date"
+      name=""
+      id=""
+    />
+  </div>
+  <label for="table-search" class="sr-only">Search</label>
+  <!-- Item Search -->
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <svg
+        class="w-4 h-4 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 20"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+        />
+      </svg>
+    </div>
+    <!-- Search -->
+    <input
+      v-model="searchIdText"
+      type="text"
+      id="table-search"
+      @input="applyFilter"
+      class="block py-2.5 pl-10 text-sm text-gray-900 border border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+      placeholder="Search for items"
+    />
+  </div>
+  <!-- Search Button -->
+</div>
+
       </div>
 
       <!-- Table -->
@@ -65,9 +82,12 @@
         </thead>
 
         <tbody>
-          <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id">
-            <td scope="row" class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
+          <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id" @click="sortTable(field.key)" >
+            <td
+              scope="row"
+              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
             </td>
             <td class="py-4 text-center">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.customer_id }}</nuxt-link>
@@ -85,13 +105,25 @@
               <a href="#" class="font-medium text-purple-600 hover:text-purple-800 hover:underline">Edit</a>
             </td>
             <td class="px-6 py-4">
-              <a data-modal-target="popup-modal-remove" data-modal-toggle="popup-modal-remove" href="#"
-                class="font-medium text-red-600 dark:text-red-500 hover:underline">ลบทิ้ง</a>
+              <a
+              data-modal-target="popup-modal-remove"
+                data-modal-toggle="popup-modal-remove"
+                href="#"
+                class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                @click="confirmAction(pawn.id)"
+                >Remove</a
+              >
             </td>
             <!-- popup modal -->
-            <div id="popup-modal-remove" tabindex="-1"
-              class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-              <div class="relative w-full max-w-md max-h-full">
+
+            
+            <div
+              id="popup-modal-remove"
+              tabindex="-1"
+              class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            >
+              <div v-if="showConfirmationModal" 
+                class="relative w-full max-w-md max-h-full">
                 <div class="relative bg-white rounded-lg shadow">
                   <button type="button"
                     class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -128,12 +160,19 @@
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                       ยืนยันการลบรายการชิ้นนี้หรือไม่?
                     </h3>
-                    <button data-modal-hide="popup-modal-remove" type="button" onclick="window.location.reload();"
-                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-6 py-2.5 text-center mr-2">
+                      <button
+                      data-modal-hide="popup-modal-remove"
+                      type="button"
+                      @click="deleteConfirmed"
+                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-6 py-2.5 text-center mr-2"
+                    >
                       ยืนยัน
                     </button>
-                    <button data-modal-hide="popup-modal-remove" type="button"
-                      class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button
+                      data-modal-hide="popup-modal-remove"
+                      type="button"
+                      class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                    >
                       ยกเลิก
                     </button>
                   </div>
@@ -147,7 +186,9 @@
   </section>
 </template>
 
+
 <script setup lang="ts">
 import useMyFetch from '~/composables/useMyFetch';
-const { data: pawns, pending } = await useMyFetch<any>("pawn", {})
+  const { data: pawns, pending } = await useMyFetch<any>("pawn", {})
 </script>
+

@@ -9,7 +9,7 @@
         <!-- Step Bar -->
         <ol class="flex items-center w-full mt-14">
           <!-- Before ID -->
-          <li
+          <!-- <li
             class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block ">
             <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12  shrink-0">
 
@@ -24,18 +24,53 @@
                 </g>
               </svg>
             </span>
+          </li> -->
+          <li
+            class="flex w-full items-center text-gold after:content-[''] after:w-full after:h-1 after:border-b after:border-gold after:border-4 after:inline-block"
+          >
+            <span
+              class="flex items-center justify-center w-10 h-10 bg-gray-100 border border-gold rounded-full lg:h-12 lg:w-12 shrink-0"
+            >
+              <svg
+                class="w-3.5 h-3.5 text-gold lg:w-4 lg:h-4"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 16 12"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5.917 5.724 10.5 15 1.5"
+                />
+              </svg>
+            </span>
           </li>
           <!-- End Before ID -->
 
           <!-- After ID -->
           <li
-            class="flex w-full items-center text-gold after:content-[''] after:w-full after:h-1 after:border-b after:border-gold after:border-4 after:inline-block ">
+            class="flex w-full items-center text-gold after:content-[''] after:w-full after:h-1 after:border-b after:border-gold after:border-4 after:inline-block"
+          >
             <span
-              class="flex items-center justify-center w-10 h-10 bg-gray-100 border border-gold rounded-full lg:h-12 lg:w-12  shrink-0">
-              <svg class="w-3.5 h-3.5 text-gold lg:w-4 lg:h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 16 12">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M1 5.917 5.724 10.5 15 1.5" />
+              class="flex items-center justify-center w-10 h-10 bg-gray-100 border border-gold rounded-full lg:h-12 lg:w-12 shrink-0"
+            >
+              <svg
+                class="w-3.5 h-3.5 text-gold lg:w-4 lg:h-4"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 16 12"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5.917 5.724 10.5 15 1.5"
+                />
               </svg>
             </span>
           </li>
@@ -43,16 +78,30 @@
 
           <!-- Before Form -->
           <li
-            class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block ">
-            <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12  shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 ">
+            class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block"
+          >
+            <span
+              class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5"
+              >
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
                 <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
                     d="M3.58579 2.58579C3 3.17157 3 4.11438 3 6V16C3 18.8284 3 20.2426 3.87868 21.1213C4.51998 21.7626 5.44655 21.9359 7 21.9827V19C7 18.4477 7.44772 18 8 18C8.55228 18 9 18.4477 9 19L9 22H15V19C15 18.4477 15.4477 18 16 18C16.5523 18 17 18.4477 17 19L17 21.9827C18.5534 21.9359 19.48 21.7626 20.1213 21.1213C21 20.2426 21 18.8284 21 16V6C21 4.11438 21 3.17157 20.4142 2.58579C19.8284 2 18.8856 2 17 2H7C5.11438 2 4.17157 2 3.58579 2.58579ZM8 8C7.44772 8 7 8.44772 7 9C7 9.55228 7.44772 10 8 10H16C16.5523 10 17 9.55228 17 9C17 8.44772 16.5523 8 16 8H8ZM8 14L16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12L8 12C7.44772 12 7 12.4477 7 13C7 13.5523 7.44772 14 8 14Z"
-                    fill="#D2AC47"></path>
+                    fill="#D2AC47"
+                  ></path>
                 </g>
               </svg>
             </span>
@@ -61,16 +110,30 @@
 
           <!-- Before Approve -->
           <li class="flex items-center w-full">
-            <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12  shrink-0">
-              <svg fill="#D2AC47" class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 " version="1.1" id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 226.834 226.834" xml:space="preserve" stroke="#D2AC47">
+            <span
+              class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 shrink-0"
+            >
+              <svg
+                fill="#D2AC47"
+                class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5"
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 226.834 226.834"
+                xml:space="preserve"
+                stroke="#D2AC47"
+              >
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
-                    d="M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746 c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z M131.841,17c-0.768-9.5-8.729-17-18.424-17 S95.761,7.5,94.993,17H131.841z M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692 c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746 c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506 C183.262,35.167,192.309,44.214,192.309,55.334z M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884 c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607 c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449 z M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252 c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115 c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z M165.858,168.5 c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49 C162.501,122,165.858,118.643,165.858,114.5z">
-                  </path>
+                    d="M80.197,44.939v-9.746c0-1.761,1.433-3.193,3.193-3.193h60.053c1.761,0,3.193,1.433,3.193,3.193v9.746 c0,1.761-1.433,3.193-3.193,3.193H83.391C81.63,48.133,80.197,46.7,80.197,44.939z M131.841,17c-0.768-9.5-8.729-17-18.424-17 S95.761,7.5,94.993,17H131.841z M192.309,55.334v151.333c0,11.12-9.047,20.167-20.167,20.167H54.692 c-11.12,0-20.167-9.047-20.167-20.167V55.334c0-11.12,9.047-20.167,20.167-20.167h10.506c0,0.009-0.001,0.018-0.001,0.026v9.746 c0,10.032,8.162,18.193,18.193,18.193h60.053c10.032,0,18.193-8.161,18.193-18.193v-9.746c0-0.009-0.001-0.018-0.001-0.026h10.506 C183.262,35.167,192.309,44.214,192.309,55.334z M88.183,143.449c-3.526-2.173-8.147-1.077-10.32,2.449l-7.092,11.504l-3.661-2.884 c-3.252-2.563-7.97-2.002-10.532,1.252c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607 c0.436,0,0.875-0.038,1.311-0.115c2.105-0.374,3.952-1.629,5.074-3.449l11.506-18.666C92.806,150.243,91.709,145.623,88.183,143.449 z M88.183,89.449c-3.526-2.174-8.147-1.076-10.32,2.449l-7.092,11.504l-3.661-2.884c-3.252-2.562-7.97-2.002-10.532,1.252 c-2.563,3.255-2.002,7.97,1.252,10.533l10.271,8.089c1.332,1.049,2.969,1.607,4.64,1.607c0.436,0,0.875-0.038,1.311-0.115 c2.105-0.374,3.952-1.629,5.074-3.449L90.632,99.77C92.806,96.243,91.709,91.623,88.183,89.449z M165.858,168.5 c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49C162.501,176,165.858,172.643,165.858,168.5z M165.858,114.5c0-4.143-3.357-7.5-7.5-7.5h-49c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5h49 C162.501,122,165.858,118.643,165.858,114.5z"
+                  ></path>
                 </g>
               </svg>
             </span>
@@ -85,39 +148,64 @@
             <!-- Citizen ID Input -->
             <div class="relative" v-if="!user">
               <input
-                class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-                v-model="nationalId" placeholder="เลขบัตรประชาชน" />
+                class="block py-2.5 px-2 text-sm text-gray-900 border-2 border-gold rounded-lg w-80 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
+                v-model="nationalId"
+                placeholder="เลขบัตรประชาชน"
+              />
             </div>
 
             <!-- Display nationalId as text if it's stored -->
-            <div v-else>
-              {{ user.national_id }}
-            </div>
+            <p
+              v-else
+              class="flex items-center text-lg border border-gold px-2 rounded-lg"
+            >
+              เลขบัตรประชาชน: {{ user.national_id }}
+            </p>
 
             <!-- Save Button -->
-            <button v-if="!user" @click="saveNationalId(); checkUserByNationalId()"
-              class="block ml-5 text-white bg-darkblue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              :disabled="!isNationalIdValid">
+            <button
+              v-if="!user"
+              @click="
+                saveNationalId();
+                checkUserByNationalId();
+              "
+              class="block ml-5 px-6 text-white bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg poin"
+              :disabled="!isNationalIdValid"
+            >
               บันทึก
             </button>
 
-            <div class="text-red-500" v-if=" userNotFoundError ">
+            <div class="text-red-500" v-if="userNotFoundError">
               No user found
             </div>
-            <div v-else-if=" user ">
-              <!-- Display user data here -->
+
+            <!-- <div v-else-if=" user ">
+              Display user data here
               {{ user.name }} {{ user.surname }}
-            </div>
+            </div> -->
           </div>
 
-          <nuxt-link :to=" `/gold/create` ">
-            <button type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-7 py-3 mr-2"
-              :disabled=" !user ">
+          <nuxt-link :to="`/gold/create`">
+            <button
+              type="button"
+              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-sm px-7 py-3 mr-2 cursor-pointer"
+              :disabled="!user"
+            >
               <span class="mr-2">
-                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 12H18M12 6V18" stroke="#ffff" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 12H18M12 6V18"
+                    stroke="#ffff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </span>
               เพิ่มรายการทอง
@@ -126,20 +214,38 @@
         </div>
       </div>
 
-      <!-- Table -->
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center">
+      <div
+        v-if="!isSaveValid"
+        class="flex items-center justify-center text-red-500 text-4xl mt-32"
+      >
+        <p>กรุณากรอกเลขบัตรประชาชนและเพิ่มรายการทองก่อนทำรายการ</p>
+      </div>
+
+      <!-- Table have data -->
+      <table
+        v-else
+        class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center"
+        >
           <tr>
-            <th scope="col" class="px-6 py-4"></th>
+            <th scope="col" class="px-6 py-4">ลำดับข้อมูล</th>
             <th scope="col" class="px-6 py-4">น้ำหนัก</th>
             <th scope="col" class="px-6 py-4">ความบริสุทธิ์</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr class="bg-white border-b border-gold" v-for="(   gold, index   ) in    goldItems    ">
-            <td scope="row" class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ index+1 }}
+          <tr
+            class="bg-white border-b border-gold"
+            v-for="(gold, index) in goldItems"
+          >
+            <td
+              scope="row"
+              class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ index + 1 }}
             </td>
             <td class="py-4 text-center">
               {{ gold.weight }}
@@ -151,9 +257,17 @@
         </tbody>
       </table>
 
-      <div class="flex justify-center">
-        <button @click=" saveData " :disabled=" !isSaveValid "
-          class="px-6 py-3 mt-20 text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold">
+
+      <!-- <div>
+        <p v-if="successMessage" class="text-green-600">{{ successMessage }}</p>
+      </div> -->
+
+      <div v-if="isSaveValid" class="flex justify-center">
+        <button
+          @click="saveData"
+          :disabled="!isSaveValid"
+          class="px-6 py-3 mt-6 mb-6 text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
+        >
           บันทึกรายการตรวจสอบทอง
         </button>
       </div>
@@ -209,13 +323,21 @@
       </div>
     </div>
   </section>
+  <CompleteEvent></CompleteEvent>
 </template>
 
 <script>
+import { useAuthStore } from "~/stores/useAuthStore";
+
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
+
+
 export default {
   data() {
     return {
-      nationalId: '', // Initialize nationalId as an empty string
+      nationalId: "", // Initialize nationalId as an empty string
       user: null, // Initialize the user property to null
       userNotFoundError: false, // Initialize the user not found error state
       goldItems: null,
@@ -229,11 +351,11 @@ export default {
     },
     isSaveValid() {
       return (
-        !!localStorage.getItem('user') &&
-        !!localStorage.getItem('goldItems') &&
-        JSON.parse(localStorage.getItem('goldItems')).length > 0
+        !!localStorage.getItem("user") &&
+        !!localStorage.getItem("goldItems") &&
+        JSON.parse(localStorage.getItem("goldItems")).length > 0
       );
-    }
+    },
   },
   methods: {
     closeModal() {
@@ -248,31 +370,33 @@ export default {
         // Use await to make sure checkUserByNationalId is called after storing the ID
         await this.checkUserByNationalId();
       } else {
-        console.log('Invalid National ID');
+        console.log("Invalid National ID");
       }
     },
     async checkUserByNationalId() {
       try {
-        const { data: user } = await useMyFetch(`user/check/${this.nationalId}`, {});
+        const { data: user } = await useMyFetch(
+          `user/check/${this.nationalId}`,
+          {}
+        );
 
         if (user.value.national_id != null) {
           this.user = user;
           this.userNotFoundError = false;
 
-          localStorage.setItem('user', JSON.stringify(this.user));
-          this.nationalId = '';
+          localStorage.setItem("user", JSON.stringify(this.user));
+          this.nationalId = "";
 
-          console.log('User found:', this.user);
+          console.log("User found:", this.user);
         } else {
           this.user = null;
           this.userNotFoundError = true;
           // No user found
-          console.log('No user found');
+          console.log("No user found");
         }
-
       } catch (error) {
         // Handle the error, e.g., show an error message
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     },
 
@@ -281,27 +405,39 @@ export default {
       
       const customer_id = this.user.national_id
 
-      const { data: response } = await useMyFetch("examination",
-        {
-          method: "POST",
-          body: { customer_id },
-        }
-      )
+      const loadingModal = document.getElementById("loading-modal");
+      const paymentCompleteModal = document.getElementById(
+        "payment-complete-modal"
+      );
 
-      const examination_id = response.value.id
+      if (loadingModal && paymentCompleteModal) {
+        loadingModal.classList.remove("hidden");
+
+        setTimeout(() => {
+          loadingModal.classList.add("hidden");
+          paymentCompleteModal.classList.remove("hidden");
+        }, 3000);
+      }
+
+      const { data: response } = await useMyFetch("examination", {
+        method: "POST",
+        body: { customer_id },
+      });
+
+      const examination_id = response.value.id;
 
       for (const goldItem of this.goldItems) {
-        const weight = goldItem.weight
-        const purity = goldItem.purity
+        const weight = goldItem.weight;
+        const purity = goldItem.purity;
         let image = goldItem.image; // URL or file data
 
         // Check if the image is a URL
-        if (typeof image === 'string') {
+        if (typeof image === "string") {
           // Download the image from the URL
           const response = await fetch(image);
           if (response.ok) {
             const blob = await response.blob();
-            image = new File([blob], 'image.jpg'); // Create a File from the Blob
+            image = new File([blob], "image.jpg"); // Create a File from the Blob
           } else {
             console.error(`Failed to download image from URL: ${image}`);
             continue; // Skip this gold item if image download fails
@@ -309,18 +445,15 @@ export default {
         }
 
         const formData = new FormData();
-        formData.append('weight', weight);
-        formData.append('purity', purity);
-        formData.append('image', image);
-        formData.append('examination_id', examination_id);
+        formData.append("weight", weight);
+        formData.append("purity", purity);
+        formData.append("image", image);
+        formData.append("examination_id", examination_id);
 
-        await useMyFetch(
-          "gold",
-          {
-            method: "POST",
-            body: formData,
-          }
-        )
+        await useMyFetch("gold", {
+          method: "POST",
+          body: formData,
+        });
       }
 
       modal.classList.remove("hidden");
@@ -337,23 +470,24 @@ export default {
   beforeRouteEnter(to, from, next) {
     // This is a navigation guard that triggers before entering the route
     // You can check if 'user' is present in localStorage and set it in the component's state
-    const user = JSON.parse(localStorage.getItem('user'));
-    const goldItems = JSON.parse(localStorage.getItem('goldItems'));
+    const user = JSON.parse(localStorage.getItem("user"));
+    const goldItems = JSON.parse(localStorage.getItem("goldItems"));
 
     next((vm) => {
       // Set user in the component based on localStorage
-      vm.user = user || '';
-      vm.goldItems = goldItems || '';
+      vm.user = user || "";
+      vm.goldItems = goldItems || "";
     });
   },
   beforeRouteLeave(to, from, next) {
-    if (to.path !== '/gold/create') {
+    if (to.path !== "/gold/create") {
       // Clear the user from localStorage only if not navigating to 'gold/create'
-      localStorage.removeItem('user');
-      localStorage.removeItem('goldItems');
+      localStorage.removeItem("user");
+      localStorage.removeItem("goldItems");
     }
     next();
   },
 
+  // paginate
 };
 </script>

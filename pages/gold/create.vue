@@ -125,7 +125,7 @@
       <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button type="button"
-            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center "
             data-modal-hide="popup-modal" @click="closeModal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -177,6 +177,10 @@ const image_path = ref(null);
 const previewUrl = ref(null);
 const selectedFile = ref(null);
 const dropzone = ref(null);
+
+definePageMeta({
+  middleware: 'authenticated' //Auth checker
+})
 
 const closeModal = () => {
   const modal = document.getElementById("popup-modal");
