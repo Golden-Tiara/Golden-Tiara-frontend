@@ -95,10 +95,10 @@
             <div class="flex -mx-3">
               <div class="w-full px-3 mb-5">
                 <div class="relative z-0 w-full mb-6 group">
-                  <input v-model="nationalId"
+                  <input v-model="national_id"
                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                          placeholder=" " required />
-                  <label for="nationalId"
+                  <label for="national_id"
                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     เลขบัตรประชาชนลูกค้า
                   </label>
@@ -145,10 +145,16 @@
 </template>
 
 <script>
+import { useAuthStore } from '~/stores/useAuthStore';
+
+definePageMeta({
+  middleware: 'authenticated',
+  //Auth checker
+})
 export default {
   data() {
     return {
-      nationalId: '',
+      national_id: '',
       pawn_id: '',
       customerId: '',
       userNotFoundError: false,
@@ -158,7 +164,7 @@ export default {
   },
   computed: {
     isDataValid() {
-      const validNationalId = /^\d{13}$/.test(this.nationalId);
+      const validNationalId = /^\d{13}$/.test(this.national_id);
       const validID = /^[1-9]\d*$/.test(this.pawn_id);
       return validNationalId & validID;
     },
@@ -174,7 +180,7 @@ export default {
       this.customerId = '';
 
       try {
-        const { data: user } = await useMyFetch(`user/check/${this.nationalId}`, {});
+        const { data: user } = await useMyFetch(`user/check/${this.national_id}`, {});
 
         if (user.value.national_id != null) {
           this.userNotFoundError = false;
@@ -192,11 +198,11 @@ export default {
       }
 
       try {
-        const { data: pawn } = await useMyFetch(`pawn/check/${this.pawn_id}`, {});
-        console.error(this.pawn_id);
+        const { data: pawn } = await useMyFetch(`examination/check/${this.pawn_id}`, {});
+        console.log(this.pawn_id);
 
         if (pawn.value.pawn_id != null) {
-          this.customerId = pawn.value.customer_id;
+          this.customerId = pawn.value.national_id;
           this.pawnNotFoundError = false;
 
           console.log('Pawn found:', this.pawn_id);
@@ -212,10 +218,10 @@ export default {
       }
 
       if (!this.userNotFoundError & !this.pawnNotFoundError) {
-        if (this.nationalId == this.customerId) {
+        if (this.national_id == this.customerId) {
           this.dataNotMatchError = false;
 
-          localStorage.setItem('nationalId', this.nationalId);
+          localStorage.setItem('national_id', this.national_id);
           localStorage.setItem('pawn_id', this.pawn_id);
 
           window.location.href = '/pawn/create'
