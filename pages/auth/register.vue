@@ -1312,7 +1312,7 @@ async function onSubmit() {
 
     if (response.success && response.data) {
       imagePath.value = response.data.image_path;
-      auth.setUser(name, surname, national_id, phone_number);
+      auth.setUser(name, national_id, surname, phone_number,image_path,role);
       await navigateTo("/auth/login");
     } else {
       console.log(response);

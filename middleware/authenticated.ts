@@ -7,19 +7,19 @@ export default defineNuxtRouteMiddleware((to, from) => {
   function isAllowedAccess(userRole, routeName) {
     if (routeName === 'examination' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'examination-[id]' && (userRole === 'seller' || userRole === 'owner')) {
+    } else if (routeName === 'examination-id' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     } else if (routeName === 'examination-create' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     } else if (routeName === 'gold' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'gold-[id]' && (userRole === 'seller' || userRole === 'owner')) {
+    } else if (routeName === 'gold-id' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     } else if (routeName === 'gold-create' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     } else if (routeName === 'pawn' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'pawn-[id]' && (userRole === 'seller' || userRole === 'owner')) {
+    } else if (routeName === 'pawn-id' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     } else if (routeName === 'pawn-add' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
@@ -48,6 +48,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     } else if (routeName === 'customer-pawnamount' && userRole === 'customer') {
       return true;
     } else if (routeName === 'ownerandSeller-pawnitemform' && (userRole === 'seller' || userRole === 'owner')) {
+      return true;
+    }else if (routeName === 'auth-me' && (userRole === 'seller' || userRole === 'owner'|| userRole === 'customer')) {
       return true;
     }
 
