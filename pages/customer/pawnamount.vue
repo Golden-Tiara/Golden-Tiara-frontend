@@ -73,25 +73,25 @@
         </thead>
         <tbody>
           <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id"  @click="sortTable(field.key)">
-            <td
+            <td v-if="pawn.customer_id === user.national_id"
               scope="row"
               class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
             <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
             </td>
-            <td class="py-4 text-center">
+            <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_term}}</nuxt-link>
             </td>
-            <td class="py-4 text-center">
+            <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.total_term }}</nuxt-link>
             </td>
-            <td class="py-4 text-center">
+            <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_amount }}</nuxt-link>
             </td>
-            <td class="py-4 text-center text-green-600">
+            <td class="py-4 text-center text-green-600" v-if="pawn.customer_id === user.national_id">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.next_payment }}</nuxt-link>
             </td>
-            <td class="py-4 text-center text-green-600">
+            <td class="py-4 text-center text-green-600" v-if="pawn.customer_id === user.national_id">
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
             </td>    
           </tr>
@@ -107,13 +107,15 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from "~/stores/useAuthStore";
 
-definePageMeta({
-  middleware: 'authenticated' //Auth checker
-})
+// definePageMeta({
+//   middleware: 'authenticated' //Auth checker
+// })
 
 const searchIdDate = ref('');
 const searchIdText = ref('');
 const route = useRoute();
+const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
 const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
 const applyFilter = () => {
   const filteredPawns = pawns.value.filter(pawn => {

@@ -30,7 +30,7 @@
             type="number"
             id="examination-id-search"
             class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-60 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-            placeholder="เลขสัญญตรวจสอบ"
+            placeholder="เลขสัญญาตรวจสอบ"
           />
 
           <!-- Search -->
@@ -266,6 +266,7 @@ const searchIdText2 = ref('');
 const showConfirmationModal = ref(false);
 const route = useRoute();
 
+
 const examinationToDelete = ref<number | null>(null);
 
 const confirmAction = (examinationID: number) => {
@@ -330,18 +331,14 @@ const applyFilter_customerid= () => {
 };
 
 const applyFilter_status = () => {
-  if (searchIdText2.value === '') {
-    // Reload the page if the select field is empty
-    window.location.reload();
-    return; // กลับออกจากฟังก์ชันเพื่อไม่ทำงานขั้นต่อไป
-  }
 
   const filteredExaminations = examinations.value.filter(examination => {
-    // Check if examination status matches the selected status in searchIdText2
     return examination.status === searchIdText2.value;
   });
 
+  // อัพเดตรายการตรวจพร้อมกับข้อมูลที่ถูกกรอง
   examinations.value = filteredExaminations;
+ 
 };
 
 </script>

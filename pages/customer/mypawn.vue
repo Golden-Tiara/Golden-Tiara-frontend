@@ -78,22 +78,22 @@
   
           <tbody>
             <tr class="bg-white border-b border-gold" v-for="pawn of pawns" :key="pawn.id" @click="sortTable(field.key)" >
-              <td
+              <td v-if="pawn.customer_id === user.national_id"
                 scope="row"
                 class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
               <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
               </td>
-              <td class="py-4 text-center">
+              <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
                 <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.customer_id }}</nuxt-link>
               </td>
-              <td class="py-4 text-center">
+              <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
                 <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.status }}</nuxt-link>
               </td>
-              <td class="py-4 text-center">
+              <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
                 <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.contract_date }}</nuxt-link>
               </td>
-              <td class="py-4 text-center text-green-600">
+              <td class="py-4 text-center text-green-600" v-if="pawn.customer_id === user.national_id">
                 <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
               </td>
             </tr>
@@ -109,14 +109,15 @@
   import { useRoute } from 'vue-router';
   import { useAuthStore } from "~/stores/useAuthStore";
   
-  definePageMeta({
-    middleware: 'authenticated' //Auth checker
-  })
+  // definePageMeta({
+  //   middleware: 'authenticated' //Auth checker
+  // })
   
   const searchIdText = ref('');
 const searchIdText1 = ref('');
 const searchIdText2 = ref('');
 const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
  const route = useRoute();  
   const { data: pawns, pending } = await useMyFetch<any>('pawn', {});
   const applyFilter_id= () => {

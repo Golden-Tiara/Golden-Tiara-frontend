@@ -9,6 +9,7 @@ const routes = [
         name: 'PawnAmount',
         component: PawnAmount,
     },
+
 ];
 
 const router = createRouter({

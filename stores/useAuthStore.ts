@@ -10,13 +10,12 @@ export const useAuthStore = defineStore('auth', {
         surname: "",
         phone_number: "",
         image_path: "",
-        role: "", // เพิ่มค่า role ไว้ใน state
+        role:"",
       }
     }
   },
   getters: {
-    isLogin: (state) => state.token !== "",
-    getUserRole: (state) => state.user.role, // เพิ่ม Getter สำหรับการดึงข้อมูล role
+    isLogin: (state) => state.token !== ""
   },
   actions: {
     setNewToken(token: string) {
@@ -26,15 +25,13 @@ export const useAuthStore = defineStore('auth', {
             national_id: string,
             surname: string,
             phone_number: string,
-            image_path: string,
-            role: string) // เพิ่ม role ใน parameter
+            image_path: string)
     {
       this.user.name = name
       this.user.surname = surname
       this.user.national_id = national_id
       this.user.phone_number = phone_number
       this.user.image_path = image_path
-      this.user.role = role // กำหนดค่า role ที่ถูกส่งเข้ามาใน action
     },
     clear() {
       this.token = ''
@@ -43,7 +40,6 @@ export const useAuthStore = defineStore('auth', {
       this.user.national_id = ''
       this.user.phone_number = ''
       this.user.image_path = ''
-      this.user.role = '' // เคลียร์ค่า role เมื่อทำการ clear ข้อมูล
     },
   },
   persist: true
