@@ -3,7 +3,7 @@
     <div class="relative overflow-x-auto">
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
-          <h1 class="text-5xl text-gold">รายการตรวจสอบทอง</h1>
+          <h1 class="text-5xl text-gold">ข้อมูลลูกค้า</h1>
         </div>
 
         <!--user ID Input Box -->
@@ -180,7 +180,7 @@
           <th scope="col" class="px-2 py-4">นามสกุล</th>
           <th scope="col" class="px-2 py-4">หมายเลขโทรศัพท์</th>
           <th scope="col" class="px-2 py-4">ตำแหน่ง</th>
-          <th scope="col" class="px-2 py-4">วันที่สมัคร</th>
+          <th scope="col" class="px-2 py-4">วันที่สร้างบัญชี</th>
           <th scope="col" class="px-2 py-4"></th>
         </tr>
       </thead>
