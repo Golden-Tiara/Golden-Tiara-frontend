@@ -7,7 +7,8 @@
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <div class="mb-3">
             <label for="installment" class="block mb-2 text-sm font-medium text-gray-900">เลือกจำนวนงวดที่จะจ่าย:</label>
-            <select id="installment" v-model="selectedInstallments" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <select id="installment" v-model="selectedInstallments"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
               <option disabled value="">กรุณาเลือกจำนวนงวด</option>
               <option value="1">1 </option>
               <option value="2">2 </option>
@@ -18,7 +19,7 @@
             </select>
           </div>
           <p class="mb-3 font-bold  text-gray-700 text-base">
-            เลขบัตรประชาชนลูกค้า: {{  national_id  }}
+            เลขบัตรประชาชนลูกค้า: {{ national_id }}
           </p>
           <p class="mb-3 font-bold  text-gray-700 text-base">
             จำนวนเงินที่ต้องจ่าย: {{ money }} บาท
@@ -49,7 +50,7 @@
 
     <div class="flex justify-end">
       <button style="background-color: #FA2323;"
-              class="hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex items-center" id="downloadButton">
+        class="hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex items-center" id="downloadButton">
         <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
         </svg>
@@ -57,16 +58,14 @@
       </button>
     </div>
     <div class="flex justify-end">
-    <button
-        @click="saveInstallment"
-        style="background-color: #4CAF50;"
+      <button @click="saveInstallment" style="background-color: #4CAF50;"
         class="hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
         id="saveInstallmentButton">
 
-      <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-      </svg>
-      <span>บันทึกการจ่ายค่างวด</span>
-    </button>
+        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        </svg>
+        <span>บันทึกการจ่ายค่างวด</span>
+      </button>
     </div>
 
     <div class="p-5">
@@ -76,7 +75,7 @@
       <div class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12">
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <p class="mb-3 font-normal text-gray-700 text-base">
-            จำนวนเงินที่จ่ายแล้ว: {{paid_amount}}
+            จำนวนเงินที่จ่ายแล้ว: {{ paid_amount }}
           </p>
           <p class="mb-3 font-bold text-gray-700 text-base ">
             จำนวนงวดที่จ่ายแล้ว: {{ paid_term }}
@@ -95,48 +94,45 @@
     </div>
 
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold">
-         <thead  class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center">
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          รหัส
-        </th>
-        <th scope="col" class="px-6 py-3">
-          ประเภทการจ่าย
-        </th>
-        <th scope="col" class="px-6 py-3">
-          จำนวนงวด
-        </th>
-        <th scope="col" class="px-6 py-3">
-          จำนวนเงิน
-        </th>
-        <th scope="col" class="px-6 py-3">
-          วันเวลาที่จ่าย
-        </th>
-      </tr>
-         </thead>>
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            รหัส
+          </th>
+          <th scope="col" class="px-6 py-3">
+            ประเภทการจ่าย
+          </th>
+          <th scope="col" class="px-6 py-3">
+            จำนวนงวด
+          </th>
+          <th scope="col" class="px-6 py-3">
+            จำนวนเงิน
+          </th>
+          <th scope="col" class="px-6 py-3">
+            วันเวลาที่จ่าย
+          </th>
+        </tr>
+      </thead>
       <tbody>
-      <tr
-          v-for="transaction in transactions"
-          :key="transaction.id"
-
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600  border-b border-gold"
-      >
-        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-          {{ transaction.id }}
-        </td>
-        <td class="px-6 py-4 text-center">
-          {{ transaction.type }}
-        </td>
-        <td class="px-6 py-4 text-center">
-          {{ transaction.term  }}
-        </td>
-        <td class="px-6 py-4 text-center">
-          {{ transaction.amount}}
-        </td>
-        <td class="px-6 py-4 text-center">
-          {{ transaction.transaction_dateTime }}
-        </td>
-      </tr>
+        <tr v-for="(transaction, index) in transactions2" :key="index"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600  border-b border-gold">
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+            {{ transaction.id }}
+          </td>
+          <td class="px-6 py-4 text-center">
+            {{ transaction.type }}
+          </td>
+          <td class="px-6 py-4 text-center">
+            {{ transaction.term }}
+          </td>
+          <td class="px-6 py-4 text-center">
+            {{ transaction.amount }}
+          </td>
+          <td class="px-6 py-4 text-center">
+            {{ transaction.transaction_dateTime }}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -160,11 +156,9 @@ const paid_amount = ref<number>(0);
 const paid_term = ref<number>(0);
 const next_payment = ref<string>('');
 const selectedInstallments = ref<number>(0);
-const { data: transactions } = await useMyFetch<any>("transaction",
-    {
-});
 
 const transactions1 = ref([]);
+const transactions2 = ref([]);
 
 
 const authStore = useAuthStore();
@@ -241,8 +235,18 @@ onMounted(async () => {
     const { data: pawn } = await useMyFetch(`pawn/${pawnID.value}`);
     console.log(pawn);
   }
+  
+  const pawn_id = pawnID.value;
+  console.log("pawn_id", pawn_id)
+  const { data: transactions } = await useMyFetch(`/transaction/check/${pawn_id}`, {});
+  transactions1.value = transactions;
 
+  console.log("transaction")
+  console.log(transactions1.value.value)
+
+  transactions2.value = transactions1.value.value;
 });
+
 
 // Computed property for money calculation
 const money = computed(() => {
@@ -272,10 +276,10 @@ const saveInstallment = async () => {
       body: payload
     });
     console.log(payload);
-      paid_amount.value = payload.paidAmount;
-      console.log(paid_amount)
-      paid_term.value = payload.paidTerm;
-      next_payment.value = payload.nextPayment;
+    paid_amount.value = payload.paidAmount;
+    console.log(paid_amount)
+    paid_term.value = payload.paidTerm;
+    next_payment.value = payload.nextPayment;
 
     console.log('Update successful:', response);
 
@@ -288,5 +292,7 @@ const saveInstallment = async () => {
 definePageMeta({
   middleware: 'authenticated', // Auth checker
 });
+
+
 </script>
 
