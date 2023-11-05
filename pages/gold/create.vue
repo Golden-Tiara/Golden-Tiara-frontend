@@ -255,7 +255,13 @@ const updatePurity = (event) => {
 const onSubmit = async () => {
   const { weight, purity } = formData;
   const modal = document.getElementById("popup-modal");
-
+  const customer_id = this.user.national_id;
+  const  pawn_id = this.gold.pawn_id;
+  const { data: response } = await useMyFetch("gold", {
+    method: "POST",
+    body: { customer_id,
+      pawn_id},
+  });
   Object.keys(errorMessage).forEach((key) => {
     errorMessage[key] = "";
   });
