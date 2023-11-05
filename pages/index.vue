@@ -51,7 +51,7 @@
       </div>
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold">เชื่อถือได้</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-semibold">เชื่อถือได้</h1>
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
     >
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold">สอบถามสะดวก</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">สอบถามสะดวก</h1>
       </div>
       <!--image-->
       <div>
@@ -95,7 +95,7 @@
       </div>
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold">ดีลง่าย จ่ายไว</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">ดีลง่าย จ่ายไว</h1>
       </div>
     </div>
   </div>
@@ -110,7 +110,7 @@
     >
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold">ชำระผ่าน QR</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">ชำระผ่าน QR</h1>
       </div>
       <!--image-->
       <div>
