@@ -61,15 +61,18 @@
             ประวัติการจ่ายค่างวด
           </button>
         </li>
-        <li role="presentation">
+        <li role="presentation"
+            id="contacts-tab-slide"           
+            class="mr-2 relative font-normal text w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-gold after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
           <button
-            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gold hover:border-gold"
+          class="inline-block p-4 rounded-t-lg hover:text-gold"
             id="contacts-tab"
             data-tabs-target="#contacts"
             type="button"
             role="tab"
             aria-controls="contacts"
             aria-selected="false"
+            @click="contactsTabs"
           >
             Contacts
           </button>
@@ -83,58 +86,68 @@
         role="tabpanel"
         aria-labelledby="profile-tab"
       >
-        <div class="flex justify-center mt-10">
+        <div class="flex justify-center mt-6">
           <div
-            class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
+           id="pdf-content"
+          
+            class="flex flex-col items-center  bg-white border border-darkgold  shadow md:flex-row md:w-[270px]"
           >
             <!-- Pawn data -->
-            <div class="p-4 ml-7 leading-normal">
-              <p class="mb-3 font-normal text-gray-700 text-base">
+            <div class="p-4  leading-normal">
+              <p class="mb-3 font-normal text-gray-700 text-[8px]">
                 เลขบัตรประชาชนลูกค้า:
-                <span class="text-gold">{{ pawn.customer_id }}</span>
+                <span class="text-gold text-[8px]">{{ pawn.customer_id }}</span>
               </p>
-              <div class="flex justify-between w-[500px]">
+              <div class="flex justify-evenly text-center  w-[250px] ">
                 <div>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    เลขสัญญาจำนำทอง: {{ pawn.id }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    เลขสัญญาจำนำทอง
+                    <p>{{ pawn.id }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    วันเซ็นสัญญา: {{ pawn.contract_date }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    วันเซ็นสัญญา
+                    <p>{{ pawn.contract_date }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
                     ราคาจำนำทอง:
-                    <span class="text-green-500">{{ pawn.loan_amount }}</span>
+                    <p class="text-green-500">{{ pawn.loan_amount }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-base">
+                  <p class="mb-3 font-normal text-[8px]">
                     จำนวนงวด:
-                    <span class="text-purple-500">{{ pawn.total_term }}</span>
+                    <p class="text-purple-500">{{ pawn.total_term }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    รูปแบบการรับเงินจำนำ: {{ pawn.shop_payout_type }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    รูปแบบการรับเงินจำนำ: 
+                    <p>{{ pawn.shop_payout_type }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    เลขบัญชีรับเงินจำนำ: {{ pawn.customer_account }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    เลขบัญชีรับเงินจำนำ: 
+                    <p>{{ pawn.customer_account }}</p>
                   </p>
                 </div>
                 <div>
-                  <p class="mb-3 font-bold text-gray-700 text-base">
-                    เลขสัญญาตรวจสอบทอง: {{ pawn.examination_id }}
+                  <p class="mb-3 font-bold text-gray-700 text-[8px]">
+                    เลขสัญญาตรวจสอบทอง
+                    <p>{{ pawn.examination_id }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    วันสิ้นสุดสัญญา: {{ pawn.expiry_date }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    วันสิ้นสุดสัญญา 
+                    <p>{{ pawn.expiry_date }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    อัตราดอกเบี้ย:
-                    <span class="text-blue-500">{{ pawn.interest_rate }}</span>
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    อัตราดอกเบี้ย
+                    <p class="text-blue-500">{{ pawn.interest_rate }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    ค่าปรับ: <span class="text-red-500">{{ pawn.fine }}</span>
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    ค่าปรับ <p class="text-red-500">{{ pawn.fine }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    สถานะการรับเงินจำนำ: {{ pawn.shop_payout_status }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    สถานะการรับเงินจำนำ 
+                    <p>{{ pawn.shop_payout_status }}</p>
                   </p>
-                  <p class="mb-3 font-normal text-gray-700 text-base">
-                    สถานะการจำนำ: {{ pawn.status }}
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    สถานะการจำนำ: 
+                    <p>{{ pawn.status }}</p>
                   </p>
                 </div>
               </div>
@@ -145,6 +158,7 @@
           <button
             class="bg-darkblue text-white font-bold py-2 px-4 rounded inline-flex items-center hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
             id="downloadButton"
+            @click="downloadPDF"
           >
             <svg
               class="fill-current w-4 h-4 mr-2"
@@ -170,18 +184,18 @@
           <div
             class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
           >
-            <div class="flex flex-col justify-between px-4 py-8 ml-7 leading-normal">
-              <p class="mb-3 font-normal text-gray-700 text-base">
+            <div class="flex flex-col justify-between px-4 py-8 ml-7 leading-normal text-lg">
+              <p class="mb-3 font-normal text-gray-700 ">
                 จำนวนเงินที่จ่ายแล้ว:
-                <span class="text-green-500">{{ pawn.paid_amount }}</span>
+                <span class="text-green-500 text-lg">{{ pawn.paid_amount }}</span>
               </p>
-              <p class="mb-3 font-bold text-gray-700 text-base">
+              <p class="mb-3 font-bold text-gray-700 ">
                 จำนวนงวดที่จ่ายแล้ว:
-                <span class="text-purple-500">{{ pawn.paid_term }}</span>
+                <span class="text-purple-500 text-lg">{{ pawn.paid_term }}</span>
               </p>
-              <p class="mb-3 font-normal text-gray-700 text-base">
+              <p class="mb-3 font-normal text-gray-700 ">
                 วันจ่ายค่างวดครั้งถัดไป:
-                <span class="text-blue-500">{{ pawn.next_payment }}</span>
+                <span class="text-blue-500 text-lg">{{ pawn.next_payment }}</span>
               </p>
             </div>
           </div>
@@ -233,7 +247,7 @@
               :key="transaction.id"
             >
               <td
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  text-center"
               >
                 {{ transaction.id }}
               </td>
@@ -289,86 +303,79 @@
         </div>
       </div>
       <div
-        class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+        class="hidden p-4 rounded-lg bg-gray-50 h-[500px] dark:bg-gray-800"
         id="contacts"
         role="tabpanel"
         aria-labelledby="contacts-tab"
       >
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-          This is some placeholder content the
-          <strong class="font-medium text-gray-800 dark:text-white"
-            >Contacts tab's associated content</strong
-          >. Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
-        </p>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap justify-start gap-10 mt-10">
-      <div v-for="gold of pawn.golds" :key="gold.id">
-        <div
-          class="max-w-sm flex-none bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+      <table
+          class="w-4/6 mx-auto mt-6 text-xs text-left text-gray-500 border border-gold mb-6"
         >
-          <a href="#">
-            <img
-              v-if="gold.image_path"
-              class="rounded-t-lg max-h-72 w-72 dark:bg-gray-800"
-              :src="`http://localhost/images/gold/${gold.image_path}`"
-              alt=""
-            />
-            <img
-              v-else
-              class="rounded-t-lg max-h-72 w-72 dark:bg-gray-800"
-              src="@/assets/images/gold-default.png"
-              alt=""
-            />
-          </a>
-          <div class="p-5">
-            <a href="#">
-              <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-              >
-                {{ gold.id }}
-              </h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              น้ำหนักทอง: {{ gold.weight }}
-            </p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              ความบริสุทธ์: {{ gold.purity }}
-            </p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              สถานะ: {{ gold.status }}
-            </p>
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold text-center"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">รหัส</th>
+              <th scope="col" class="px-6 py-3">น้ำหนัก</th>
+              <th scope="col" class="px-6 py-3">ความบริสุทธิ์</th>
+              <th scope="col" class="px-6 py-3">สถานะ</th>
+            </tr>
+          </thead>
 
-            <nuxt-link :to="`/gold/${gold.id}`">
-              <a
-                href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          <tbody>
+            <tr
+              class="bg-white hover:bg-gray-50 border-b border-gold w-full"
+              v-for="gold of pawn.golds"
+              :key="gold.id"
+            >
+              <td
+                scope="row"
+                class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                เลือก
-                <svg
-                  class="w-3.5 h-3.5 ml-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </a>
-            </nuxt-link>
-          </div>
-        </div>
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.id }}
+                </nuxt-link>
+              </td>
+
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.weight }}
+                </nuxt-link>
+              </td>
+
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  {{ gold.purity }}
+                </nuxt-link>
+              </td>
+              <td class="py-4 text-center">
+                <nuxt-link :to="`/gold/${gold.id}`">
+                  <span
+                    v-if="gold.status === 'examining'"
+                    class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                  >
+                    {{ gold.status }}
+                  </span>
+                  <span
+                    v-if="gold.status === 'verified'"
+                    class="p-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                  >
+                    {{ gold.status }} </span
+                  ><span
+                    v-if="gold.status === 'unverified'"
+                    class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
+                  >
+                    {{ gold.status }}
+                  </span>
+                </nuxt-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+
+   
     <QrPayment></QrPayment>
   </div>
 </template>
@@ -377,13 +384,20 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 import useMyFetch from "~/composables/useMyFetch";
 import { ref, computed } from "vue"; // นำเข้า ref และ computed
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf"; 
 
 const page = ref(1); // เพิ่ม ref สำหรับ page
 const perPage = ref(6); // เพิ่ม ref สำหรับ perPage
+const selectedTab = ref(""); // เพิ่ม ref สำหรับการเก็บ Tab ที่ถูกเลือก
 
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });
+
+const route = useRoute();
+const { data: pawn } = await useMyFetch<any>(`pawn/${route.params.id}`, {});
+  const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});
 
 const qrPayment = function () {
   const qrPayment = document.getElementById("qr-payment-modal");
@@ -400,7 +414,26 @@ const paginatedTranactions = computed(() => {
   }
 });
 
-const selectedTab = ref(""); // เพิ่ม ref สำหรับการเก็บ Tab ที่ถูกเลือก
+const downloadPDF = async () => {
+  const content = document.getElementById("pdf-content");
+
+  const canvas = await html2canvas(content, {
+    scale: 4, // Adjust scale as needed, e.g., 2 for higher resolution
+    dpi: window.devicePixelRatio * 150, // Adjust DPI for higher quality
+  });
+
+  const pdf = new jsPDF("p", "mm", "a4"); // Create a new PDF document
+
+  const imgData = canvas.toDataURL("image/png", 1); // Use quality parameter to prevent compression
+
+  pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // Add the canvas as an image
+
+  const pawnId = pawn.value.id; // Get the pawn id
+
+  pdf.save(`เลขสัญญาจำนำทอง_${pawnId}.pdf`); // Save the PDF with pawn id
+};
+
+
 
 
 const profileTabs = function () {
@@ -410,6 +443,8 @@ const profileTabs = function () {
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
   const settingTab = document.getElementById("settings-tab");
   const settingTabSlide = document.getElementById("settings-tab-slide");
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
 
   dashboardTabSlide?.classList.add(
     "relative",
@@ -465,10 +500,31 @@ const profileTabs = function () {
     "after:duration-300",
     "after:origin-center"
   );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
   profileTab?.classList.remove("border-b-2", "border-gold");
   profileTab?.classList.add("text-gold", "border-b-2", "border-gold");
   dashboardTab?.classList.remove('border-b-2')
   settingTab?.classList.remove('border-b-2')
+  contactTab?.classList.remove('border-b-2')
 };
 
 const dashboardTabs = function () {
@@ -478,6 +534,8 @@ const dashboardTabs = function () {
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
   const settingTab = document.getElementById("settings-tab");
   const settingTabSlide = document.getElementById("settings-tab-slide");
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
 
   profileTabSlide?.classList.add(
     "relative",
@@ -533,9 +591,29 @@ const dashboardTabs = function () {
     "after:duration-300",
     "after:origin-center"
   );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
   dashboardTab?.classList.add("text-gold", "border-b-2", "border-gold");
   profileTab?.classList.remove('border-b-2')
   settingTab?.classList.remove('border-b-2')
+  contactTab?.classList.remove('border-b-2')
 
 };
 
@@ -546,6 +624,8 @@ const settingsTabs = function () {
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
   const settingTab = document.getElementById("settings-tab");
   const settingTabSlide = document.getElementById("settings-tab-slide");
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
 
   dashboardTabSlide?.classList.add(
     "relative",
@@ -602,13 +682,125 @@ const settingsTabs = function () {
     "after:duration-300",
     "after:origin-center"
   );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
   
-  settingTab?.classList.add("text-gold", "border-b-2", "border-gold");
   profileTab?.classList.remove('border-b-2')
   dashboardTab?.classList.remove('border-b-2')
+  contactTab?.classList.remove('border-b-2')
+  settingTab?.classList.add("text-gold", "border-b-2", "border-gold")
 };
 
-const route = useRoute();
-const { data: pawn } = await useMyFetch<any>(`pawn/${route.params.id}`, {});
+const contactsTabs = function () {
+  const profileTab = document.getElementById("profile-tab");
+  const profiletabSlide = document.getElementById("profile-tab-slide");
+  const dashboardTab = document.getElementById("dashboard-tab");
+  const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+  const settingTab = document.getElementById("settings-tab");
+  const settingTabSlide = document.getElementById("settings-tab-slide");
+  const contactTab = document.getElementById("contacts-tab");
+  const contactTabSlide = document.getElementById("contacts-tab-slide");
+
+
+
+  dashboardTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+  profiletabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  settingTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  contactTabSlide?.classList.remove(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+  
+  contactTab?.classList.add("text-gold", "border-b-2", "border-gold")
+  profileTab?.classList.remove('border-b-2')
+  dashboardTab?.classList.remove('border-b-2')
+  settingTab?.classList.remove('border-b-2')
+};
+
+
 console.log(pawn);
 </script>

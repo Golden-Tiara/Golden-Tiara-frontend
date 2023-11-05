@@ -137,7 +137,7 @@
     <div class="flex justify-center mb-20">
       <button
         @click="downloadPDF"
-        class="px-6 py-2 bg-gold text-gray-100 rounded-lg text-xl mx-auto"
+        class="px-6 py-2 bg-darkblue text-gray-100 rounded-lg text-xl mx-auto hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none "
       >
         ดาวโหลดPDF
       </button>
@@ -148,7 +148,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
 import html2canvas from "html2canvas";
-import jsPDF from "jspdf"; // Add this import statement
+import jsPDF from "jspdf"; 
 
 const route = useRoute();
 const { data: examination } = await useMyFetch<any>(
@@ -163,24 +163,23 @@ definePageMeta({
 const downloadPDF = async () => {
   const content = document.getElementById("pdf-content");
   const goldenTiara = document.getElementById("golden-tiara-icons");
-  const examinationStatus = document.getElementById("examination-status")
+
 
   goldenTiara?.classList.add("mt-6");
-  examinationStatus?.classList.remove('')
-  examinationStatus?.classList.add('')
 
   const canvas = await html2canvas(content, {
     scale: 4, // Adjust scale as needed, e.g., 2 for higher resolution
-    dpi: window.devicePixelRatio * 1200, // Adjust DPI for higher quality
+    dpi: window.devicePixelRatio * 300, // Adjust DPI for higher quality
   });
 
   const pdf = new jsPDF("p", "mm", "a4"); // Create a new PDF document
 
-  const imgData = canvas.toDataURL("image/png", 0.6); // Use quality parameter to prevent compression
+  const imgData = canvas.toDataURL("image/png", 1); // Use quality parameter to prevent compression
 
   pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // Add the canvas as an image
+  const examinationId = examination.value.id; // Get the pawn id
 
-  pdf.save("golden_tiara.pdf"); // Save the PDF
+  pdf.save(`เลขสัญญาตรวจสอบทอง_${examinationId}.pdf`);
   goldenTiara?.classList.remove("mt-6");
 
 };
