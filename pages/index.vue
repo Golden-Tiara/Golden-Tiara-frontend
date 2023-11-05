@@ -37,8 +37,7 @@
   <!--      Certification-->
   <div class="mt-20">
     <!--    Container-->
-    <div 
-      id="content"
+    <div
       class="flex justify-around rounded-lg "
       v-motion-pop-visible-once
       :delay="300"
