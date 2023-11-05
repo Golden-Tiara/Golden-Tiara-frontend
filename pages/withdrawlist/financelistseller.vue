@@ -1,156 +1,70 @@
 <template>
-  <div class="max-w-7xl mx-auto px-10 mt-20">
-    <div class="mb-10">
-      <input
-        v-model="search"
-        type="text"
-        placeholder="Search..."
-        @input="applyFilter"
-        class="border border-gold p-2 rounded"
-      />
-    </div>
-
-    <div class="overflow-x-auto">
-      <table
-        class="w-full text-left border-collapse border border-gold rounded-lg"
-      >
-        <thead>
-          <tr>
-           <th v-for="field in fields" :key="field.key" @click="sortTable(field.key)" class="border border-red-500 py-3 bg-gold-100 text-center font-semibold">
-          {{ field.label }}
-          <img
-          v-if="sortKey === field.key || !sortKey"
-            :src="sortOrder === 'asc' ? downSvg : upSvg"
-            alt="Sort Order"
-            class="inline-block w-4 h-4"
-          />
-        </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item in paginatedData"
-            :key="item.contractCode"
-            class="border text-center border-gold hover:bg-gray-100"
-          >
-            <td class="p-3">{{ item.contractCode }}</td>
-            <td>{{ item.loanNumber }}</td>
-            <td>{{ item.employeeId }}</td>
-            <td>{{ item.amount }}</td>
-            <td>{{ item.status }}</td>
-            <td>{{ item.withdrawalTime }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="pagination mt-4 flex">
-      <button
-        @click="page--"
-        :disabled="page <= 1"
-        class="mr-2 bg-gold1-400 text-white px-4 py-2 rounded disabled:bg-gold1-300 disabled:text-black disabled:cursor-not-allowed"
-      >
-        Prev
-      </button>
-      <button
-        @click="page++"
-        :disabled="page >= pageCount"
-        class="bg-gold1-400 text-white px-4 py-2 rounded disabled:bg-gold1-300 disabled:text-black disabled:cursor-not-allowed"
-      >
-        Next
-      </button>
-    </div>
+  <div class="p-5">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">ประวัติการเบิกเงินของฉัน</h5>
   </div>
+
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold">
+    <thead  class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center">
+    <tr>
+      <th scope="col" class="px-6 py-3">
+        รหัส
+      </th>
+      <th scope="col" class="px-6 py-3">
+        เลขสัญญาจำนำ
+      </th>
+      <th scope="col" class="px-6 py-3">
+        รหัสพนักงาน
+      </th>
+      <th scope="col" class="px-6 py-3">
+        จำนวนเงิน
+      </th>
+      <th scope="col" class="px-6 py-3">
+        สถานะ
+      </th>
+      <th scope="col" class="px-6 py-3">
+        วันเวลาที่จ่าย
+      </th>
+    </tr>
+    </thead>>
+    <tbody>
+    <tr
+        v-for="transaction in transactions"
+        :key="transaction.id"
+
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600  border-b border-gold"
+    >
+      <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+        {{ transaction.id }}
+      </td>
+      <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+        {{ transaction.pawn_id }}
+      </td>
+      <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+        {{ transaction.created_by }}
+      </td>
+      <td class="px-6 py-4 text-center">
+        {{ transaction.amount }}
+      </td>
+      <td class="px-6 py-4 text-center">
+        {{ transaction.status  }}
+      </td>
+      <td class="px-6 py-4 text-center">
+        {{ transaction.transaction_dateTime }}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 
-<script >
+<script setup lang="ts">
 import upSvg from "@/assets/images/icons/up.svg";
 import downSvg from "@/assets/images/icons/down.svg";
 import { useAuthStore } from '~/stores/useAuthStore';
+const { data: transactions } = await useMyFetch<any>("transaction",
+    {
+    });
 definePageMeta({
   middleware: 'authenticated' //Auth checker
 })
-export default {
-  data() {
-    return {
-      upSvg,
-      downSvg,
-      search: "",
-      sortKey: "",
-      sortOrder: "asc",
-      page: 1,
-      perPage: 10,
-      fields: [
-        { key: "contractCode", label: "รหัสสัญญา" },
-        { key: "loanNumber", label: "เลขสัญญาจำนำ" },
-        { key: "employeeId", label: "รหัสพนักงาน" },
-        { key: "amount", label: "จำนวนเงิน" },
-        { key: "status", label: "สถานะ" },
-        { key: "withdrawalTime", label: "วันเวลาเบิก" },
-      ],
-      withdrawals: [
-        {
-          contractCode: "001",
-          loanNumber: "LN-123",
-          employeeId: "E-001",
-          amount: 5000,
-          status: "Approved",
-          withdrawalTime: "2023-10-01 10:00",
-        },
-      ],
-    };
-  },
-  setup() {
-    let auth;
-    onMounted(() => {
-      auth = useAuthStore();
-    });
-    return {};
-  },
-  computed: {
-    filteredData() {
-      return this.withdrawals.filter((item) => {
-        return Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(this.search.toLowerCase())
-        );
-      });
-    },
-    sortedData() {
-      return this.filteredData.sort((a, b) => {
-        let modifier = 1;
-        if (this.sortOrder === "desc") modifier = -1;
-        if (a[this.sortKey] < b[this.sortKey]) return -1 * modifier;
-        if (a[this.sortKey] > b[this.sortKey]) return 1 * modifier;
-        return 0;
-      });
-    },
-    paginatedData() {
-      let start = (this.page - 1) * this.perPage;
-      let end = start + this.perPage;
-      return this.sortedData.slice(start, end);
-    },
-    pageCount() {
-      return Math.ceil(this.sortedData.length / this.perPage);
-    },
-  },
-  methods: {
-    applyFilter() {
-      this.page = 1; // Reset to first page on filter change
-    },
-    sortTable(key) {
-      if (this.sortKey === key) {
-        this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
-      } else {
-        this.sortKey = key;
-        this.sortOrder = "asc";
-      }
-    },
-  },
-};
-</script>
 
-<style scoped>
-.pagination button {
-  margin-right: 5px;
-}
-</style>
+</script>
