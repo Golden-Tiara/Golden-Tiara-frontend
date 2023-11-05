@@ -85,9 +85,6 @@
         </button>
       </form>
 
-
-
-
       <div>
         <div ref="modal" id="popup-modal" tabindex="-1"
           class="hidden bg-gray-500 bg-opacity-60 flex justify-center items-center fixed top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -185,14 +182,7 @@ export default {
     }
 
     onBeforeRouteLeave((to, from, next) => {
-      // localStorage.removeItem('nationalId');
-      // localStorage.removeItem('examinationId');
-      // localStorage.removeItem('examination');
-      // localStorage.removeItem('loanCalculate');
-      // localStorage.removeItem('interest');
-
       window.removeEventListener('beforeunload', () => {
-        // Cleanup logic (if any)
       });
 
       // Continue navigating to the next route
@@ -298,15 +288,5 @@ export default {
       }
     },
   },
-
-  // beforeRouteLeave(to, from, next) {
-  //     localStorage.removeItem('nationalId');
-  //     localStorage.removeItem('examinationId');
-  //     localStorage.removeItem('examination');
-  //     localStorage.removeItem('loanCalculate');
-  //     localStorage.removeItem('interest');
-
-  //   next();
-  // },
 };
 </script>

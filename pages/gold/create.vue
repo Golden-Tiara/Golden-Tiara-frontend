@@ -84,13 +84,17 @@
               <div class="flex -mx-3">
                 <div class="w-full px-3">
                   <label for="purity" class="text-xs font-semibold px-1">ความบริสุทธิ์</label>
-                  <div class="flex">
-                    <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                      <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
-                    </div>
-                    <input v-model="formData.purity" type="number" id="purity" @input="updatePurity"
-                      class="w-full -ml-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500" />
-                  </div>
+
+                  <select id="purity" v-model="formData.purity" @input="updatePurity"
+                    class="px-3 py-2 bg-white rounded-lg border-2 border-gray-200 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                    <option disabled value="">ความบริสุทธิ์</option>
+                    <option value="99.99">99.99%</option>
+                    <option value="96.5">96.5%</option>
+                    <option value="90">90%</option>
+                    <option value="80">80%</option>
+                    <option value="50">50%</option>
+                    <option value="40">40%</option>
+                  </select>
                 </div>
               </div>
               <p v-if="errorMessage.purity" class="text-red-500">
