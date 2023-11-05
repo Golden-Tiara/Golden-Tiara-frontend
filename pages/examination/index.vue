@@ -32,9 +32,9 @@
           </nuxt-link>
         </div>
 
-        <!-- Search -->
+        <!--examination ID Input Box -->
         <div class="flex mt-20 mb-5">
-          <!-- Citizen ID Input Box -->
+          <!-- Search -->
           <input
             v-model="searchIdText"
             @input="applyFilter_id"
@@ -44,6 +44,7 @@
             placeholder="เลขสัญญตรวจสอบ"
           />
 
+          <!-- Search -->
           <!-- Customer ID Input -->
           <input
             v-model="searchIdText1"
@@ -54,13 +55,12 @@
             placeholder="เลขบัตรประชาชน"
           />
 
-          <!-- Date sort -->
           <select
             v-model="searchIdText2"
             @change="applyFilter_status"
             type="string"
             id="status-id-search"
-            class="ml-4 px-4 border-2 rounded-lg border-gold text-gray-500 w-50"
+            class="ml-4 px-4 border-2 rounded-lg border-gold w-50"
           >
             <option value="" disabled selected hidden>กรุณาเลือกสถานะ</option>
             <option value="inprogress">inprogress</option>
@@ -69,7 +69,7 @@
           <div
             class="flex ml-4 px-4 py-2 bg-darkblue text-white hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
           >
-            <button @click="sortExaminationsByDate" class="flex items-center">
+            <button @click="sortExaminationByDate" class="flex items-center">
               <span id="date-sort">กดเพื่อเรียงวันที่</span>
 
               <span id="less-to-more" class="flex hidden px-1">
@@ -113,7 +113,6 @@
               </span>
             </button>
           </div>
-          <!-- End date sort -->
         </div>
       </div>
 
@@ -214,7 +213,7 @@
 
     <!-- Table -->
     <table
-      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-6"
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold"
     >
       <thead
         class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center"
@@ -223,6 +222,7 @@
           <th scope="col" class="px-6 py-4">เลขสัญญา</th>
           <th scope="col" class="px-6 py-4">เลขบัตรประชาชน</th>
           <th scope="col" class="px-6 py-4">วันที่เซ็นสัญญา</th>
+          <th scope="col" class="px-6 py-4">สถานะการตรวจสอบ</th>
           <th scope="col" class="px-6 py-4">สถานะการตรวจสอบ</th>
         </tr>
       </thead>
@@ -247,64 +247,168 @@
             }}</nuxt-link>
           </td>
           <td class="py-4 text-center">
-            <nuxt-link :to="`/examination/${examination.id}`">
-              {{
-                new Date(examination.contract_date).toLocaleDateString(
-                  "th-TH",
-                  {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  }
-                )
-              }}
-            </nuxt-link>
+            <nuxt-link :to="`/examination/${examination.id}`">{{
+              new Date(examination.contract_date).toLocaleDateString("th-TH", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+            }}</nuxt-link>
           </td>
           <td class="py-4 text-center">
-            <nuxt-link :to="`/examination/${examination.id}`">
-              <span
-                v-if="examination.status === 'inprogress'"
-                class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
-              >
-                {{ examination.status }}
-              </span>
-              <span
-                v-else
-                class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
-              >
-                {{ examination.status }}
-              </span>
-            </nuxt-link>
+            <span
+              v-if="examination.status === 'inprogress'"
+              class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+            >
+              {{ examination.status }}
+            </span>
+            <span
+              v-else
+              class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+            >
+              {{ examination.status }}
+            </span>
           </td>
+          <td class="px-6 text-center py-4">
+            <a
+              data-modal-target="popup-modal-remove"
+              data-modal-toggle="popup-modal-remove"
+              href="#"
+              class="font-medium text-red-600 dark:text-red-500 hover:underline"
+              @click="confirmAction(examination.id)"
+              >Remove</a
+            >
+          </td>
+          <!-- popup modal -->
+
+          <div
+            id="popup-modal-remove"
+            tabindex="-1"
+            class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+          >
+            <div
+              v-if="showConfirmationModal"
+              class="relative w-full max-w-md max-h-full"
+            >
+              <div class="relative bg-white rounded-lg shadow">
+                <button
+                  type="button"
+                  class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="popup-modal-remove"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-6 text-center">
+                  <svg
+                    class="mx-auto mb-4"
+                    width="50px"
+                    height="50px"
+                    viewBox="0 0 117 117"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    fill="#000000"
+                    stroke="#000000"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <title></title>
+                      <desc></desc>
+                      <defs></defs>
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        id="Page-1"
+                        stroke="none"
+                        stroke-width="1"
+                      >
+                        <g fill-rule="nonzero" id="cancel">
+                          <path
+                            d="M58.5,116.6 C90.5,116.6 116.6,90.6 116.6,58.5 C116.6,26.4 90.5,0.4 58.5,0.4 C26.5,0.4 0.4,26.5 0.4,58.5 C0.4,90.5 26.5,116.6 58.5,116.6 Z M58.5,8.6 C86,8.6 108.4,31 108.4,58.5 C108.4,86 86,108.4 58.5,108.4 C31,108.4 8.6,86 8.6,58.5 C8.6,31 31,8.6 58.5,8.6 Z"
+                            fill="#4A4A4A"
+                            id="Shape"
+                          ></path>
+                          <path
+                            d="M36.7,79.7 C37.5,80.5 38.5,80.9 39.6,80.9 C40.7,80.9 41.7,80.5 42.5,79.7 L58.5,63.7 L74.5,79.7 C75.3,80.5 76.3,80.9 77.4,80.9 C78.5,80.9 79.5,80.5 80.3,79.7 C81.9,78.1 81.9,75.5 80.3,73.9 L64.3,57.9 L80.3,41.9 C81.9,40.3 81.9,37.7 80.3,36.1 C78.7,34.5 76.1,34.5 74.5,36.1 L58.5,52.1 L42.5,36.1 C40.9,34.5 38.3,34.5 36.7,36.1 C35.1,37.7 35.1,40.3 36.7,41.9 L52.7,57.9 L36.7,73.9 C35.1,75.5 35.1,78.1 36.7,79.7 Z"
+                            fill="#ff0000"
+                            id="Shape"
+                          ></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  <h3
+                    class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                  >
+                    ยืนยันการลบรายการชิ้นนี้หรือไม่?
+                  </h3>
+                  <button
+                    data-modal-hide="popup-modal-remove"
+                    type="button"
+                    @click="deleteConfirmed"
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-6 py-2.5 text-center mr-2"
+                  >
+                    ยืนยัน
+                  </button>
+                  <button
+                    @click="cancelAction"
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                  >
+                    ยกเลิก
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </tr>
       </tbody>
     </table>
-
-    <div class="flex items-center justify-center mb-14">
-      <button
-        @click="page--"
-        :disabled="page <= 1"
-        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
-        :class="{
-          'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
-            page <= 1,
-        }"
-      >
-        หน้าก่อน
-      </button>
-      <button
-        @click="page++"
-        :disabled="page >= Math.ceil(examinations.length / perPage)"
-        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
-        :class="{
-          'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
-            page >= Math.ceil(examinations.length / perPage),
-        }"
-      >
-        หน้าถัดไป
-      </button>
-    </div>
   </section>
+  <div class="flex items-center justify-center mb-14 mt-6">
+    <button
+      @click="page--"
+      :disabled="page <= 1"
+      class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+      :class="{
+        'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+          page <= 1,
+      }"
+    >
+      หน้าก่อน
+    </button>
+
+    <button
+      @click="page++"
+      :disabled="page >= Math.ceil(examinations.length / perPage)"
+      class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+      :class="{
+        'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+          page >= Math.ceil(examinations.length / perPage),
+      }"
+    >
+      หน้าถัดไป
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -312,19 +416,22 @@ import useMyFetch from "~/composables/useMyFetch";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
-const page = ref(1); // เพิ่ม ref สำหรับ page
-const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
-const sortOrder = ref("less");
 const searchIdDate = ref("");
 const searchIdText = ref("");
 const searchIdText1 = ref("");
 const searchIdText2 = ref("");
+const page = ref(1); // เพิ่ม ref สำหรับ page
+const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
+const sortOrder = ref("less");
+const showConfirmationModal = ref(false);
 const route = useRoute();
 
-const { data: examinations, pending } = await useMyFetch<any>(
-  "examination",
-  {}
-);
+const examinationToDelete = ref<number | null>(null);
+
+const confirmAction = (examinationID: number) => {
+  examinationToDelete.value = examinationID;
+  showConfirmationModal.value = true;
+};
 
 const paginatedExaminations = computed(() => {
   if (Array.isArray(examinations.value)) {
@@ -336,6 +443,35 @@ const paginatedExaminations = computed(() => {
   }
 });
 
+const deleteConfirmed = async () => {
+  try {
+    const examinationID = examinationToDelete.value;
+    const response = await useMyFetch<any>(`examination/${examinationID}`, {
+      method: "DELETE",
+    });
+    window.location.reload();
+    if (response.status === 200) {
+      const updatedExaminations = examinations.value.filter(
+        (examination: any) => examination.id !== examinationID
+      );
+      examinations.value = updatedExaminations;
+      // Close the modal after successful deletion
+      showConfirmationModal.value = false;
+    }
+  } catch (error) {
+    alert("An error occurred while deleting the pawn.");
+  }
+};
+
+const cancelAction = () => {
+  showConfirmationModal.value = false;
+  window.location.reload();
+};
+
+const { data: examinations, pending } = await useMyFetch<any>(
+  "examination",
+  {}
+);
 const applyFilter_id = () => {
   const filteredExaminations = examinations.value.filter((examination) => {
     // Check if examination ID contains the searchIdText value
@@ -348,7 +484,7 @@ const applyFilter_id = () => {
     // Reload the page if the text search field is empty
     window.location.reload();
   }
-  // Set the filtered pawns back to the original pawns
+  // Set the filtered examinations back to the original examinations
   examinations.value = filteredExaminations;
 };
 
@@ -364,26 +500,11 @@ const applyFilter_customerid = () => {
     // Reload the page if the text search field is empty
     window.location.reload();
   }
-  // Set the filtered pawns back to the original pawns
+  // Set the filtered examinations back to the original examinations
   examinations.value = filteredExaminations;
 };
 
-const applyFilter_status = () => {
-  if (searchIdText2.value === "") {
-    // Reload the page if the select field is empty
-    window.location.reload();
-    return; // กลับออกจากฟังก์ชันเพื่อไม่ทำงานขั้นต่อไป
-  }
-
-  const filteredExaminations = examinations.value.filter((examination) => {
-    // Check if examination status matches the selected status in searchIdText2
-    return examination.status === searchIdText2.value;
-  });
-
-  examinations.value = filteredExaminations;
-};
-
-const sortExaminationsByDate = () => {
+const sortExaminationByDate = () => {
   const moreToLess = document.getElementById("more-to-less") as HTMLElement;
   const LessToMore = document.getElementById("less-to-more") as HTMLElement;
   const dateSort = document.getElementById("date-sort") as HTMLElement;
@@ -409,13 +530,18 @@ const sortExaminationsByDate = () => {
   }
 };
 
-const sortedExaminations = computed(() => {
-  if (Array.isArray(examinations.value)) {
-    const start = (page.value - 1) * perPage.value;
-    const end = start + perPage.value;
-    return examinations.value.slice(start, end);
-  } else {
-    return [];
+const applyFilter_status = () => {
+  if (searchIdText2.value === "") {
+    // Reload the page if the select field is empty
+    window.location.reload();
+    return; // กลับออกจากฟังก์ชันเพื่อไม่ทำงานขั้นต่อไป
   }
-});
+
+  const filteredExaminations = examinations.value.filter((examination) => {
+    // Check if examination status matches the selected status in searchIdText2
+    return examination.status === searchIdText2.value;
+  });
+
+  examinations.value = filteredExaminations;
+};
 </script>

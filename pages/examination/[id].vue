@@ -148,7 +148,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
 import html2canvas from "html2canvas";
-import jsPDF from "jspdf"; // Add this import statement
+import jsPDF from "jspdf"; 
 
 const route = useRoute();
 const { data: examination } = await useMyFetch<any>(
@@ -177,8 +177,9 @@ const downloadPDF = async () => {
   const imgData = canvas.toDataURL("image/png", 1); // Use quality parameter to prevent compression
 
   pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // Add the canvas as an image
+  const examinationId = examination.value.id; // Get the pawn id
 
-  pdf.save("golden_tiara.pdf"); // Save the PDF
+  pdf.save(`เลขสัญญาตรวจสอบทอง_${examinationId}.pdf`);
   goldenTiara?.classList.remove("mt-6");
 
 };
