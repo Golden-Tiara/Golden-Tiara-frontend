@@ -175,48 +175,57 @@
 
         <!-- Right column container with form -->
         <div class="md:w-8/12 lg:ml-6 lg:w-5/12">
-          <h1 class="text-3xl  text-center mb-10">เข้าสู่ระบบ</h1>
+          <h1 class="text-3xl text-center mb-10">เข้าสู่ระบบ</h1>
           <form @submit.prevent="submit">
-            <!-- nationID input -->   
-            <div class="w-full relative group mb-6">
+            <!-- nationID input -->
+            <div class="w-full relative group mb-6" id="nation_id">
               <input
                 type="number"
-                id="nation_id"
                 v-model="formData.national_id"
                 required
-                class="w-full h-12 px-4  text-sm peer border-gold border rounded-lg outline-none"
+                class="w-full h-12 px-4 text-sm peer border-gold border rounded-lg outline-none"
               />
               <label
                 for="nation_id"
-                class="transform  transition-all absolute top-0 left-0 h-full text-neutral-500 flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
+                class="transform transition-all absolute top-0 left-0 h-full text-neutral-500 flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
                 >เลขบัตรประชาชน</label
               >
             </div>
-            <p v-if="errorMessage" class="text-red-600 text-sm">
-              {{ errorMessage }}
+            <p id="national-id-length" class="text-red-600 text-sm hidden mb-6">
+              หมายเลขบัตรประชาชนต้องมี 13 หลัก
+              <span
+                ><p
+                  id="national-id-invalid"
+                  class="text-red-600 text-sm hidden"
+                >
+                  หมายเลขบัตรประชาชนไม่ถูกต้อง
+                </p></span
+              >
             </p>
 
             <!-- Password input -->
-            <div class="w-full relative group mb-4">
+            <div class="w-full relative group mb-6" id="password">
               <input
-                type="text"
-                id="username"
+                type="password"
                 v-model="formData.password"
                 required
-                class="w-full h-12 px-4   text-sm peer border-gold border rounded-lg outline-none"
+                class="w-full h-12 px-4 text-sm peer border-gold border rounded-lg outline-none"
               />
               <label
-                for="username"
-                class="transform  transition-all absolute top-0 left-0 h-full text-neutral-500 flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
+                for="password"
+                class="transform transition-all absolute top-0 left-0 h-full text-neutral-500 flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
                 >รหัสผ่าน</label
               >
             </div>
-            <p v-if="errorMessage" class="text-red-600 text-sm">
-              {{ errorMessage }}
+            <p id="password-length" class="text-red-600 text-sm hidden">
+              รหัสผ่านต้องมีอย่างน้อย 6 หลัก
+            </p>
+            <p id="password-invalid" class="text-red-600 text-sm hidden">
+              รหัสผ่านไม่ถูกต้อง
             </p>
 
             <!-- Remember me checkbox -->
-            <div class="mb-6 flex items-center justify-between">
+            <div class="mb-3 mt-2 flex items-center justify-between">
               <!-- Forgot password link -->
               <a
                 href="#!"
@@ -230,28 +239,25 @@
               type="submit"
               class="inline-block w-full rounded bg-darkblue px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-300 ease-in-out hover:bg-gold hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-gold focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-gold active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
             >
-              Sign in
+              เข้าสู่ระบบ
             </button>
 
             <!-- Divider -->
             <div
               class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"
             >
-              <p
-                class="mx-4 mb-0 text-center font-semibold "
-              >
-                OR
-              </p>
+              <p class="mx-4 mb-0 text-center font-semibold">OR</p>
             </div>
 
             <!-- Social login buttons -->
             <a
-            href="/auth/register"
+              href="/auth/register"
               class="mb-3 flex w-full items-center justify-center rounded bg-gold px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-300 ease-in-out hover:bg-darkblue hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-darkblue focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-darkblue active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
               role="button"
             >
               สร้างบัญชีใหม่
             </a>
+            <p v-for="user of users" :key="user.id">{{ user.nation_id }}</p>
           </form>
         </div>
       </div>
@@ -263,10 +269,87 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 
 const auth = await useAuthStore();
-const errorMessage = ref<string | undefined>("");
 const formData = reactive({ national_id: "", password: "" });
+let check:number = 0 ;
+const errorMessage = reactive({
+  national_id: "",
+  password: "",
+});
+
+const authStore = useAuthStore();
+const user = computed(() => authStore.user);
+console.log(user.value);
+
+const { data: users, pending } = await useMyFetch<any>(
+  "/user/check/${formData.national_id}",
+  {}
+);
 
 async function submit() {
+  let isFormValid = true;
+  const nationId = document.getElementById("national_id");
+  const password = document.getElementById("password");
+  const nationIdLength = document.getElementById("national-id-length");
+  const nationIdInvalid = document.getElementById("national-id-invalid");
+  const passwordLength = document.getElementById("password-length");
+  const passwordInvalid = document.getElementById("password-invalid");
+
+  nationIdLength?.classList.add("hidden");
+  passwordLength?.classList.add("hidden");
+  nationIdInvalid?.classList.add("hidden");
+  passwordInvalid?.classList.add("hidden");
+
+  formData.national_id = formData.national_id.toString();
+
+  if (formData.national_id.length !== 13) {
+    nationIdLength?.classList.remove("hidden");
+    nationIdLength?.classList.add("-mt-5");
+
+    console.log("false");
+  } else {
+    nationIdLength?.classList.add("hidden");
+    nationIdLength?.classList.remove("-mt-5");
+    console.log("true");
+  }
+
+  if (formData.password.length < 6 || formData.password !== user.password) {
+
+    if (formData.password.length < 6) {
+      passwordLength?.classList.remove("hidden");
+      passwordLength?.classList.add("-mt-5");
+      check = 1;
+    } else {
+      passwordLength?.classList.add("hidden");
+      passwordLength?.classList.remove("-mt-5");
+      check = 0
+    }
+
+    
+    if (formData.password !== user.password && check !== 1) {
+      passwordInvalid?.classList.remove("hidden");
+      passwordInvalid?.classList.add("-mt-5");
+    }else {
+    passwordInvalid?.classList.add("hidden");
+    passwordInvalid?.classList.remove("-mt-5");
+
+    console.log("password correct");
+  }
+  }
+
+  
+
+  if (formData.national_id === null) {
+    nationIdInvalid?.classList.remove("hidden");
+    nationIdInvalid?.classList.add("-mt-5");
+    isFormValid = false;
+    console.log("invalid-nation");
+  } else {
+    nationIdInvalid?.classList.add("hidden");
+    nationIdInvalid?.classList.remove("-mt-5");
+
+    console.log("nation correct");
+  }
+
   const { data: response, error } = await useMyFetch<any>("auth/login", {
     method: "POST",
     body: formData,
@@ -274,10 +357,10 @@ async function submit() {
   if (response.value !== null) {
     const { access_token, token_type } = response.value;
     if (access_token !== "") {
-      auth.setNewToken(access_token)
-      const { data: user, error } = await useMyFetch<any>('auth/me', {
-        method: 'POST'
-      })
+      auth.setNewToken(access_token);
+      const { data: user, error } = await useMyFetch<any>("auth/me", {
+        method: "POST",
+      });
 
       if (user.value !== null) {
         console.log(user.value);
@@ -287,24 +370,29 @@ async function submit() {
         let phone_number = user.value["phone_number"];
         let image_path = user.value["image_path"];
         let role = user.value["role"];
-        auth.setUser(name, national_id, surname, phone_number,image_path, role);
-        console.log(auth.setUser)
-        console.log( auth.setNewToken(access_token))
-        const preLoginRoute = sessionStorage.getItem('preLoginRoute');
+        auth.setUser(
+          name,
+          national_id,
+          surname,
+          phone_number,
+          image_path,
+          role
+        );
+        console.log(auth.setUser);
+        console.log(auth.setNewToken(access_token));
+        const preLoginRoute = sessionStorage.getItem("preLoginRoute");
 
         if (preLoginRoute) {
           navigateTo(preLoginRoute);
-          sessionStorage.removeItem('preLoginRoute'); // ลบเส้นทางที่จัดเก็บไว้หลังจากใช้งาน
+          sessionStorage.removeItem("preLoginRoute"); // ลบเส้นทางที่จัดเก็บไว้หลังจากใช้งาน
         } else {
-          navigateTo('/');
+          navigateTo("/");
         }
       } else {
         auth.clear();
         errorMessage.value = "โปรดลองอีกครั้ง";
       }
     }
-  } else {
-    errorMessage.value = error.value?.data.message;
   }
 }
 </script>

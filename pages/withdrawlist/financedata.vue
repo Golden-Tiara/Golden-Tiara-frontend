@@ -53,15 +53,12 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 
 definePageMeta({
-  middleware: ["authenticated"]  //Auth checker
+  middleware: ["authenticated", "authentization"]  //Auth checker
 });
 
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
-definePageMeta({
-  middleware: "authenticated", //Auth checker
-});
 const route = useRoute();
 const showConfirmationModal = ref(false);
 const store = useAuthStore();
