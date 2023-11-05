@@ -152,11 +152,11 @@
               </g>
             </svg>
             <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              ยืนยันการบันทึกรายการหรือไม่?
+              บันทึกรายการสำเร็จ
             </h3>
             <button type="button" @click="closeModal"
               class="text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-              บันทึกรายการ
+              ตกลง
             </button>
           </div>
         </div>
@@ -269,8 +269,6 @@ const onSubmit = async () => {
   console.log(errorMessage);
 
   if (isFormValid) {
-    modal.classList.remove("hidden");
-
     const goldItem = {
       weight: weight,
       purity: purity,
@@ -285,6 +283,8 @@ const onSubmit = async () => {
 
     // Save the updated list back to localStorage
     localStorage.setItem('goldItems', JSON.stringify(existingGoldItems));
+
+    modal.classList.remove("hidden");
 
     // Clear the form fields
     formData.weight = '';
