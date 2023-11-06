@@ -125,7 +125,7 @@
       <div class="relative w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button type="button"
-            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center "
+            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="popup-modal" @click="closeModal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -177,10 +177,6 @@ const image_path = ref(null);
 const previewUrl = ref(null);
 const selectedFile = ref(null);
 const dropzone = ref(null);
-
-definePageMeta({
-  middleware: 'authenticated' //Auth checker
-})
 
 const closeModal = () => {
   const modal = document.getElementById("popup-modal");
@@ -259,13 +255,7 @@ const updatePurity = (event) => {
 const onSubmit = async () => {
   const { weight, purity } = formData;
   const modal = document.getElementById("popup-modal");
-  const customer_id = this.user.national_id;
-  const  pawn_id = this.gold.pawn_id;
-  const { data: response } = await useMyFetch("gold", {
-    method: "POST",
-    body: { customer_id,
-      pawn_id},
-  });
+
   Object.keys(errorMessage).forEach((key) => {
     errorMessage[key] = "";
   });
@@ -338,6 +328,7 @@ export default {
     // This is a navigation guard that triggers before entering the route
     // You can check if 'goldItems' is present in localStorage and set it in the component's state
     const goldItems = JSON.parse(localStorage.getItem('goldItems'));
+    
 
     next((vm) => {
       // Set goldItems in the component based on localStorage

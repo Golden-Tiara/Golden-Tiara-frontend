@@ -4,32 +4,6 @@
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
           <h1 class="text-5xl text-gold">ตารางจำนำ</h1>
-
-          <nuxt-link :to="`/pawn/add`">
-            <button
-              type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
-            >
-              <span class="mr-2">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 12H18M12 6V18"
-                    stroke="#ffff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              เพิ่มรายการจำนำ
-            </button>
-          </nuxt-link>
         </div>
 
         <!-- Search Box -->
@@ -148,19 +122,25 @@
                 scope="row"
                 class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 v-if="pawn.customer_id === user.national_id"
-                >
+              >
                 <nuxt-link :to="`/pawn/${pawn.id}`">
                   {{ pawn.id }}
                 </nuxt-link>
               </td>
 
-              <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
+              <td
+                class="py-4 text-center"
+                v-if="pawn.customer_id === user.national_id"
+              >
                 <nuxt-link :to="`/pawn/${pawn.id}`">{{
                   pawn.customer_id
                 }}</nuxt-link>
               </td>
 
-              <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
+              <td
+                class="py-4 text-center"
+                v-if="pawn.customer_id === user.national_id"
+              >
                 <nuxt-link :to="`/pawn/${pawn.id}`">
                   <span
                     v-if="pawn.status === 'active'"
@@ -176,7 +156,10 @@
                   </span></nuxt-link
                 >
               </td>
-              <td class="py-4 text-center text-blue-500" v-if="pawn.customer_id === user.national_id">
+              <td
+                class="py-4 text-center text-blue-500"
+                v-if="pawn.customer_id === user.national_id"
+              >
                 <nuxt-link :to="`/pawn/${pawn.id}`"
                   >{{
                     new Date(pawn.contract_date).toLocaleDateString("th-TH", {
@@ -187,7 +170,10 @@
                   }}
                 </nuxt-link>
               </td>
-              <td class="py-4 text-center text-purple-500" v-if="pawn.customer_id === user.national_id">
+              <td
+                class="py-4 text-center text-purple-500"
+                v-if="pawn.customer_id === user.national_id"
+              >
                 <nuxt-link :to="`/pawn/${pawn.id}`">
                   {{
                     new Date(pawn.expiry_date).toLocaleDateString("th-TH", {
@@ -289,12 +275,12 @@ const searchIdText2 = ref("");
 const showConfirmationModal = ref(false);
 const route = useRoute();
 const authStore = useAuthStore();
-  const user = computed(() => authStore.user);
+const user = computed(() => authStore.user);
 const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
 
 definePageMeta({
-    middleware: "authenticated", //Auth checker
-  });
+  middleware: "authenticated", //Auth checker
+});
 const paginatedPawns = computed(() => {
   if (Array.isArray(pawns.value)) {
     const start = (page.value - 1) * perPage.value;

@@ -4,37 +4,10 @@
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
           <h1 class="text-5xl text-gold">รายการตรวจสอบทอง</h1>
-
-          <nuxt-link :to="`/examination/create`">
-            <button
-              type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
-            >
-              <span class="mr-2">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 12H18M12 6V18"
-                    stroke="#ffff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              เพิ่มรายการตรวจสอบทอง
-            </button>
-          </nuxt-link>
         </div>
 
         <!--examination ID Input Box -->
         <div class="flex mt-20 mb-5">
-          <!-- Search -->
           <!-- Search -->
           <input
             v-model="searchIdText"
@@ -115,42 +88,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Add Button -->
-      <!-- popup modal -->
-      <div
-        id="popup-modal"
-        tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
-      >
-        <div class="relative w-full max-w-md max-h-full">
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button
-              type="button"
-              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-hide="popup-modal"
-            >
-              <svg
-                class="w-3 h-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- End popup modal -->
     </div>
 
     <!-- Table -->
@@ -179,17 +116,23 @@
             scope="row"
             class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             v-if="examination.customer_id === user.national_id"
-            >
+          >
             <nuxt-link :to="`/examination/${examination.id}`">{{
               examination.id
             }}</nuxt-link>
           </td>
-          <td class="py-4 text-center" v-if="examination.customer_id === user.national_id">
+          <td
+            class="py-4 text-center"
+            v-if="examination.customer_id === user.national_id"
+          >
             <nuxt-link :to="`/examination/${examination.id}`">{{
               examination.customer_id
             }}</nuxt-link>
           </td>
-          <td class="py-4 text-center" v-if="examination.customer_id === user.national_id">
+          <td
+            class="py-4 text-center"
+            v-if="examination.customer_id === user.national_id"
+          >
             <nuxt-link
               :to="`/examination/${examination.id}`"
               class="text-purple-500"
@@ -206,7 +149,10 @@
               }}
             </nuxt-link>
           </td>
-          <td class="py-4 text-center" v-if="examination.customer_id === user.national_id">
+          <td
+            class="py-4 text-center"
+            v-if="examination.customer_id === user.national_id"
+          >
             <nuxt-link :to="`/examination/${examination.id}`">
               <span
                 v-if="examination.status === 'inprogress'"
@@ -267,23 +213,20 @@ const searchIdText = ref("");
 const searchIdText1 = ref("");
 const searchIdText2 = ref("");
 const authStore = useAuthStore();
-  const user = computed(() => authStore.user);
+const user = computed(() => authStore.user);
 const page = ref(1); // เพิ่ม ref สำหรับ page
 const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
 const sortOrder = ref("less");
-const showConfirmationModal = ref(false);
 const route = useRoute();
 
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });
 
-const examinationToDelete = ref<number | null>(null);
-
-const confirmAction = (examinationID: number) => {
-  examinationToDelete.value = examinationID;
-  showConfirmationModal.value = true;
-};
+const { data: examinations, pending } = await useMyFetch<any>(
+  "examination",
+  {}
+);
 
 const paginatedExaminations = computed(() => {
   if (Array.isArray(examinations.value)) {
@@ -295,35 +238,6 @@ const paginatedExaminations = computed(() => {
   }
 });
 
-const deleteConfirmed = async () => {
-  try {
-    const examinationID = examinationToDelete.value;
-    const response = await useMyFetch<any>(`examination/${examinationID}`, {
-      method: "DELETE",
-    });
-    window.location.reload();
-    if (response.status === 200) {
-      const updatedExaminations = examinations.value.filter(
-        (examination: any) => examination.id !== examinationID
-      );
-      examinations.value = updatedExaminations;
-      // Close the modal after successful deletion
-      showConfirmationModal.value = false;
-    }
-  } catch (error) {
-    alert("An error occurred while deleting the pawn.");
-  }
-};
-
-const cancelAction = () => {
-  showConfirmationModal.value = false;
-  window.location.reload();
-};
-
-const { data: examinations, pending } = await useMyFetch<any>(
-  "examination",
-  {}
-);
 const applyFilter_id = () => {
   const filteredExaminations = examinations.value.filter((examination) => {
     // Check if examination ID contains the searchIdText value

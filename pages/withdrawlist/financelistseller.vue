@@ -35,7 +35,6 @@
     </div>
 
     <table
-
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold mb-6"
     >
       <thead
@@ -167,9 +166,7 @@ import { useAuthStore } from "~/stores/useAuthStore";
 const { data: transactions } = await useMyFetch<any>("transaction", {});
 console.log(transactions);
 
-console.log(transactions.value.length)
-
-
+console.log(transactions.value.length);
 
 const searchIdText = ref("");
 const searchIdText1 = ref("");
@@ -193,7 +190,6 @@ const paginatedTranactions = computed(() => {
     return [];
   }
 });
-
 
 const applyFilter_id = () => {
   if (searchIdText.value === "") {

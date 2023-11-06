@@ -4,32 +4,6 @@
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
           <h1 class="text-5xl text-gold">ตารางจำนำ</h1>
-
-          <nuxt-link :to="`/pawn/add`">
-            <button
-              type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
-            >
-              <span class="mr-2">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 12H18M12 6V18"
-                    stroke="#ffff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              เพิ่มรายการจำนำ
-            </button>
-          </nuxt-link>
         </div>
 
         <!-- Search Box -->
@@ -122,6 +96,7 @@
 
         <!-- Table -->
         <table
+          v-if="pawns.length > 0"
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-6"
         >
           <thead
@@ -144,32 +119,64 @@
               :key="pawn.id"
               @click="sortTable(field.key)"
             >
-            <td v-if="pawn.customer_id === user.national_id"
-            scope="row"
-            class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-          <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
-          </td>
-          <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
-            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_term}}</nuxt-link>
-          </td>
-          <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
-            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.total_term }}</nuxt-link>
-          </td>
-          <td class="py-4 text-center" v-if="pawn.customer_id === user.national_id">
-            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.paid_amount }}</nuxt-link>
-          </td>
-          <td class="py-4 text-center text-green-600" v-if="pawn.customer_id === user.national_id">
-            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.next_payment }}</nuxt-link>
-          </td>
-          <td class="py-4 text-center text-green-600" v-if="pawn.customer_id === user.national_id">
-            <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.expiry_date }}</nuxt-link>
-          </td>    
-              <!-- popup modal -->
+              <td
+                v-if="pawn.customer_id === user.national_id"
+                scope="row"
+                class="py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{ pawn.id }}</nuxt-link>
+              </td>
+              <td
+                class="py-4 text-center"
+                v-if="pawn.customer_id === user.national_id"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{
+                  pawn.paid_term
+                }}</nuxt-link>
+              </td>
+              <td
+                class="py-4 text-center"
+                v-if="pawn.customer_id === user.national_id"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{
+                  pawn.total_term
+                }}</nuxt-link>
+              </td>
+              <td
+                class="py-4 text-center"
+                v-if="pawn.customer_id === user.national_id"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{
+                  pawn.paid_amount
+                }}</nuxt-link>
+              </td>
+              <td
+                class="py-4 text-center text-green-600"
+                v-if="pawn.customer_id === user.national_id"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{
+                  pawn.next_payment
+                }}</nuxt-link>
+              </td>
+              <td
+                class="py-4 text-center text-green-600"
+                v-if="pawn.customer_id === user.national_id"
+              >
+                <nuxt-link :to="`/pawn/${pawn.id}`">{{
+                  pawn.expiry_date
+                }}</nuxt-link>
+              </td>
             </tr>
           </tbody>
         </table>
-        <div class="flex items-center justify-center mb-14">
+        <h1 v-else class="text-6xl text-center text-red-500 mt-20 font-bold">
+          ไม่พบข้อมูล
+        </h1>
+
+        <div
+          v-if="pawns.length >= 10"
+          class="flex items-center justify-center mb-14"
+        >
           <button
             @click="page--"
             :disabled="page <= 1"
@@ -196,43 +203,6 @@
         </div>
       </div>
     </div>
-
-    <div
-      id="popup-modal-remove"
-      tabindex="-1"
-      class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
-    >
-      <div
-        v-if="showConfirmationModal"
-        class="relative w-full max-w-md max-h-full"
-      >
-        <div class="relative bg-white rounded-lg shadow">
-          <button
-            type="button"
-            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-hide="popup-modal-remove"
-            @click="cancelAction"
-          >
-            <svg
-              class="w-3 h-3"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-              />
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
-        </div>
-      </div>
-    </div>
   </section>
 </template>
 
@@ -242,9 +212,13 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/useAuthStore";
 
-// definePageMeta({
-//   middleware: "authenticated", //Auth checker
-// });
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
+
+const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
+
+console.log(pawns.length);
 
 const page = ref(1); // เพิ่ม ref สำหรับ page
 const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
@@ -256,11 +230,8 @@ const searchIdText2 = ref("");
 const showConfirmationModal = ref(false);
 const route = useRoute();
 const authStore = useAuthStore();
-  const user = computed(() => authStore.user);
-const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
-  definePageMeta({
-    middleware: "authenticated", //Auth checker
-  });
+const user = computed(() => authStore.user);
+
 const paginatedPawns = computed(() => {
   if (Array.isArray(pawns.value)) {
     const start = (page.value - 1) * perPage.value;

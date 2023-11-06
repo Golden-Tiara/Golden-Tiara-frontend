@@ -127,10 +127,10 @@
             :src="`http://localhost/images/user/${user.image_path}`"
             alt="user photo"
           />
-          <img v-else
+          <img
+            v-else
             class="w-10 h-10 rounded-full"
             src="@/assets/images/avatar.svg"
-            alt="user photo"
           />
         </button>
 
@@ -140,51 +140,53 @@
           id="user-dropdown-data"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 ">ชื่อ:
-              <span> {{
-              userName
-            }}</span>
-             </span>
-            <span class="block text-sm text-gray-900 ">ตำแหน่ง:
-              <span>{{
-              user.role
-            }}</span>
-              </span>
+            <span class="block text-sm text-gray-900"
+              >ชื่อ:
+              <span> {{ userName }}</span>
+            </span>
+            <span class="block text-sm text-gray-900"
+              >ตำแหน่ง:
+              <span>{{ user.role }}</span>
+            </span>
           </div>
 
           <ul class="py-2" aria-labelledby="user-menu-button">
-           
             <li v-if="role === 'seller'">
-              <MenuLink to="withdrawlist/financelistme"
+              <MenuLink
+                to="/withdrawlist/financelistme"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >ประวัติการเบิกเงิน</MenuLink
               >
             </li>
             <li v-if="role === 'owner'">
-              <MenuLink to="/examination"
+              <MenuLink
+                to="/examination"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >รายการตรวจสอบทอง</MenuLink
               >
             </li>
             <li v-if="role === 'owner'">
-              <MenuLink to="/pawn"
+              <MenuLink
+                to="/pawn"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >รายการจำนำทอง</MenuLink
               >
             </li>
             <li v-if="role === 'owner'">
-              <MenuLink to="withdrawlist/financelistseller"
+              <MenuLink
+                to="/withdrawlist/financelistseller"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >รายการเบิกเงิน</MenuLink
               >
             </li>
             <li v-if="role === 'customer'">
-              <MenuLink to="withdrawlist/financelistseller"
+              <MenuLink
+                to="/customer/mygold"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >รายการเบิกเงิน</MenuLink
               >
             </li>
-            
+
             <li>
               <MenuLink
                 href="#"
@@ -192,7 +194,7 @@
                 >การตั้งต่า</MenuLink
               >
             </li>
-           
+
             <li>
               <MenuLink
                 @click="logout"
@@ -285,7 +287,6 @@ export default {
     const userName = computed(() => authStore.user.name);
     const role = computed(() => authStore.user.role);
     const imagePath = computed(() => authStore.user.image_path);
-
 
     function scrollToTop() {
       const element = document.getElementById("content");
