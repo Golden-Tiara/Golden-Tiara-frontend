@@ -72,7 +72,7 @@
             <div
               class="flex ml-4 px-4 py-2 bg-darkblue text-white hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
             >
-              <button @click="sortExaminationByDate" class="flex items-center">
+              <button @click="sortpawnsByDate" class="flex items-center">
                 <span id="date-sort">กดเพื่อเรียงวันที่</span>
 
                 <span id="less-to-more" class="flex hidden px-1">
@@ -162,17 +162,18 @@
               <td class="py-4 text-center">
                 <nuxt-link :to="`/pawn/${pawn.id}`">
                   <span
-                   v-if="pawn.status === 'active'"
-                   class="px-[18px] py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
-                 >
-                   {{ pawn.status }}
-                 </span>
-                 <span
-                   v-else
-                   class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
-                 >
-                   {{ pawn.status }}
-                 </span></nuxt-link>
+                    v-if="pawn.status === 'active'"
+                    class="px-[18px] py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+                  >
+                    {{ pawn.status }}
+                  </span>
+                  <span
+                    v-else
+                    class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+                  >
+                    {{ pawn.status }}
+                  </span></nuxt-link
+                >
               </td>
               <td class="py-4 text-center text-blue-500">
                 <nuxt-link :to="`/pawn/${pawn.id}`"
@@ -221,7 +222,7 @@
                 page <= 1,
             }"
           >
-          หน้าก่อน
+            หน้าก่อน
           </button>
 
           <button
@@ -233,7 +234,7 @@
                 page >= Math.ceil(pawns.length / perPage),
             }"
           >
-          หน้าถัดไป
+            หน้าถัดไป
           </button>
         </div>
       </div>
@@ -341,18 +342,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
   </section>
 </template>
 
@@ -418,8 +407,8 @@ const deleteConfirmed = async () => {
 };
 
 const cancelAction = () => {
-  const popup = document.getElementById('popup-modal-remove')
-  popup?.classList.add('hidden')
+  const popup = document.getElementById("popup-modal-remove");
+  popup?.classList.add("hidden");
 };
 
 // End delete data
