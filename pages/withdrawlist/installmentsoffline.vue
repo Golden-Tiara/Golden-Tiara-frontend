@@ -100,15 +100,25 @@
       <div
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
       >
-        <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
-          <p class="mb-3 font-normal text-gray-700 text-base">
-            จำนวนเงินที่จ่ายแล้ว: {{ paid_amount }}
+        <div class="flex flex-col justify-between p-4 ml-7 leading-normal" v-for="pawn of pawns"
+        :key="pawn.id">
+        <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            เลขสัญญา: {{ pawn.id }}
           </p>
-          <p class="mb-3 font-bold text-gray-700 text-base">
-            จำนวนงวดที่จ่ายแล้ว: {{ paid_term }}
+          <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            จำนวนเงินที่จ่ายแล้ว: {{ pawn.paid_amount }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
-            วันจ่ายค่างวดครั้งถัดไป: {{ next_payment }}
+          <p class="mb-3 font-bold text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            จำนวนงวดที่จ่ายแล้ว: {{ pawn.paid_term }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            วันจ่ายค่างวดครั้งถัดไป: {{ pawn.next_payment }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            จำนวนเงินที่ต้องจ่ายในงวดนี้: {{ (pawn.loan_amount - pawn.paid_amount) / pawn.total_term }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+            จำนวนเงินที่เหลือต้องจ่ายทั้งหมด: {{ pawn.loan_amount - pawn.paid_amount }}
           </p>
         </div>
       </div>
@@ -171,6 +181,7 @@ import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/useAuthStore";
 
 // Reactive state declarations
+const { data: pawns } = await useMyFetch<any>("pawn", {});
 const pawnID = ref<string>("");
 const national_id = ref<string>("");
 const expiry_date = ref<string>("");
@@ -187,6 +198,7 @@ const transactions1 = ref([]);
 const transactions2 = ref([]);
 
 const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
 const userID = ref("");
 // Lifecycle hook
 onMounted(async () => {

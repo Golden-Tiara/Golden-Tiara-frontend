@@ -1211,6 +1211,18 @@
   </section>
 </template>
 
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import axios from "axios";
@@ -1287,7 +1299,7 @@ async function onSubmit() {
   }
   // ตรวจสอบหมายเลขบัตรประชาชนว่าไม่มีช่องว่าง
 if (/^\d{13}$/.test(formData.national_id) === false) {
-  errorMessage.national_id = "หมายเลขบัตรประชาชนต้องเป็นตัวเลขเท่านั้น";
+  errorMessage.national_id = "หมายเลขบัตรประชาชนต้องเป็นตัวเลขเท่านั้นแลัวต้องมีเลข 13 ตัวอักษร";
   isFormValid = false;
 }
 

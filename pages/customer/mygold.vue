@@ -141,9 +141,9 @@
   const authStore = useAuthStore();
   const user = computed(() => authStore.user);
   
-//   definePageMeta({
-//     middleware: "authenticated", //Auth checker
-//   });
+  definePageMeta({
+    middleware: "authenticated", //Auth checker
+  });
   
   const { data: golds, pending } = await useMyFetch<any>("gold", {});
   

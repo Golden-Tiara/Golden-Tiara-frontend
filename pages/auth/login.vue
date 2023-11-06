@@ -265,6 +265,18 @@
   </section>
 </template>
 
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
 

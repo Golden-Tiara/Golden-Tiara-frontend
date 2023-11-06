@@ -168,7 +168,7 @@
 
     <!-- Table -->
     <table
-      v-if="users.length > 0"
+     v-if = "users && users.length > 0"
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-10"
     >
       <thead
@@ -359,7 +359,7 @@
     >
       ก่อนหน้า
     </button>
-    <!-- <button
+    <button
       @click="page++"
       :disabled="page >= Math.ceil(filteredUsersByRole.length / perPage)"
       class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
@@ -369,7 +369,7 @@
       }"
     >
       หน้าถัดไป
-    </button> -->
+    </button>
   </div>
 </template>
 
@@ -396,24 +396,30 @@ const { data: users, pending } = await useMyFetch<any>("user", {});
 
 const userToDelete = ref<number | null>(null);
 
-// const filteredUsersByRole = computed(() => {
-//   return users.value.filter((user) => user.role === "customer");
-// });
+const filteredUsersByRole = computed(() => {
+  // Check if the data is available and not null
+  if (users.value && Array.isArray(users.value)) {
+    return users.value.filter((user) => user.role === "customer");
+  } else {
+    return [];
+  }
+});
+
 
 const confirmAction = (userID: number) => {
   userToDelete.value = userID;
   showConfirmationModal.value = true;
 };
 
-// const paginatedUsersByRole = computed(() => {
-//   if (Array.isArray(filteredUsersByRole.value)) {
-//     const start = (page.value - 1) * perPage.value;
-//     const end = start + perPage.value;
-//     return filteredUsersByRole.value.slice(start, end);
-//   } else {
-//     return [];
-//   }
-// });
+const paginatedUsersByRole = computed(() => {
+  if (Array.isArray(filteredUsersByRole.value)) {
+    const start = (page.value - 1) * perPage.value;
+    const end = start + perPage.value;
+    return filteredUsersByRole.value.slice(start, end);
+  } else {
+    return [];
+  }
+});
 
 const deleteConfirmed = async () => {
   try {

@@ -292,6 +292,9 @@ const authStore = useAuthStore();
   const user = computed(() => authStore.user);
 const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
 
+definePageMeta({
+    middleware: "authenticated", //Auth checker
+  });
 const paginatedPawns = computed(() => {
   if (Array.isArray(pawns.value)) {
     const start = (page.value - 1) * perPage.value;
