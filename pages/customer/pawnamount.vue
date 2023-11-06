@@ -4,32 +4,6 @@
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
           <h1 class="text-5xl text-gold">ตารางจำนำ</h1>
-
-          <nuxt-link :to="`/pawn/add`">
-            <button
-              type="button"
-              class="text-white flex justify-between bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold font-medium rounded-lg text-sm px-7 py-5"
-            >
-              <span class="mr-2">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 12H18M12 6V18"
-                    stroke="#ffff"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              เพิ่มรายการจำนำ
-            </button>
-          </nuxt-link>
         </div>
 
         <!-- Search Box -->
