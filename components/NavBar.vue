@@ -183,6 +183,20 @@
               <MenuLink
                 to="/withdrawlist/financedata"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >โอนชำระเงินให้ลูกค้า</MenuLink
+              >
+            </li>
+            <li v-if="role === 'owner' || role === 'seller'">
+              <MenuLink
+                to="/withdrawlist/financedata"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >เบิกเงินจากคลัง</MenuLink
+              >
+            </li>
+            <li v-if="role === 'owner' || role === 'seller'">
+              <MenuLink
+                to="/withdrawlist/financedata"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >ข้อมูลการเบิกเงิน</MenuLink
               >
             </li>
@@ -191,14 +205,6 @@
                 to="/customer/mygold"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >รายการเบิกเงิน</MenuLink
-              >
-            </li>
-
-            <li>
-              <MenuLink
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >การตั้งต่า</MenuLink
               >
             </li>
 

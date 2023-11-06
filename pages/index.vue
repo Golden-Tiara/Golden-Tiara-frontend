@@ -11,14 +11,14 @@
             <span class="text-gold">T</span>iara
           </h1>
 
-          <h3 class="md:mt-4 md:text-lg text-sm font-light">
+          <h3 class="md:mt-4 md:text-lg text-sm font-ligh md:mb-6">
             ที่จะมอบประสบการณ์สุดพิเศษให้แก่ลูกค้าทุกท่าน
           </h3>
-          <button
+          <MenuLink to="/auth/login"
             class="font-light md:py-2 md:px-4 md:text-lg text-sm px-2 py-1 text-white border rounded-lg mt-1 md:mt-2 bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold"
           >
             เริ่มต้นการใช้งาน
-          </button>
+          </MenuLink>
         </div>
         <img class="w-7/12" src="@/assets/images/pawnshop.png" alt="" />
       </div>
@@ -38,7 +38,7 @@
   <div class="mt-20">
     <!--    Container-->
     <div
-      class="flex justify-around rounded-lg "
+      class="flex justify-around rounded-lg"
       v-motion-pop-visible-once
       :delay="300"
     >
@@ -51,7 +51,9 @@
       </div>
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold font-semibold">เชื่อถือได้</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-semibold">
+          เชื่อถือได้
+        </h1>
       </div>
     </div>
   </div>
@@ -60,13 +62,15 @@
     <!--      Easy Ask-->
     <!--  Container-->
     <div
-      class="flex justify-around rounded-lg "
+      class="flex justify-around rounded-lg"
       v-motion-pop-visible-once
       :delay="500"
     >
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">สอบถามสะดวก</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">
+          สอบถามสะดวก
+        </h1>
       </div>
       <!--image-->
       <div>
@@ -82,7 +86,7 @@
   <!--Container-->
   <div class="mt-20">
     <div
-      class="flex justify-around rounded-lg "
+      class="flex justify-around rounded-lg"
       v-motion-pop-visible-once
       :delay="700"
     >
@@ -95,7 +99,9 @@
       </div>
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">ดีลง่าย จ่ายไว</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">
+          ดีลง่าย จ่ายไว
+        </h1>
       </div>
     </div>
   </div>
@@ -104,13 +110,15 @@
   <!--Container-->
   <div class="bg-gray-50 py-14 mt-20">
     <div
-      class="flex justify-around rounded-lg "
+      class="flex justify-around rounded-lg"
       v-motion-pop-visible-once
       :delay="3000"
     >
       <!--content-->
       <div class="flex items-center">
-        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">ชำระผ่าน QR</h1>
+        <h1 class="text-2xl md:text-6xl text-darkgold font-bold">
+          ชำระผ่าน QR
+        </h1>
       </div>
       <!--image-->
       <div>
@@ -122,7 +130,7 @@
     </div>
   </div>
 
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#FDF6EC"
       fill-opacity="1"
@@ -136,12 +144,12 @@
       fill-opacity="1"
       d="M0,160L30,165.3C60,171,120,181,180,165.3C240,149,300,107,360,112C420,117,480,171,540,170.7C600,171,660,117,720,122.7C780,128,840,192,900,218.7C960,245,1020,235,1080,224C1140,213,1200,203,1260,186.7C1320,171,1380,149,1410,138.7L1440,128L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
     ></path>
-  </svg>
+  </svg> -->
 
   <!-- QnA Board -->
-  <h1 class="text-center text-4xl font-semibold text-darkgold">สอบถาม</h1>
+  <h1 class="text-center text-4xl mt-10 font-semibold text-darkgold">สอบถาม</h1>
   <div class="max-w-7xl mx-auto px-10" id="q&a">
-    <div class="w-full bg-white rounded-lg border border-gold mx-auto mt-20">
+    <div class="w-full bg-white rounded-lg border border-gold mx-auto mt-10">
       <div class="flex flex-col gap-5 m-3">
         <!-- Comment Container -->
         <div>
@@ -537,14 +545,21 @@
       </form>
     </div>
   </div>
-
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path
+      fill="#FDF6EC"
+      fill-opacity="1"
+      d="M0,256L30,224C60,192,120,128,180,106.7C240,85,300,107,360,144C420,181,480,235,540,229.3C600,224,660,160,720,149.3C780,139,840,181,900,181.3C960,181,1020,139,1080,144C1140,149,1200,203,1260,229.3C1320,256,1380,256,1410,256L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
+    ></path>
+  </svg>
+
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#FDF6EC"
       fill-opacity="1"
       d="M0,160L30,165.3C60,171,120,181,180,165.3C240,149,300,107,360,112C420,117,480,171,540,170.7C600,171,660,117,720,122.7C780,128,840,192,900,218.7C960,245,1020,235,1080,224C1140,213,1200,203,1260,186.7C1320,171,1380,149,1410,138.7L1440,128L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
     ></path>
-  </svg>
+  </svg> -->
 
   <!-- Contact Us -->
   <div class="bg-background pt-16 pb-16" id="cotactUs">
@@ -560,9 +575,7 @@
           ติดต่อเรา
         </h1>
         <section class="mb-10">
-          <div
-            class="block rounded-lg bg-white "
-          >
+          <div class="block rounded-lg bg-white">
             <div class="flex flex-wrap items-center">
               <div
                 class="block w-full shrink-0 grow-0 basis-auto lg:flex lg:w-6/12 xl:w-4/12"

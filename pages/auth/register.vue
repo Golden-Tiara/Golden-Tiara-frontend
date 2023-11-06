@@ -290,7 +290,7 @@
       </div>
 
       <div
-        class="md:flex md:items-center hidden justify-center px-4 py-10  sm:py-16 lg:py-10 bg-red-100 sm:px-6 lg:px-0"
+        class="md:flex md:items-center hidden justify-center px-4 py-10  sm:py-16 lg:py-10 bg-[#FDF6EC] sm:px-6 lg:px-0"
       >
         <div
           id="default-carousel"
@@ -299,7 +299,7 @@
         >
           <!-- Carousel wrapper -->
           <div
-            class="relative h-56 overflow-hidden bg-red-100 rounded-lg md:h-[600px]"
+            class="relative h-56 overflow-hidden rounded-lg md:h-[600px]"
           >
             <!-- Item 1 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>

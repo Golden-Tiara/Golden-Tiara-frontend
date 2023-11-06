@@ -388,6 +388,10 @@
 import { computed } from "vue";
 import { useAuthStore } from "~/stores/useAuthStore";
 
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
+
 export default {
   setup() {
     const authStore = useAuthStore();
