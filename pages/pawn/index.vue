@@ -351,9 +351,9 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/useAuthStore";
 
-definePageMeta({
-  middleware: "authenticated", //Auth checker
-});
+// definePageMeta({
+//   middleware: "authenticated", //Auth checker
+// });
 
 const page = ref(1); // เพิ่ม ref สำหรับ page
 const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
@@ -365,7 +365,9 @@ const searchIdText2 = ref("");
 const showConfirmationModal = ref(false);
 const pawnToDelete = ref<number | null>(null);
 const route = useRoute();
-
+definePageMeta({
+  middleware: "authenticated", //Auth checker
+});
 const { data: pawns, pending } = await useMyFetch<any>("pawn", {});
 
 const paginatedPawns = computed(() => {

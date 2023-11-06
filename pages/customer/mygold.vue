@@ -26,7 +26,8 @@
         class="flex justify-center mt-10"
         v-for="gold of paginatedGolds"
         :key="gold.id"
-      >
+
+        >
         <nuxt-link
           :to="`/gold/${gold.id}`"
           href="#"
@@ -47,16 +48,19 @@
           <!-- (pawn.customer_id === user.national_id) && (pawn.id === gold.pawn_id) && 
             (examination.customer_id === user.national_id) && (examination.id === gold.examination_id) "  -->
           <div class="flex flex-col justify-between p-4 ml-5 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900" v-if="gold.examination_id === pawn.examination_id" >
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
               {{ gold.id }}
             </h5>
-            <p class="mb-3 font-normal text-sm text-gray-700 mr-5" v-if="gold.examination_id === pawn.examination_id">
+            <p class="mb-3 font-normal text-sm text-gray-700 mr-5" 
+>
               น้ำหนักทอง: {{ gold.weight }}
             </p>
-            <p class="mb-3 font-normal text-gray-700 text-sm" v-if="gold.examination_id === pawn.examination_id" >
+            <p class="mb-3 font-normal text-gray-700 text-sm" 
+ >
               ความบริสุทธ์: {{ gold.purity }}
             </p>
-            <p class="mb-3 font-normal text-gray-700 text-sm" v-if="gold.examination_id === pawn.examination_id">
+            <p class="mb-3 font-normal text-gray-700 text-sm"
+>
               สถานะ:
               <span
                 v-if="gold.status === 'examining'"
@@ -95,30 +99,6 @@
                 {{ gold.status }}
               </span>
             </p>
-            <nuxt-link :to="`/gold/${gold.id}`">
-              <button
-                class="flex items-center justify-center mt-2 rounded-lg bg-darkblue text-sm text-white w-36 py-1 hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
-              >
-                รายละเอียด
-                <span>
-                  <svg
-                    class="w-3 h-3 ml-2"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M1 5h12m0 0L9 1m4 4L9 9"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </nuxt-link>
           </div>
         </nuxt-link>
       </div>

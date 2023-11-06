@@ -335,22 +335,9 @@ if (formData.password.length < 6) {
 } else {
   passwordLength?.classList.add("hidden");
   passwordLength?.classList.remove("-mt-5");
-  check = 0
-}
-
-
-if (formData.password !== user.password && check !== 1) {
-  passwordInvalid?.classList.remove("hidden");
-  passwordInvalid?.classList.add("-mt-5");
-}else {
-passwordInvalid?.classList.add("hidden");
-passwordInvalid?.classList.remove("-mt-5");
-
-console.log("password correct");
-}
-}
-
-  const { data: response, error } = await useMyFetch<any>("auth/login", {
+  check = 0;
+} 
+console.log(user.password);const { data: response, error } = await useMyFetch<any>("auth/login", {
     method: "POST",
     body: formData,
   });
@@ -394,5 +381,17 @@ console.log("password correct");
       }
     }
   }
+if (formData.password !== user.password && check !== 1 ) {
+  passwordInvalid?.classList.remove("hidden");
+  passwordInvalid?.classList.add("-mt-5");
+}else {
+passwordInvalid?.classList.add("hidden");
+passwordInvalid?.classList.remove("-mt-5");
+
+console.log("password correct");
+}
+}
+
+  
 }
 </script>
