@@ -122,8 +122,14 @@
         >
           <span class="sr-only">Open user menu</span>
           <img
+            v-if="user.image_path"
             class="w-10 h-10 rounded-full"
             :src="`http://localhost/images/user/${user.image_path}`"
+            alt="user photo"
+          />
+          <img v-else
+            class="w-10 h-10 rounded-full"
+            src="@/assets/images/avatar.svg"
             alt="user photo"
           />
         </button>
@@ -134,42 +140,59 @@
           id="user-dropdown-data"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 text-center">{{
+            <span class="block text-sm text-gray-900 ">ชื่อ:
+              <span> {{
               userName
             }}</span>
-            <span class="block text-sm text-gray-900 text-center">{{
+             </span>
+            <span class="block text-sm text-gray-900 ">ตำแหน่ง:
+              <span>{{
               user.role
             }}</span>
+              </span>
           </div>
 
           <ul class="py-2" aria-labelledby="user-menu-button">
-            <li v-if="role == 'customer'">
-              <MenuLink
+           
+            <li v-if="role === 'seller'">
+              <MenuLink to="withdrawlist/financelistme"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >dfgfggdg</MenuLink
+                >ประวัติการเบิกเงิน</MenuLink
               >
             </li>
-            <li v-if="role == 'owner && seller'">
-              <MenuLink
-                to="/gold"
+            <li v-if="role === 'owner'">
+              <MenuLink to="/examination"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >gold</MenuLink
+                >รายการตรวจสอบทอง</MenuLink
               >
             </li>
+            <li v-if="role === 'owner'">
+              <MenuLink to="/pawn"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >รายการจำนำทอง</MenuLink
+              >
+            </li>
+            <li v-if="role === 'owner'">
+              <MenuLink to="withdrawlist/financelistseller"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >รายการเบิกเงิน</MenuLink
+              >
+            </li>
+            <li v-if="role === 'customer'">
+              <MenuLink to="withdrawlist/financelistseller"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >รายการเบิกเงิน</MenuLink
+              >
+            </li>
+            
             <li>
               <MenuLink
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >Settings</MenuLink
+                >การตั้งต่า</MenuLink
               >
             </li>
-            <li>
-              <MenuLink
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >Earnings</MenuLink
-              >
-            </li>
+           
             <li>
               <MenuLink
                 @click="logout"

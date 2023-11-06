@@ -1,3 +1,16 @@
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+
 <template>
   <!-- <div class="pt-8 pb-8 flex items-center justify-center">
     <div class="card-white w-[500px]">
@@ -55,6 +68,7 @@
       </div>
     </div>
   </div> -->
+
 
   <section class="h-screen bg-red-50x max-w-7xl mx-auto p-0">
     <div class="container h-full px-6 py-24">

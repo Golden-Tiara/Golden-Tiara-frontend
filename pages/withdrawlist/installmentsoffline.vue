@@ -71,29 +71,26 @@
         role="tabpanel"
         aria-labelledby="profile-tab"
       >
-        <div
-          id="pdf-content"
-          class="bg-white border border-darkgold shadow md:flex-row md:w-[700px]"
-        >
-          <div class="mt-10">
-            <div
-              class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
-            >
-              <div
-                class="flex flex-col justify-between p-4 ml-7 leading-normal"
-              >
+        <div class="flex justify-center">
+          <div
+            id="pdf-content"
+            class="bg-white flex border justify-center border-darkgold shadow md:flex-row md:w-[300px] md:h-[350px]"
+          >
+            <div class="flex justify-between md:w-[400px]">
+              <div class="flex flex-col justify-center p-4 leading-normal">
                 <div class="mb-3">
                   <label
                     for="installment"
-                    class="block mb-2 text-sm font-medium text-gray-900"
+                    class="block mb-2 text-[10px] font-medium text-gray-900"
                     >เลือกจำนวนงวดที่จะจ่าย:</label
                   >
                   <select
+                    required
                     id="installment"
                     v-model="selectedInstallments"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    class="bg-gray-50 border text-[8px] border-gray-300 text-gray-900 rounded-lg focus:ring-gold focus:border-gold block w-full"
                   >
-                    <option disabled value="">กรุณาเลือกจำนวนงวด</option>
+                   
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -102,66 +99,72 @@
                     <option value="6">6</option>
                   </select>
                 </div>
-                <p class="mb-3 font-bold text-gray-700 text-base">
-                  เลขบัตรประชาชนลูกค้า: {{ national_id }}
-                </p>
-                <p class="mb-3 font-bold text-gray-700 text-base">
-                  จำนวนเงินที่ต้องจ่าย: {{ money }} บาท
-                </p>
-                <p class="mb-3 font-bold text-gray-700 text-base">
-                  เลขสัญญาจำนำทอง: {{ pawnID }}
-                </p>
+                <div class="">
+                  <p class="mb-3 font-bold text-gray-700 text-[8px]">
+                    เลขบัตรประชาชนลูกค้า:
+                    <span class="text-gold"> {{ national_id }}</span>
+                  </p>
 
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  วันหมดอายุสัญญา: {{ expiry_date }}
-                </p>
+                  <p class="mb-3 font-bold text-gray-700 text-[8px]">
+                    เลขสัญญาจำนำทอง: {{ pawnID }}
+                  </p>
 
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  ราคาจำนำทอง: {{ loan_amount }}
-                </p>
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  อัตราดอกเบี้ย: {{ interest_rate }}
-                </p>
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  จำนวนงวด: {{ total_term }}
-                </p>
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  สถานะการจำนำ: {{ shop_payout_status }}
-                </p>
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    วันหมดอายุสัญญา: {{ expiry_date }}
+                  </p>
+
+                  <p class="mb-3 font-bold text-gray-700 text-[8px]">
+                    จำนวนเงินที่ต้องจ่าย: {{ money }} บาท
+                  </p>
+
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    ราคาจำนำทอง:
+                    <span class="text-green-500"> {{ loan_amount }}</span>
+                  </p>
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    อัตราดอกเบี้ย: {{ interest_rate }}
+                  </p>
+
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    จำนวนงวด: {{ total_term }}
+                  </p>
+                  <p class="mb-3 font-normal text-gray-700 text-[8px]">
+                    สถานะการจำนำ: {{ shop_payout_status }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="flex justify-center mt-10">
+          <button
+            class="bg-darkblue text-white font-bold py-2 px-4 inline-flex items-center hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
+            id="downloadButton"
+            @click="downloadPDF"
+          >
+            <svg
+              class="fill-current w-4 h-4 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+            </svg>
+            <span>Download PDF</span>
+          </button>
+          <button
+            @click="saveInstallment"
+            class="bg-green-500 ml-5 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center"
+            id="saveInstallmentButton"
+          >
+            <span>บันทึกการจ่ายค่างวด</span>
+          </button>
+        </div>
+        <span id="error-message" class="text-red-500"></span>
+
+        <!-- End pawn data -->
       </div>
     </div>
-    <button
-      style="background-color: #fa2323"
-      class="hover:bg-red-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-      id="downloadButton"
-    >
-      <svg
-        class="fill-current w-4 h-4 mr-2"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-      </svg>
-      <span>Download PDF</span>
-    </button>
-    <button
-      @click="saveInstallment"
-      style="background-color: #4caf50"
-      class="hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
-      id="saveInstallmentButton"
-    >
-      <svg
-        class="fill-current w-4 h-4 mr-2"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      ></svg>
-      <span>บันทึกการจ่ายค่างวด</span>
-    </button>
-    <!-- End pawn data -->
 
     <!-- Pawn money -->
     <div
@@ -170,41 +173,35 @@
       role="tabpanel"
       aria-labelledby="dashboard-tab"
     >
-      <div class="flex justify-center mt-10">
-        <div
-          class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
-        >
-          <div class="p-5">
-            <h5
-              class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-            >
-              ข้อมูลการจ่ายค่างวด
-            </h5>
-          </div>
-          <div class="flex justify-center mt-10">
-            <div
-              class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
-            >
-              <div
-                class="flex flex-col justify-between p-4 ml-7 leading-normal"
-              >
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  จำนวนเงินที่จ่ายแล้ว: {{ paid_amount }}
-                </p>
-                <p class="mb-3 font-bold text-gray-700 text-base">
-                  จำนวนงวดที่จ่ายแล้ว: {{ paid_term }}
-                </p>
-                <p class="mb-3 font-normal text-gray-700 text-base">
-                  วันจ่ายค่างวดครั้งถัดไป: {{ next_payment }}
-                </p>
-              </div>
+      <div class="mt-10">
+        <div class="p-5">
+          <h5
+            class="text-2xl font-bold text-center tracking-tight text-gray-900 dark:text-white"
+          >
+            ข้อมูลการจ่ายค่างวด
+          </h5>
+        </div>
+        <div class="flex justify-center mt-10">
+          <div
+            class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-6/12 h-40"
+          >
+            <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
+              <p class="mb-3 font-normal text-gray-700">
+                จำนวนเงินที่จ่ายแล้ว: {{ paid_amount }}
+              </p>
+              <p class="mb-3 font-bold text-gray-700">
+                จำนวนงวดที่จ่ายแล้ว: {{ paid_term }}
+              </p>
+              <p class="mb-3 font-normal text-gray-700">
+                วันจ่ายค่างวดครั้งถัดไป: {{ next_payment }}
+              </p>
             </div>
           </div>
         </div>
       </div>
       <div class="flex justify-center mt-6">
         <button
-          @click="qrPayment"
+          @click="eventComplete"
           class="bg-darkblue text-white font-bold py-2 px-4 inline-flex items-center hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg"
         >
           <svg
@@ -216,10 +213,11 @@
               d="M5.5 5c-.655 0-.66 1.01 0 1h22c.286 0 .5.214.5.5v13c0 .66 1 .66 1 0v-13c0-.822-.678-1.5-1.5-1.5h-22zm-2 2c-.654 0-.654 1 0 1h22c.286 0 .5.214.5.5v13c0 .665 1.01.66 1 0v-13c0-.822-.678-1.5-1.5-1.5h-22zm-2 2C.678 9 0 9.678 0 10.5v12c0 .822.678 1.5 1.5 1.5h22c.822 0 1.5-.678 1.5-1.5v-12c0-.822-.678-1.5-1.5-1.5h-22zm0 1h22c.286 0 .5.214.5.5v12c0 .286-.214.5-.5.5h-22c-.286 0-.5-.214-.5-.5v-12c0-.286.214-.5.5-.5zm1 1c-.276 0-.5.224-.5.5v2c0 .672 1 .656 1 0V12h1.5c.672 0 .656-1 0-1h-2zm10 0C9.468 11 7 13.468 7 16.5S9.468 22 12.5 22s5.5-2.468 5.5-5.5-2.468-5.5-5.5-5.5zm8 0c-.656 0-.672 1 0 1H22v1.5c0 .656 1 .672 1 0v-2c0-.276-.224-.5-.5-.5h-2zm-8 1c2.49 0 4.5 2.01 4.5 4.5S14.99 21 12.5 21 8 18.99 8 16.5s2.01-4.5 4.5-4.5zm0 1c-.277 0-.5.223-.5.5v.594c-.578.21-1 .76-1 1.406 0 .82.68 1.5 1.5 1.5.28 0 .5.212.5.5 0 .288-.22.5-.5.5h-1c-.338-.005-.5.248-.5.5s.162.505.5.5h.5v.5c0 .277.223.5.5.5s.5-.223.5-.5v-.594c.578-.21 1-.76 1-1.406 0-.82-.68-1.5-1.5-1.5-.28 0-.5-.212-.5-.5 0-.288.22-.5.5-.5h1c.338.005.5-.248.5-.5s-.162-.505-.5-.5H13v-.5c0-.277-.223-.5-.5-.5zm-10 6.002c-.25-.002-.5.162-.5.498v2c0 .276.224.5.5.5h2c.656 0 .672-1 0-1H3v-1.5c0-.328-.25-.496-.5-.498zm20 0c-.25.002-.5.17-.5.498V21h-1.5c-.672 0-.656 1 0 1h2c.276 0 .5-.224.5-.5v-2c0-.336-.25-.5-.5-.498z"
             />
           </svg>
-          <span>จ่ายค่างวด</span>
+         ชำระค่างวด
         </button>
       </div>
     </div>
+
     <!-- End pawn money-->
 
     <div
@@ -254,7 +252,7 @@
           <tr
             v-for="(transaction, index) in transactions2"
             :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gold"
+            class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gold"
           >
             <td
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
@@ -265,18 +263,32 @@
               {{ transaction.type }}
             </td>
             <td class="px-6 py-4 text-center">
-              {{ transaction.term }}
+              <span class="text-purple-500"> {{ transaction.term }}</span>
             </td>
             <td class="px-6 py-4 text-center">
-              {{ transaction.amount }}
+              <span class="text-green-500"> {{ transaction.amount }}</span>
             </td>
             <td class="px-6 py-4 text-center">
-              {{ transaction.transaction_dateTime }}
+              {{
+                new Date(transaction.transaction_dateTime).toLocaleDateString(
+                  "th-TH",
+                  {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  }
+                )
+              }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <CompleteEvent></CompleteEvent>
+    <CompletePay></CompletePay>
   </div>
 </template>
 
@@ -284,6 +296,8 @@
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/useAuthStore";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 // Reactive state declarations
 const pawnID = ref<string>("");
@@ -315,6 +329,7 @@ onMounted(async () => {
   //     // จัดการกับข้อผิดพลาด, เช่น แสดงข้อความแจ้งเตือน
   //   }
   // }
+
   pawnID.value = localStorage.getItem("pawn_id");
   console.log(pawnID.value);
   if (pawnID.value) {
@@ -390,6 +405,29 @@ onMounted(async () => {
   transactions2.value = transactions1.value.value;
 });
 
+const eventComplete = function () {
+  const loadingModal = document.getElementById("loading-modal") as HTMLElement;
+  const paymentCompleteModal = document.getElementById(
+    "payment-complete-modal"
+  ) as HTMLElement;
+
+  if (loadingModal && paymentCompleteModal) {
+    loadingModal.classList.remove("hidden");
+
+    setTimeout(() => {
+      loadingModal.classList.add("hidden");
+      paymentCompleteModal.classList.remove("hidden");
+    }, 3000);
+  }
+};
+
+const closeModal = () => {
+  const modal = document.getElementById("loading-modal");
+  if (modal) {
+    modal.classList.add("hidden");
+  }
+   window.location.reload();
+};
 // Computed property for money calculation
 const money = computed(() => {
   if (
@@ -407,6 +445,8 @@ const money = computed(() => {
 });
 
 const saveInstallment = async () => {
+  const errorMessageElement = document.getElementById('error-message');
+
   try {
     const updatedPaidAmount =
       parseFloat(paid_amount.value) + parseFloat(money.value);
@@ -431,6 +471,20 @@ const saveInstallment = async () => {
       method: "PUT",
       body: payload,
     });
+    const loadingPay = document.getElementById("loading-pay") as HTMLElement;
+    const payComplete = document.getElementById(
+      "pay-complete"
+    ) as HTMLElement;
+
+    if (loadingPay && payComplete) {
+      loadingPay.classList.remove("hidden");
+
+      setTimeout(() => {
+        loadingPay.classList.add("hidden");
+        payComplete.classList.remove("hidden");
+      }, 3000);
+    }
+
     console.log(payload);
     paid_amount.value = payload.paidAmount;
     console.log(paid_amount);
@@ -444,7 +498,237 @@ const saveInstallment = async () => {
   }
 };
 
+const downloadPDF = async () => {
+  const content = document.getElementById("pdf-content");
+
+  const canvas = await html2canvas(content, {
+    scale: 4, // Adjust scale as needed, e.g., 2 for higher resolution
+    dpi: window.devicePixelRatio * 150, // Adjust DPI for higher quality
+  });
+
+  const pdf = new jsPDF("p", "mm", "a4"); // Create a new PDF document
+
+  const imgData = canvas.toDataURL("image/png", 1); // Use quality parameter to prevent compression
+
+  pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // Add the canvas as an image
+
+  pdf.save(`ใบจำนำ.pdf`); // Save the PDF with pawn id
+};
+
 definePageMeta({
   middleware: "authenticated", // Auth checker
 });
+
+const profileTabs = function () {
+  const profileTab = document.getElementById("profile-tab");
+  const profileTabSlide = document.getElementById("profile-tab-slide");
+  const dashboardTab = document.getElementById("dashboard-tab");
+  const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
+
+  dashboardTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  profileTabSlide?.classList.remove(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  profileTab?.classList.remove("border-b-2", "border-gold");
+  profileTab?.classList.add("text-gold", "border-b-2", "border-gold");
+  dashboardTab?.classList.remove("border-b-2");
+
+  contactTab?.classList.remove("border-b-2");
+};
+
+const dashboardTabs = function () {
+  const profileTab = document.getElementById("profile-tab");
+  const profileTabSlide = document.getElementById("profile-tab-slide");
+  const dashboardTab = document.getElementById("dashboard-tab");
+  const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
+
+  profileTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  dashboardTabSlide?.classList.remove(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+  dashboardTab?.classList.add("text-gold", "border-b-2", "border-gold");
+  profileTab?.classList.remove("border-b-2");
+  contactTab?.classList.remove("border-b-2");
+};
+
+const settingsTabs = function () {
+  const profileTab = document.getElementById("profile-tab");
+  const profiletabSlide = document.getElementById("profile-tab-slide");
+  const dashboardTab = document.getElementById("dashboard-tab");
+  const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+
+  const contactTab = document.getElementById("settings-tab");
+  const contactTabSlide = document.getElementById("contact-tab-slide");
+
+  dashboardTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+  profiletabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  contactTabSlide?.classList.add(
+    "relative",
+    "font-normal",
+    "text",
+    "w-fit",
+    "block",
+    "after:block",
+    "after:content-['']",
+    "after:absolute",
+    "after:h-[2px]",
+    "after:bg-gold",
+    "after:w-full",
+    "after:scale-x-0",
+    "after:hover:scale-x-100",
+    "after:transition",
+    "after:duration-300",
+    "after:origin-center"
+  );
+
+  profileTab?.classList.remove("border-b-2");
+  dashboardTab?.classList.remove("border-b-2");
+  contactTab?.classList.remove("border-b-2");
+};
 </script>

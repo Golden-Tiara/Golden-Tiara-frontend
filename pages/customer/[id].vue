@@ -8,7 +8,7 @@
            <img
             v-if="user.image_path"
             class="object-cover w-auto pl-2 rounded md:w-[500px] md:rounded-none md:rounded-l-lg"
-            :src="`http://localhost/images/gold/${user.image_path}`"
+            :src="`http://localhost/images/user/${user.image_path}`"
             alt=""
           />
           <img
