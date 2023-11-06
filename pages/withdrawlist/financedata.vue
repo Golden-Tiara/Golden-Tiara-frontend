@@ -104,7 +104,7 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 
 definePageMeta({
-  middleware: ["authenticated", "authentization"], //Auth checker
+  middleware: ["authenticated"], //Auth checker
 });
 
 import { ref } from "vue";

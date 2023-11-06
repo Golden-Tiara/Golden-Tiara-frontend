@@ -122,6 +122,7 @@
 
         <!-- Table -->
         <table
+          v-if="pawns.length > 0"
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-6"
         >
           <thead
@@ -212,7 +213,13 @@
             </tr>
           </tbody>
         </table>
-        <div class="flex items-center justify-center mb-14">
+        <h1 v-else class="text-6xl text-center text-red-500 mt-20 font-bold">
+          ไม่พบข้อมูล
+        </h1>
+        <div
+          class="flex items-center justify-center mb-14"
+          v-if="pawns.length > 10"
+        >
           <button
             @click="page--"
             :disabled="page <= 1"

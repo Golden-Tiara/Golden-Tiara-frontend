@@ -31,11 +31,11 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     } else if (routeName === 'withdrawlist-financelistseller' && userRole === 'owner') {
       return true;
-    } else if (routeName === 'withdrawlist-financelistme' && userRole === 'seller') {
+    } else if (routeName === 'withdrawlist-financelistme' && userRole === 'seller' ) { 
       return true;
     } else if (routeName === 'withdrawlist-financedata' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'withdrawlist-installmentsoffline' && userRole === 'seller') {
+    } else if (routeName === 'withdrawlist-installmentsoffline' && userRole === 'seller' ){ 
       return true;
     } else if (routeName === 'withdrawlist-selleroffline' && (userRole === 'seller' || userRole === 'owner')) {
       return true;

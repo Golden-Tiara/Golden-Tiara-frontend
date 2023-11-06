@@ -34,8 +34,9 @@
       </select>
     </div>
 
-    <table  v-if="transaction.length > 0"
-      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold"
+    <table
+
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold mb-6"
     >
       <thead
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center"
@@ -53,7 +54,7 @@
         <tr
           v-for="transaction in transactions"
           :key="transaction.id"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gold"
+          class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gold"
         >
           <td
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
@@ -74,7 +75,7 @@
             {{ transaction.created_by }}
           </td>
           <td
-            class="px-6 py-4 text-center"
+            class="px-6 py-4 text-center text-green-500"
             v-if="transaction.created_by === user.national_id"
           >
             {{ transaction.amount }}
@@ -103,9 +104,10 @@
             </span>
           </td>
           <td
-            class="px-6 py-4 text-center"
+            class="px-6 py-4 text-center text-purple-500"
             v-if="transaction.created_by === user.national_id"
-          >{{
+          >
+            {{
               new Date(transaction.transaction_dateTime).toLocaleDateString(
                 "th-TH",
                 {
@@ -118,11 +120,42 @@
                 }
               )
             }}
-            
           </td>
         </tr>
       </tbody>
     </table>
+    <!-- <h1  class="text-6xl text-center text-red-500 mt-20 font-bold">
+      ไม่พบข้อมูล
+    </h1> -->
+
+    <div
+      class="flex items-center justify-center mb-14"
+      v-if="transactions.length > 10"
+    >
+      <button
+        @click="page--"
+        :disabled="page <= 1"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
+            page <= 1,
+        }"
+      >
+        หน้าก่อน
+      </button>
+
+      <button
+        @click="page++"
+        :disabled="page >= Math.ceil(transactions.length / perPage)"
+        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+        :class="{
+          'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
+            page >= Math.ceil(transactions.length / perPage),
+        }"
+      >
+        หน้าถัดไป
+      </button>
+    </div>
   </section>
 </template>
 
@@ -130,14 +163,38 @@
 import upSvg from "@/assets/images/icons/up.svg";
 import downSvg from "@/assets/images/icons/down.svg";
 import { useAuthStore } from "~/stores/useAuthStore";
+
 const { data: transactions } = await useMyFetch<any>("transaction", {});
+console.log(transactions);
+
+console.log(transactions.value.length)
+
+
+
 const searchIdText = ref("");
 const searchIdText1 = ref("");
+const page = ref(1); // เพิ่ม ref สำหรับ page
+const perPage = ref(10); // เพิ่ม ref สำหรับ perPage
 const authStore = useAuthStore();
 const user = computed(() => authStore.user);
+
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });
+
+const paginatedTranactions = computed(() => {
+  if (Array.isArray(transactions.value)) {
+    const start = (page.value - 1) * perPage.value;
+    const end = start + perPage.value;
+    const slicedTransactions = transactions.value.slice(start, end);
+    console.log(slicedTransactions);
+    return slicedTransactions;
+  } else {
+    return [];
+  }
+});
+
+
 const applyFilter_id = () => {
   if (searchIdText.value === "") {
     // Reload the page if the text search field is empty

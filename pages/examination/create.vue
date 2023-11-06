@@ -1,7 +1,7 @@
 <template>
   <section class="max-w-7xl mx-auto p-0">
     <div class="relative overflow-x-auto">
-      <div class="pb-4 bg-white dark:bg-gray-900">
+      <div class=" bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
           <h1 class="text-5xl text-gold">เพิ่มรายการตรวจสอบทอง</h1>
         </div>
@@ -154,7 +154,6 @@
               />
             </div>
 
-            <!-- Display nationalId as text if it's stored -->
             <p
               v-else
               class="flex items-center text-lg border border-gold px-2 rounded-lg"
@@ -174,10 +173,6 @@
             >
               บันทึก
             </button>
-
-            <div class="text-red-500" v-if="userNotFoundError">
-              No user found
-            </div>
 
             <!-- <div v-else-if=" user ">
               Display user data here
@@ -213,6 +208,17 @@
           </nuxt-link>
         </div>
       </div>
+     
+      <span v-if="!isNationalIdValid && !user" class="text-red-500">
+        โปรดกรอกเลขบัตรประชาชนให้ครบ 13 หลัก
+      </span>
+      <span v-if="userNotFoundError && !user && isNationalIdValid" class="text-red-500">กรอกรหัสบัตรประชาชนให้ถูกต้อง</span>
+      <span v-if="!userNotFoundError && user" class="text-green-500 ">พบผู้ใช้งาน</span>
+      <!-- <p v-else-if="!userNotFoundError && isNationalIdValid " class="text-red-500">
+      ไม่พบข้อมูลผู้ใช้งาน</p>
+      <p v-else="userNotFoundError || isNationalIdValid" class="text-green-500">
+      พบข้อมูลผู้ใช้งาน</p> -->
+     
 
       <div
         v-if="!isSaveValid"
@@ -257,7 +263,6 @@
         </tbody>
       </table>
 
-
       <!-- <div>
         <p v-if="successMessage" class="text-green-600">{{ successMessage }}</p>
       </div> -->
@@ -274,17 +279,15 @@
     </div>
   </section>
   <CompleteEvent></CompleteEvent>
-
-  <p id="reload" class="hidden">suhgousrg</p>
 </template>
 
 <script>
+import { ErrorMessage } from "vee-validate";
 import { useAuthStore } from "~/stores/useAuthStore";
 
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });
-
 
 export default {
   data() {
@@ -300,8 +303,10 @@ export default {
     isNationalIdValid() {
       // Check if the nationalId is a 13-digit number
       const validNationalId = /^\d{13}$/.test(this.nationalId);
+
       return validNationalId;
     },
+
     isSaveValid() {
       return (
         !!localStorage.getItem("user") &&
@@ -414,15 +419,14 @@ export default {
       localStorage.removeItem("goldItems");
     },
 
-
     async closeModal() {
       const modal = document.getElementById("payment-complete-modal");
       const reload = document.getElementById("reload");
       if (modal) {
         modal.classList.add("hidden");
       }
-      reload.classList.remove('hidden')
-      reload.classList.add('hidden')
+      reload.classList.remove("hidden");
+      reload.classList.add("hidden");
     },
   },
 

@@ -9,13 +9,8 @@
     </div>
 
     <div class="flex mt-20 mb-5">
-      <!-- Search --><input
-        v-model="searchIdDate"
-        class="border border-gold rounded-md mr-5 px-5 py-2 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-        type="date"
-        name=""
-        id=""
-      />
+     
+      
       <input
         v-model="searchIdText"
         @input="applyFilter_id"
@@ -25,8 +20,7 @@
         placeholder="เลขสัญญาการจำนำ"
       />
 
-      <!-- Search -->
-      <!-- Customer ID Input -->
+      <!-- Status Input -->
       <select
         v-model="searchIdText1"
         @change="applyFilter_status"
@@ -75,7 +69,7 @@
             {{ transaction.pawn_id }}
           </td>
           <td
-            class="px-6 py-4 text-center"
+            class="px-6 py-4 text-center text-green-500"
             v-if="transaction.created_by === user.national_id"
           >
             {{ transaction.amount }}
@@ -84,13 +78,42 @@
             class="px-6 py-4 text-center"
             v-if="transaction.created_by === user.national_id"
           >
-            {{ transaction.status }}
+          <span
+              v-if="transaction.status === 'inprogress'"
+              class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
+            >
+              {{ transaction.status }}
+            </span>
+            <span
+              v-if="transaction.status === 'rejected'"
+              class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
+            >
+              {{ transaction.status }}
+            </span>
+            <span
+              v-if="transaction.status === 'completed'"
+              class="p-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+            >
+              {{ transaction.status }}
+            </span>
           </td>
           <td
-            class="px-6 py-4 text-center"
+            class="px-6 py-4 text-center text-purple-500"
             v-if="transaction.created_by === user.national_id"
           >
-            {{ transaction.transaction_dateTime }}
+          {{
+              new Date(transaction.transaction_dateTime).toLocaleDateString(
+                "th-TH",
+                {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                }
+              )
+            }}
           </td>
         </tr>
       </tbody>
