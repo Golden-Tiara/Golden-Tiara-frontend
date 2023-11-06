@@ -184,24 +184,23 @@
           <div
         class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
       >
-        <div class="flex flex-col justify-between p-4 ml-7 leading-normal" v-for="pawn of pawns"
-        :key="pawn.id">
-        <p class="mb-3 font-normal text-gray-700 text-base" >
+        <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
+        <p class="mb-3 font-bold text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
             เลขสัญญา: {{ pawn.id }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
+          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
             จำนวนเงินที่จ่ายแล้ว: {{ pawn.paid_amount }}
           </p>
-          <p class="mb-3 font-bold text-gray-700 text-base">
+          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
             จำนวนงวดที่จ่ายแล้ว: {{ pawn.paid_term }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
+          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
             วันจ่ายค่างวดครั้งถัดไป: {{ pawn.next_payment }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
-            จำนวนเงินที่ต้องจ่ายในงวดนี้: {{ (pawn.loan_amount - pawn.paid_amount) / pawn.total_term }}
+          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
+            จำนวนเงินที่ต้องจ่ายในแต่ละงวด: {{ pawn.loan_amount / pawn.total_term }}
           </p>
-          <p class="mb-3 font-normal text-gray-700 text-base">
+          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
             จำนวนเงินที่เหลือต้องจ่ายทั้งหมด: {{ pawn.loan_amount - pawn.paid_amount }}
           </p>
         </div>
@@ -250,7 +249,7 @@
           <tbody>
             <tr
               class="bg-white hover:bg-gray-50 dark:hover:bg-gray-600 border-b border-gold"
-              v-for="transaction of paginatedTranactions"
+              v-for="transaction in pawn.transactions"
               :key="transaction.id"
             >
               <td

@@ -33,7 +33,7 @@
         </div>
 
         <!-- Search Box -->
-        <div class="flex mt-20 mb-5">
+        <div class="flex mb-5">
           <!-- Search -->
 
           <div class="flex mt-20 mb-5">
@@ -44,7 +44,7 @@
               type="number"
               id="examination-id-search"
               class="block py-2.5 text-sm text-gray-900 border-2 border-gold rounded-lg w-40 bg-gray-50 focus:ring-darkgold focus:border-darkgold"
-              placeholder="เลขสัญญตรวจสอบ"
+              placeholder="เลขสัญญาจำนำทอง"
             />
 
             <!-- Customer ID Input -->
