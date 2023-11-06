@@ -37,12 +37,13 @@
               alt="PromptPay QR Code"
             />
           </div>
-          <div class="w-72 mx-auto text-center">
+          <div class="w-72 mx-auto text-center" v-for="pawn of pawns"
+        :key="pawn.id" v-if="user && user.national_id">
             <h2 class="text-xl font-semibold mb-2">ข้อมูลชำระเงิน</h2>
-            <p class="mb-2">Recipient Name: {{ recipientName }}</p>
-            <p class="mb-2">Mobile Number: {{ mobileNumber }}</p>
-            <p>
-              Amount: <span class="text-green-500">{{ amount }}</span>
+            <p class="mb-2" v-if="pawn.customer_id === user.national_id">Recipient Name: {{ pawn.id }}</p>
+            <p class="mb-2" v-if="pawn.customer_id === user.national_id">Mobile Number: {{ pawn.id }}</p>
+            <p class="mb-2" v-if="pawn.customer_id === user.national_id">
+              Amount: <span class="text-green-500">{{ pawn.loan_amount - pawn.paid_amount}}</span>
             </p>
             <button
               class="bg-darkblue hover:bg-gradient-to-b mb-4 from-gold to-darkgold text-white font-bold py-2 px-4 rounded-full mt-4 focus:ring-2 focus:ring-darkgold"
@@ -197,8 +198,12 @@ definePageMeta({
   middleware: "authenticated", //Auth checker
 });
 
+const { data: pawns } = await useMyFetch<any>("pawn", {});
+
 const confirmPayment = function () {
   const loadingModal = document.getElementById("loading-modal") as HTMLElement;
+  const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
   const paymentCompleteModal = document.getElementById(
     "payment-complete-modal"
   ) as HTMLElement;

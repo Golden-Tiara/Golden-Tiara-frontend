@@ -259,7 +259,6 @@ export default {
         formData.append('customer_id', this.nationalId);
         formData.append('examination_id', this.examinationId);
         formData.append('interest_rate', this.interest);
-
         await useMyFetch("pawn", {
           method: "POST",
           body: formData,

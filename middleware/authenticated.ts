@@ -19,7 +19,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     } else if (routeName === 'pawn' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'pawn-id' && (userRole === 'seller' || userRole === 'owner')) {
+    } else if (routeName === 'pawn-id' && (userRole === 'seller' || userRole === 'owner' || userRole === 'customer')) {
       return true;
     } else if (routeName === 'pawn-add' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
@@ -46,6 +46,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
     } else if (routeName === 'customer-mypawn' && userRole === 'customer') {
       return true;
     } else if (routeName === 'customer-pawnamount' && userRole === 'customer') {
+      return true;
+    }  else if (routeName === 'customer-mygold' && userRole === 'customer') {
+      return true;
+    }  else if (routeName === 'customer-index' && userRole === 'customer') {
       return true;
     } else if (routeName === 'ownerandSeller-pawnitemform' && (userRole === 'seller' || userRole === 'owner')) {
       return true;

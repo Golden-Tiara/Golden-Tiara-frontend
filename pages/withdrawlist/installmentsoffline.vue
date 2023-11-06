@@ -300,6 +300,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 // Reactive state declarations
+const { data: pawns } = await useMyFetch<any>("pawn", {});
 const pawnID = ref<string>("");
 const national_id = ref<string>("");
 const expiry_date = ref<string>("");
@@ -316,6 +317,7 @@ const transactions1 = ref([]);
 const transactions2 = ref([]);
 
 const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
 const userID = ref("");
 // Lifecycle hook
 onMounted(async () => {

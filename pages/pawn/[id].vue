@@ -182,24 +182,31 @@
       >
         <div class="flex justify-center mt-10">
           <div
-            class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
-          >
-            <div class="flex flex-col justify-between px-4 py-8 ml-7 leading-normal text-lg">
-              <p class="mb-3 font-normal text-gray-700 ">
-                จำนวนเงินที่จ่ายแล้ว:
-                <span class="text-green-500 text-lg">{{ pawn.paid_amount }}</span>
-              </p>
-              <p class="mb-3 font-bold text-gray-700 ">
-                จำนวนงวดที่จ่ายแล้ว:
-                <span class="text-purple-500 text-lg">{{ pawn.paid_term }}</span>
-              </p>
-              <p class="mb-3 font-normal text-gray-700 ">
-                วันจ่ายค่างวดครั้งถัดไป:
-                <span class="text-blue-500 text-lg">{{ pawn.next_payment }}</span>
-              </p>
-            </div>
-          </div>
+        class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
+      >
+        <div class="flex flex-col justify-between p-4 ml-7 leading-normal" v-for="pawn of pawns"
+        :key="pawn.id">
+        <p class="mb-3 font-normal text-gray-700 text-base" >
+            เลขสัญญา: {{ pawn.id }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            จำนวนเงินที่จ่ายแล้ว: {{ pawn.paid_amount }}
+          </p>
+          <p class="mb-3 font-bold text-gray-700 text-base">
+            จำนวนงวดที่จ่ายแล้ว: {{ pawn.paid_term }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            วันจ่ายค่างวดครั้งถัดไป: {{ pawn.next_payment }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            จำนวนเงินที่ต้องจ่ายในงวดนี้: {{ (pawn.loan_amount - pawn.paid_amount) / pawn.total_term }}
+          </p>
+          <p class="mb-3 font-normal text-gray-700 text-base">
+            จำนวนเงินที่เหลือต้องจ่ายทั้งหมด: {{ pawn.loan_amount - pawn.paid_amount }}
+          </p>
         </div>
+      </div>
+    </div>
 
         <div class="flex justify-center mt-6">
           <button
@@ -391,6 +398,8 @@ const page = ref(1); // เพิ่ม ref สำหรับ page
 const perPage = ref(6); // เพิ่ม ref สำหรับ perPage
 const selectedTab = ref(""); // เพิ่ม ref สำหรับการเก็บ Tab ที่ถูกเลือก
 
+const authStore = useAuthStore();
+  const user = computed(() => authStore.user);
 definePageMeta({
   middleware: "authenticated", //Auth checker
 });

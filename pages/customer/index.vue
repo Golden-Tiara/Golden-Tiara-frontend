@@ -168,7 +168,7 @@
 
     <!-- Table -->
     <table
-      v-if="users.length > 0"
+     v-if = "users && users.length > 0"
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mb-10"
     >
       <thead
@@ -397,8 +397,14 @@ const { data: users, pending } = await useMyFetch<any>("user", {});
 const userToDelete = ref<number | null>(null);
 
 const filteredUsersByRole = computed(() => {
-  return users.value.filter((user) => user.role === "customer");
+  // Check if the data is available and not null
+  if (users.value && Array.isArray(users.value)) {
+    return users.value.filter((user) => user.role === "customer");
+  } else {
+    return [];
+  }
 });
+
 
 const confirmAction = (userID: number) => {
   userToDelete.value = userID;
