@@ -18,7 +18,7 @@
             alt=""
           /> 
   
-          <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
+          <div class="flex flex-col justify-between space-y-3 ml-7 leading-normal">
             <h5 class="mb-2 text-4xl font-bold tracking-tight text-gold">
               {{ user.national_id }}
             </h5>
