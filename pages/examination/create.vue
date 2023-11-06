@@ -205,7 +205,7 @@
         </div>
       </div>
       <div class="mt-1 text-sm">
-        <span v-if="!isNationalIdValid && !user" class="text-red-500 ">
+        <span v-if="!isNationalIdValid && !user" class="text-red-500">
           โปรดกรอกเลขบัตรประชาชนให้ครบ 13 หลัก
         </span>
         <span v-if="isNationalIdValid && !user" class="text-blue-500">
@@ -216,8 +216,8 @@
           class="text-red-500"
           >: ไม่พบบัญชีผู้ใช้งาน</span
         >
-        <span v-if="!userNotFoundError && user" class="text-green-500"
-          >: พบบัญชีผู้ใช้งาน</span
+        <span v-if="!userNotFoundError && user" class="text-green-500">
+          พบบัญชีผู้ใช้งาน</span
         >
       </div>
 
@@ -231,7 +231,7 @@
       <!-- Table have data -->
       <table
         v-else
-        class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold"
+        class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gold mt-8"
       >
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 border border-gold rounded-t-lg text-center"
