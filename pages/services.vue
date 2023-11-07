@@ -196,14 +196,14 @@
         v-if="user.role === 'seller'"
         class="flex flex-col max-w-sm w-80 bg-white border-2 border-gold rounded-lg shadow px-4 transition duration-500 transform hover:opacity-90 hover:scale-110 md:mt-20 mt-10"
       >
-        <MenuLink to="withdrawlist/selleroffline">
+        <MenuLink to="/withdrawlist/selleroffline">
           <img
             class="rounded-t-md w-80 h-80 pb-4 pt-2 pt-2"
             src="@/assets/images/illustrations/offline.svg"
             alt=""
           />
         </MenuLink>
-        <MenuLink to="withdrawlist/selleroffline">
+        <MenuLink to="/withdrawlist/selleroffline">
           <h5
             class="mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center"
           >
@@ -215,7 +215,7 @@
         </p>
         <div class="flex justify-center mb-4">
           <MenuLink
-            to="withdrawlist/selleroffline"
+            to="/withdrawlist/selleroffline"
             href="#"
             class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
@@ -245,14 +245,14 @@
         v-if="user.role === 'customer'"
         class="flex flex-col max-w-sm w-80 bg-white border-2 border-gold rounded-lg shadow px-4 transition duration-500 transform hover:opacity-90 hover:scale-110 md:mt-20 mt-10"
       >
-        <MenuLink to="customer/myexamination">
+        <MenuLink to="/customer/myexamination">
           <img
             class="rounded-t-md w-80 h-80 pb-4 pt-2"
             src="@/assets/images/illustrations/check.svg"
             alt=""
           />
         </MenuLink>
-        <MenuLink to="customer/myexamination">
+        <MenuLink to="/customer/myexamination">
           <h5
             class="mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center"
           >
@@ -264,7 +264,7 @@
         </p>
         <div class="flex justify-center mb-4">
           <MenuLink
-            to="customer/myexamination"
+            to="/customer/myexamination"
             href="#"
             class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
@@ -387,10 +387,6 @@
 <script>
 import { computed } from "vue";
 import { useAuthStore } from "~/stores/useAuthStore";
-
-definePageMeta({
-  middleware: "authenticated", //Auth checker
-});
 
 export default {
   setup() {
