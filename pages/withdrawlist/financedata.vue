@@ -32,20 +32,21 @@
           <p class="mb-3 font-normal text-gray-700 text-base">
             วันเวลาเบิก: {{ transaction.transaction_dateTime }}
           </p>
-          <div class="flex mb-4 mt-6">
+          <div transition="status === 'completed'"><div class="flex mb-4 mt-6">
             <button
-              @click="confirmAction('completed', transaction)"
-              class="px-10 py-2 bg-green-600 mr-2 border text-white rounded-lg"
+                @click="confirmAction('completed', transaction)"
+                class="px-10 py-2 bg-green-600 mr-2 border text-white rounded-lg"
             >
               ยืนยัน
             </button>
             <button
-              @click="confirmAction('rejected', transaction)"
-              class="px-2 py-2 bg-red-600 mr-2 border text-white rounded-lg"
+                @click="confirmAction('rejected', transaction)"
+                class="px-2 py-2 bg-red-600 mr-2 border text-white rounded-lg"
             >
               ยกเลิกการเบิกเงิน
             </button>
-          </div>
+          </div></div>
+
           <div
             v-if="showConfirmationModal"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"

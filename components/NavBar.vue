@@ -179,13 +179,13 @@
                 >รายการเบิกเงิน</MenuLink
               >
             </li>
-            <li v-if="role === 'owner' || role === 'seller'">
-              <MenuLink
-                to="/withdrawlist/transfermoney"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >โอนชำระเงินให้ลูกค้า</MenuLink
-              >
-            </li>
+<!--            <li v-if="role === 'owner' || role === 'seller'">-->
+<!--              <MenuLink-->
+<!--                to="/withdrawlist/transfermoney"-->
+<!--                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"-->
+<!--                >โอนชำระเงินให้ลูกค้า</MenuLink-->
+<!--              >-->
+<!--            </li>-->
             
             <li v-if="role === 'owner' || role === 'seller'">
               <MenuLink
@@ -194,13 +194,13 @@
                 >ข้อมูลการเบิกเงิน</MenuLink
               >
             </li>
-            <li v-if="role === 'owner' || role === 'seller'">
-              <MenuLink
-                to="/withdrawlist/create"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >เบิกเงินจากคลัง</MenuLink
-              >
-            </li>
+<!--            <li v-if="role === 'owner' || role === 'seller'">-->
+<!--              <MenuLink-->
+<!--                to="/withdrawlist/create"-->
+<!--                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"-->
+<!--                >เบิกเงินจากคลัง</MenuLink-->
+<!--              >-->
+<!--            </li>-->
             <li v-if="role === 'customer'">
               <MenuLink
                 to="/customer/mygold"
@@ -316,8 +316,7 @@ export default {
 
     const logout = () => {
       authStore.clear();
-      navigateTo("/");
-      window.location.reload();
+      window.location.href="/";
      
     };
 

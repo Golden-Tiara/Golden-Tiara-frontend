@@ -49,7 +49,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     }  else if (routeName === 'customer-mygold' && userRole === 'customer') {
       return true;
-    }  else if (routeName === 'customer-index' && userRole === 'customer') {
+    }  else if (routeName === 'customer' && userRole === 'owner') {
       return true;
     } else if (routeName === 'ownerandSeller-pawnitemform' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
