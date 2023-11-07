@@ -200,10 +200,10 @@
     </div>
     <div class="flex items-center justify-center mb-14 mt-6">
       <button
-        @click="page--"
-        :disabled="page <= 1"
-        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
-        :class="{
+          @click="page--"
+          :disabled="page <= 1"
+          class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+          :class="{
           'disabled:bg-gold disabled:text-white disabled:cursor-not-allowed':
             page <= 1,
         }"
@@ -212,10 +212,10 @@
       </button>
 
       <button
-        @click="page++"
-        :disabled="page >= Math.ceil(transactions.length / perPage)"
-        class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
-        :class="{
+          @click="page++"
+          :disabled="page >= Math.ceil(transactions.length / perPage)"
+          class="mr-2 text-lg bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:ring-gold focus:outline-none rounded-lg text-white px-8 py-2"
+          :class="{
           'disabled:bg-gold  disabled:text-white disabled:cursor-not-allowed':
             page >= Math.ceil(transactions.length / perPage),
         }"
@@ -290,8 +290,8 @@ const updateStatus = async () => {
       window.location.reload();
 
       const { data } = await useMyFetch<any>(
-        `transaction/${transactionId}`,
-        {}
+          `transaction/${transactionId}`,
+          {}
       );
       selectedTransaction.value = data;
       showConfirmationModal.value = false;
