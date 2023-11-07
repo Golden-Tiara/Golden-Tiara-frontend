@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     } else if (routeName === 'gold' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
-    } else if (routeName === 'gold-id' && (userRole === 'seller' || userRole === 'owner')) {
+    } else if (routeName === 'gold-id' && (userRole === 'seller' || userRole === 'owner' || userRole === 'customer')) {
       return true;
     } else if (routeName === 'gold-create' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
@@ -49,13 +49,15 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     }  else if (routeName === 'customer-mygold' && userRole === 'customer') {
       return true;
-    }  else if (routeName === 'customer-index' && userRole === 'customer') {
+    }  else if (routeName === 'customer' && userRole === 'owner') {
       return true;
     } else if (routeName === 'ownerandSeller-pawnitemform' && (userRole === 'seller' || userRole === 'owner')) {
       return true;
     }else if (routeName === 'auth-me' && (userRole === 'seller' || userRole === 'owner'|| userRole === 'customer')) {
       return true;
     }else if (routeName === 'accountant' && (userRole === 'accountant' || userRole === 'owner')) {
+      return true;
+    }else if (routeName === 'services' && (userRole === 'accountant' || userRole === 'owner' || userRole === 'seller' || userRole === 'customer')) {
       return true;
     }
 

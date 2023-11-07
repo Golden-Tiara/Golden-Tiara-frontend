@@ -29,6 +29,7 @@
 
         >
         <nuxt-link
+        v-if="examinations.customer_id === user.national_id"
           :to="`/gold/${gold.id}`"
           href="#"
           class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-8/12 hover:bg-gray-100"
@@ -140,12 +141,18 @@
   const selectedStatus = ref("");
   const authStore = useAuthStore();
   const user = computed(() => authStore.user);
+
   
   definePageMeta({
     middleware: "authenticated", //Auth checker
   });
   
   const { data: golds, pending } = await useMyFetch<any>("gold", {});
+
+  const { data: examinations } = await useMyFetch<any>(
+  "examination",
+  {}
+);
   
   const pageCount = computed(() => Math.ceil(golds.value.length / perPage.value));
   

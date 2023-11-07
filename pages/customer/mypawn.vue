@@ -7,7 +7,7 @@
         </div>
 
         <!-- Search Box -->
-        <div class="flex mt-20 mb-5">
+        <div class="flex mb-5">
           <!-- Search -->
 
           <div class="flex mt-20 mb-5">

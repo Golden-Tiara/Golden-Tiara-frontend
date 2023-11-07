@@ -1,16 +1,3 @@
-<style>
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-               -webkit-appearance: none;
-                margin: 0;
-        }
- 
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-    </style>
-
-
 <template>
   <!-- <div class="pt-8 pb-8 flex items-center justify-center">
     <div class="card-white w-[500px]">
@@ -68,7 +55,6 @@
       </div>
     </div>
   </div> -->
-
 
   <section class="h-screen bg-red-50x max-w-7xl mx-auto p-0">
     <div class="container h-full px-6 py-24">
@@ -278,6 +264,18 @@
     </div>
   </section>
 </template>
+
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
     
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/useAuthStore";
@@ -358,6 +356,7 @@ console.log(user.password);const { data: response, error } = await useMyFetch<an
   if (response.value !== null) {
     const { access_token, token_type } = response.value;
     if (access_token !== "") {
+      check = 1;
       auth.setNewToken(access_token);
       const { data: user, error } = await useMyFetch<any>("auth/me", {
         method: "POST",

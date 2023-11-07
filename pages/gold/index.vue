@@ -173,11 +173,6 @@ const paginatedGolds = computed(() => {
 });
 
 
-
-watch(selectedStatus, () => {
-  updateGolds();
-});
-
 const updateGolds = () => {
   pending.value = true;
 

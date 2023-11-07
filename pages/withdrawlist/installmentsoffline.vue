@@ -22,7 +22,7 @@
             aria-selected="false"
             @click="profileTabs"
           >
-            ข้อมูลจำนำทอง
+                กรอกค่างวด
           </button>
         </li>
         <li
@@ -312,6 +312,8 @@ const paid_amount = ref<number>(0);
 const paid_term = ref<number>(0);
 const next_payment = ref<string>("");
 const selectedInstallments = ref<number>(0);
+
+
 
 const transactions1 = ref([]);
 const transactions2 = ref([]);

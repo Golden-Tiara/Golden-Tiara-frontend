@@ -1305,7 +1305,7 @@ if (/^\d{13}$/.test(formData.national_id) === false) {
 
 // ตรวจสอบเบอร์โทรศัพท์ว่าไม่มีช่องว่าง
 if (/^\d{10}$/.test(formData.phone_number) === false) {
-  errorMessage.phone_number = "เบอร์โทรศัพท์ต้องเป็นตัวเลขเท่านั้นและไม่มีช่องว่าง";
+  errorMessage.phone_number = "เบอร์โทรศัพท์ต้องเป็นตัวเลขที่มี 10 ตัวเท่านั้นและไม่มีช่องว่าง";
   isFormValid = false;
 }
 
@@ -1314,15 +1314,16 @@ if (/^\d+$/.test(formData.password) === false) {
   isFormValid = false;
 }
 
-if (/^[A-Za-z]+$/.test(formData.name) === false) {
-    errorMessage.name = "ชื่อต้องเป็นตัวอักษรเท่านั้นและห้ามมีช่องว่างหรือตัวเลข";
-    isFormValid = false;
-  }
+if (/^[A-Za-zก-๏เ-๛]+$/.test(formData.name) === false) {
+  errorMessage.name = "ชื่อต้องเป็นตัวอักษรเท่านั้น";
+  isFormValid = false;
+}
 
-  if (/^[A-Za-z]+$/.test(formData.surname) === false) {
-    errorMessage.surname = "นามสกุลต้องเป็นตัวอักษรเท่านั้นและห้ามมีช่องว่างหรือตัวเลข";
-    isFormValid = false;
-  }
+if (/^[A-Za-zก-๏เ-๛]+$/.test(formData.surname) === false) {
+  errorMessage.surname = "นามสกุลต้องเป็นตัวอักษรเท่านั้น";
+  isFormValid = false;
+}
+
 
   console.log(formData);
   console.log(isFormValid);

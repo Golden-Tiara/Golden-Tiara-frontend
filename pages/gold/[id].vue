@@ -74,27 +74,10 @@
             </span>
           </p>
 
-          <div v-if="gold.status === 'unverified' && (role === 'owner' || role === 'seller')">
-            <div class="flex mt-8">
-              <button
-                type="button"
-                class="text-white bg-green-600 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center mr-5"
-                @click="confirmAction('verified')"
-              >
-                ตรวจสอบผ่าน
-              </button>
-              <button
-                type="button"
-                class="text-white bg-red-600 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center"
-                @click="confirmAction('unverified')"
-              >
-                ตรวจสอบไม่ผ่าน
-              </button>
-            </div>
-          </div>
+          
 
 
-          <div v-else-if="gold.status === 'examining' && (role === 'owner' || role === 'seller')">
+          <div v-if="gold.status === 'examining' && (role === 'owner' || role === 'seller')">
             <div class="flex mt-8">
               <button
                 type="button"
@@ -174,7 +157,7 @@ const authStore: AuthStore = useAuthStore();
 
 const isLogin = computed(() => authStore.isLogin);
 const userName = computed(() => authStore.user.name);
-const role = computed(() => authStore.user.surname);
+const role = computed(() => authStore.user.role);
 
 const confirmAction = (status: string) => {
   statusToUpdate = status;

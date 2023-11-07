@@ -179,13 +179,13 @@
                 >รายการเบิกเงิน</MenuLink
               >
             </li>
-            <li v-if="role === 'owner' || role === 'seller'">
+            <!-- <li v-if="role === 'owner' || role === 'seller'">
               <MenuLink
                 to="/withdrawlist/transfermoney"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >โอนชำระเงินให้ลูกค้า</MenuLink
               >
-            </li>
+            </li> -->
             
             <li v-if="role === 'owner' || role === 'seller'">
               <MenuLink
@@ -205,7 +205,7 @@
               <MenuLink
                 to="/customer/mygold"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >รายการเบิกเงิน</MenuLink
+                >รายการทองของฉัน</MenuLink
               >
             </li>
 

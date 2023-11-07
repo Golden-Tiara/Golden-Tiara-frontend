@@ -74,7 +74,7 @@
             aria-selected="false"
             @click="contactsTabs"
           >
-            Contacts
+            รายการทอง
           </button>
         </li>
       </ul>
