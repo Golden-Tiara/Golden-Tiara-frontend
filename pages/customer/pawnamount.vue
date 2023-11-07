@@ -3,14 +3,14 @@
     <div class="relative overflow-x-auto">
       <div class="pb-4 bg-white dark:bg-gray-900">
         <div class="flex justify-between items-center mt-12">
-          <h1 class="text-5xl text-gold">ตารางจำนำ</h1>
+          <h1 class="text-5xl text-gold">เช็คค่างวด</h1>
         </div>
 
         <!-- Search Box -->
         <div class="flex mt-20 mb-5">
           <!-- Search -->
 
-          <div class="flex mt-20 mb-5">
+          <div class="flex  mb-5">
             <!-- Citizen ID Input Box -->
             <input
               v-model="searchIdText"

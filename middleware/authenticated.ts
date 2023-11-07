@@ -57,6 +57,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return true;
     }else if (routeName === 'accountant' && (userRole === 'accountant' || userRole === 'owner')) {
       return true;
+    }  else if (routeName === 'services' && (userRole === 'owner' || userRole === 'accountant' || userRole === 'sller' || userRole === 'customer')) {
+      return true;
     }
 
 
