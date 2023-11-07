@@ -248,7 +248,7 @@
         <MenuLink to="/customer/myexamination">
           <img
               class="rounded-t-md w-80 h-80 pb-4 pt-2"
-              src="@/assets/images/services/pay.svg"
+              src="@/assets/images/illustrations/check.svg"
               alt=""
           />
         </MenuLink>
@@ -264,9 +264,9 @@
         </p>
         <div class="flex justify-center mb-4">
           <MenuLink
-            to="/customer/myexamination"
-            href="#"
-            class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
+              to="/customer/myexamination"
+              href="#"
+              class="mt-4 flex items-center justify-center py-3 w-60 text-sm font-medium text-center text-white bg-darkblue rounded-lg hover:bg-gradient-to-b from-gold to-darkgold focus:ring-2 focus:outline-none focus:ring-darkgold"
           >
             click here
             <svg
@@ -295,7 +295,7 @@
         <MenuLink to="/customer/mypawn ">
           <img
               class="rounded-t-md w-80 h-80 pb-4 pt-2"
-              src="@/assets/images/services/pay.svg"
+              src="@/assets/images/illustrations/note_list.svg"
               alt=""
           />
         </MenuLink>
@@ -303,11 +303,11 @@
           <h5
               class="mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center"
           >
-            กรอกข้อมูลการจ่ายงวด
+            รายการจำนำทอง
           </h5>
         </MenuLink>
         <p class="font-light text-gray-700 dark:text-gray-800 text-center">
-          ข้อมูลการจ่ายงวด (Offline)
+          รายการจำนำทองของตัวเอง
         </p>
         <div class="flex justify-center mb-4">
           <MenuLink
@@ -341,7 +341,7 @@
         <MenuLink to="/customer/pawnamount  ">
           <img
               class="rounded-t-md w-80 h-80 pb-4 pt-2"
-              src="@/assets/images/services/pay.svg"
+              src="@/assets/images/illustrations/credit_card.svg"
               alt=""
           />
         </MenuLink>
@@ -349,11 +349,11 @@
           <h5
               class="mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center"
           >
-            กรอกข้อมูลการจ่ายงวด
+            จ่ายค่างวดายค่างวด
           </h5>
         </MenuLink>
         <p class="font-light text-gray-700 dark:text-gray-800 text-center">
-          ข้อมูลการจ่ายงวด (Offline)
+          ประวัติจ่ายค่างวด
         </p>
         <div class="flex justify-center mb-4">
           <MenuLink
