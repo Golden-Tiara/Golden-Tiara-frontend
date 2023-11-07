@@ -154,6 +154,7 @@
     if (modal) {
       modal.classList.add("hidden");
     }
+    window.location.reload();
   };
   </script>
   

@@ -224,7 +224,7 @@
       class="hidden p-4 rounded-lg bg-gray-50 h-[500px] dark:bg-gray-800"
       id="settings"
       role="tabpanel"
-      aria-labelledby="settings-tab"
+      aria-labelledby="settings-tab-slide"
     >
       <div class="p-5">
         <h5
@@ -234,7 +234,7 @@
         </h5>
       </div>
 
-      <table
+      <table v-if="transactions2.length > 0"
         class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-6 border border-gold"
       >
         <thead
@@ -427,9 +427,12 @@ const closeModal = () => {
   const modal = document.getElementById("loading-modal");
   if (modal) {
     modal.classList.add("hidden");
+    window.location.reload();
   }
    window.location.reload();
 };
+
+
 // Computed property for money calculation
 const money = computed(() => {
   if (
@@ -526,9 +529,11 @@ const profileTabs = function () {
   const profileTabSlide = document.getElementById("profile-tab-slide");
   const dashboardTab = document.getElementById("dashboard-tab");
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+  
+  const settingsTab = document.getElementById("settings-tab");
+  const settingsTabSlide = document.getElementById("setting-tab-slide");
 
-  const contactTab = document.getElementById("settings-tab");
-  const contactTabSlide = document.getElementById("contact-tab-slide");
+  
 
   dashboardTabSlide?.classList.add(
     "relative",
@@ -568,7 +573,7 @@ const profileTabs = function () {
     "after:origin-center"
   );
 
-  contactTabSlide?.classList.add(
+  settingsTabSlide?.classList.add(
     "relative",
     "font-normal",
     "text",
@@ -587,11 +592,10 @@ const profileTabs = function () {
     "after:origin-center"
   );
 
-  profileTab?.classList.remove("border-b-2", "border-gold");
+  settingsTab?.classList.remove("border-b-2", "border-gold");
   profileTab?.classList.add("text-gold", "border-b-2", "border-gold");
   dashboardTab?.classList.remove("border-b-2");
 
-  contactTab?.classList.remove("border-b-2");
 };
 
 const dashboardTabs = function () {
@@ -600,8 +604,8 @@ const dashboardTabs = function () {
   const dashboardTab = document.getElementById("dashboard-tab");
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
 
-  const contactTab = document.getElementById("settings-tab");
-  const contactTabSlide = document.getElementById("contact-tab-slide");
+  const settingsTab = document.getElementById("settings-tab");
+  const settingsTabSlide = document.getElementById("setting-tab-slide");
 
   profileTabSlide?.classList.add(
     "relative",
@@ -641,7 +645,7 @@ const dashboardTabs = function () {
     "after:origin-center"
   );
 
-  contactTabSlide?.classList.add(
+settingsTabSlide?.classList.add(
     "relative",
     "font-normal",
     "text",
@@ -661,7 +665,7 @@ const dashboardTabs = function () {
   );
   dashboardTab?.classList.add("text-gold", "border-b-2", "border-gold");
   profileTab?.classList.remove("border-b-2");
-  contactTab?.classList.remove("border-b-2");
+  settingsTab?.classList.remove("border-b-2");
 };
 
 const settingsTabs = function () {
@@ -669,9 +673,10 @@ const settingsTabs = function () {
   const profiletabSlide = document.getElementById("profile-tab-slide");
   const dashboardTab = document.getElementById("dashboard-tab");
   const dashboardTabSlide = document.getElementById("dashboard-tab-slide");
+  
+  const settingsTab = document.getElementById("settings-tab");
+  const settingsTabSlide = document.getElementById("setting-tab-slide");
 
-  const contactTab = document.getElementById("settings-tab");
-  const contactTabSlide = document.getElementById("contact-tab-slide");
 
   dashboardTabSlide?.classList.add(
     "relative",
@@ -710,7 +715,7 @@ const settingsTabs = function () {
     "after:origin-center"
   );
 
-  contactTabSlide?.classList.add(
+  settingsTabSlide?.classList.remove(
     "relative",
     "font-normal",
     "text",
@@ -729,8 +734,11 @@ const settingsTabs = function () {
     "after:origin-center"
   );
 
+
   profileTab?.classList.remove("border-b-2");
   dashboardTab?.classList.remove("border-b-2");
-  contactTab?.classList.remove("border-b-2");
+  settingsTab?.classList.add("text-gold", "border-b-2", "border-gold");
+
+ 
 };
 </script>

@@ -1,3 +1,15 @@
+<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
 <template>
   <section class="max-w-7xl mx-auto p-0">
     <div class="relative overflow-x-auto">
@@ -388,9 +400,9 @@ const sortOrder = ref("less");
 const showConfirmationModal = ref(false);
 const route = useRoute();
 
-//   definePageMeta({
-//     middleware: "authenticated", //Auth checker
-//   });
+  definePageMeta({
+    middleware: "authenticated", //Auth checker
+  });
 
 const { data: users, pending } = await useMyFetch<any>("user", {});
 

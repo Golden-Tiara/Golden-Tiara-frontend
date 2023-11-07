@@ -14,7 +14,8 @@
           <h3 class="md:mt-4 md:text-lg text-sm font-ligh md:mb-6">
             ที่จะมอบประสบการณ์สุดพิเศษให้แก่ลูกค้าทุกท่าน
           </h3>
-          <MenuLink to="/auth/login"
+          <MenuLink
+            to="/auth/login"
             class="font-light md:py-2 md:px-4 md:text-lg text-sm px-2 py-1 text-white border rounded-lg mt-1 md:mt-2 bg-darkblue hover:bg-gradient-to-b from-gold to-darkgold"
           >
             เริ่มต้นการใช้งาน
@@ -1035,6 +1036,12 @@
 
 <script>
 export default {
+  compunted: {
+    reload () {
+      window.location.reload()
+    }
+   
+  },
   methods: {
     handleClick() {
       this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
