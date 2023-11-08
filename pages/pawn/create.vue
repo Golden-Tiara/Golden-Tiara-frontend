@@ -425,6 +425,8 @@ export default {
           shopPayoutType: "",
           customerAccount: "",
         };
+
+        window.location.href("/pawn/add")
       }
     },
   },

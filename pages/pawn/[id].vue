@@ -31,6 +31,7 @@
           role="presentation"
         >
           <button
+          v-if="user.role === 'customer'"
             class="inline-block p-4 rounded-t-lg hover:text-gold"
             id="dashboard-tab"
             data-tabs-target="#dashboard"
@@ -180,32 +181,33 @@
         role="tabpanel"
         aria-labelledby="dashboard-tab"
       >
-        <div class="flex justify-center mt-10">
-          <div
-        class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
-      >
-        <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
-        <p class="mb-3 font-bold text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            เลขสัญญา: {{ pawn.id }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            จำนวนเงินที่จ่ายแล้ว: {{ pawn.paid_amount }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            จำนวนงวดที่จ่ายแล้ว: {{ pawn.paid_term }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            วันจ่ายค่างวดครั้งถัดไป: {{ pawn.next_payment }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            จำนวนเงินที่ต้องจ่ายในแต่ละงวด: {{ pawn.loan_amount / pawn.total_term }}
-          </p>
-          <p class="mb-3 font-normal text-gray-700 text-base"  v-if="pawn.customer_id === user.national_id">
-            จำนวนเงินที่เหลือต้องจ่ายทั้งหมด: {{ pawn.loan_amount - pawn.paid_amount }}
-          </p>
-        </div>
-      </div>
+      <div class="flex justify-center mt-10">
+  <div
+    class="flex flex-col items-center bg-white border border-darkgold rounded-lg shadow md:flex-row md:w-10/12"
+  >
+    <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
+      <p class="mb-3 font-bold text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        เลขสัญญา: {{ pawn.id }}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        จำนวนเงินที่จ่ายแล้ว: {{ pawn.paid_amount }}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        จำนวนงวดที่จ่ายแล้ว: {{ pawn.paid_term }}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        วันจ่ายค่างวดครั้งถัดไป: {{ pawn.next_payment }}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        จำนวนเงินที่ต้องจ่ายในแต่ละงวด: {{ pawn.loan_amount / pawn.total_term }}
+      </p>
+      <p class="mb-3 font-normal text-gray-700 text-base" v-if="pawn.customer_id === user.national_id">
+        จำนวนเงินที่เหลือต้องจ่ายทั้งหมด: {{ pawn.loan_amount - pawn.paid_amount }}
+      </p>
     </div>
+  </div>
+</div>
+
 
         <div class="flex justify-center mt-6">
           <button
@@ -330,52 +332,72 @@
 
           <tbody>
             <tr
-              class="bg-white hover:bg-gray-50 border-b border-gold w-full"
-              v-for="gold of pawn.golds"
-              :key="gold.id"
+  class="bg-white hover:bg-gray-50 border-b border-gold w-full"
+  v-for="gold in pawn.golds"
+  :key="gold.id"
+>
+  <td
+    scope="row"
+    class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+  >
+    <nuxt-link :to="`/gold/${gold.id}`">
+      {{ gold.id }}
+    </nuxt-link>
+  </td>
+
+  <td class="py-4 text-center">
+    <nuxt-link :to="`/gold/${gold.id}`">
+      {{ gold.weight }}
+    </nuxt-link>
+  </td>
+
+  <td class="py-4 text-center">
+    <nuxt-link :to="`/gold/${gold.id}`">
+      {{ gold.purity }}
+    </nuxt-link>
+  </td>
+  <td class="py-4 text-center">
+    <nuxt-link :to="`/gold/${gold.id}`">
+      <span
+              v-if="gold.status === 'examining'"
+              class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
             >
-              <td
-                scope="row"
-                class="py-4 px-6 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <nuxt-link :to="`/gold/${gold.id}`">
-                  {{ gold.id }}
-                </nuxt-link>
-              </td>
+              {{ gold.status }}
+            </span>
+            <span
+              v-if="gold.status === 'redeemed'"
+              class="p-1 font-semibold leading-tight text-purple-700 bg-purple-100 rounded"
+            >
+              {{ gold.status }}
+            </span>
+            <span
+              v-if="gold.status === 'verified'"
+              class="p-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
+            >
+              {{ gold.status }}
+            </span>
+            <span
+              v-if="gold.status === 'pawned'"
+              class="p-1 font-semibold leading-tight text-darkgold bg-gold rounded"
+            >
+              {{ gold.status }}
+            </span>
+            <span
+              v-if="gold.status === 'unredeemed'"
+              class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
+            >
+              {{ gold.status }}
+            </span>
+            <span
+              v-if="gold.status === 'unverified'"
+              class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
+            >
+              {{ gold.status }}
+            </span>
+    </nuxt-link>
+  </td>
+</tr>
 
-              <td class="py-4 text-center">
-                <nuxt-link :to="`/gold/${gold.id}`">
-                  {{ gold.weight }}
-                </nuxt-link>
-              </td>
-
-              <td class="py-4 text-center">
-                <nuxt-link :to="`/gold/${gold.id}`">
-                  {{ gold.purity }}
-                </nuxt-link>
-              </td>
-              <td class="py-4 text-center">
-                <nuxt-link :to="`/gold/${gold.id}`">
-                  <span
-                    v-if="gold.status === 'examining'"
-                    class="p-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded"
-                  >
-                    {{ gold.status }}
-                  </span>
-                  <span
-                    v-if="gold.status === 'verified'"
-                    class="p-1 font-semibold leading-tight text-green-700 bg-green-100 rounded"
-                  >
-                    {{ gold.status }} </span
-                  ><span
-                    v-if="gold.status === 'unverified'"
-                    class="p-1 font-semibold leading-tight text-red-700 bg-red-100 rounded"
-                  >
-                    {{ gold.status }}
-                  </span>
-                </nuxt-link>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -406,6 +428,8 @@ definePageMeta({
 const route = useRoute();
 const { data: pawn } = await useMyFetch<any>(`pawn/${route.params.id}`, {});
   const { data: gold } = await useMyFetch<any>(`gold/${route.params.id}`, {});
+
+  console.log("tr",  pawn.transactions)
 
 const qrPayment = function () {
   const qrPayment = document.getElementById("qr-payment-modal");
