@@ -28,7 +28,7 @@
         <div v-if="transaction.status === 'inprogress'">
           <div class="p-4 ml-7 leading-normal">
             <p class="mb-3 font-normal text-gray-700 text-base">
-              รหัส: {{ transaction.id }}
+              รหัสรายการ: {{ transaction.id }}
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
               เลขบัตรประชาชนลูกค้า: {{ transaction.customer_id }}
@@ -37,7 +37,8 @@
               รหัสพนักงานที่เบิก: {{ transaction.created_by }}
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
-              จำนวนเงิน: {{ transaction.amount }}
+              จำนวนเงิน: 
+              <span class="text-green-500">{{ transaction.amount }}</span> บาท
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
               สถานะการเบิก:
@@ -122,7 +123,7 @@
         <div v-else>
           <div class="px-4 py-12 ml-7 leading-normal">
             <p class="mb-3 font-normal text-gray-700 text-base">
-              รหัส: {{ transaction.id }}
+              รหัสรายการ: {{ transaction.id }}
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
               เลขบัตรประชาชนลูกค้า: {{ transaction.customer_id }}
@@ -131,7 +132,8 @@
               รหัสพนักงานที่เบิก: {{ transaction.created_by }}
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
-              จำนวนเงิน: {{ transaction.amount }}
+              จำนวนเงิน: 
+              <span class="text-green-500">{{ transaction.amount }}</span> บาท
             </p>
             <p class="mb-3 font-normal text-gray-700 text-base">
               สถานะการเบิก:

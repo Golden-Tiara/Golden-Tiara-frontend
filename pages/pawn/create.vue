@@ -64,6 +64,7 @@
                 <th scope="col" class="px-6 py-3">รหัสทอง</th>
                 <th scope="col" class="px-6 py-3">น้ำหนัก</th>
                 <th scope="col" class="px-6 py-3">ความบริสุทธ์</th>
+                <th scope="col" class="px-6 py-3">สถานะ</th>
               </tr>
             </thead>
             <tbody>
@@ -83,6 +84,22 @@
                 </td>
                 <td class="px-6 py-3 text-center">
                   {{ gold.purity }}
+                </td>
+                <td class="px-6 py-3 text-center">
+                  
+                  <span v-if="gold.status === 'verified'"
+                  class="text-green-500"
+                  >
+                    {{ gold.status }}
+                  </span>
+                  <span class="text-red-500"
+         v-if="gold.status === 'rejected'">
+                    {{ gold.status }}
+                  </span>
+                  <span class="text-blue-500" v-if="gold.status === 'pawned'">
+                    {{ gold.status }}
+                  </span>
+                  {{ gold.status }}
                 </td>
               </tr>
             </tbody>
@@ -141,43 +158,8 @@
               </select>
               <div class="text-red-500 text-sm">{{ errorMessage.term }}</div>
             </div>
-            <div class="relative z-0 w-full mb-6 group">
-              <label for="shopPayoutType" class="text-sm"
-                >เลือกรูปแบบการชำระเงิน</label
-              >
-              <select
-                id="shopPayoutType"
-                v-model="shopPayoutType"
-                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-              >
-                <option disabled value="">รูปแบบการชำระเงิน</option>
-                <option value="cash">เงินสด</option>
-                <option value="transaction">เงินโอน</option>
-              </select>
-              <div class="text-red-500 text-sm">
-                {{ errorMessage.shopPayoutType }}
-              </div>
-            </div>
-            <div class="relative z-0 w-full mb-6 group">
-              <input
-                type="text"
-                name="customerAccount"
-                id="customerAccount"
-                v-model="customerAccount"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                for="customerAccount"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                เลขบัญชีลูกค้า
-              </label>
-              <div class="text-red-500 text-sm">
-                {{ errorMessage.customerAccount }}
-              </div>
-            </div>
+            
+           
             <button
               type="submit"
               @click="saveData"
@@ -293,14 +275,10 @@ export default {
 
     const loanAmount = ref("");
     const term = ref("");
-    const shopPayoutType = ref("");
-    const customerAccount = ref("");
 
     const errorMessage = ref({
       loanAmount: "",
       term: "",
-      shopPayoutType: "",
-      customerAccount: "",
     });
 
     onBeforeMount(() => {
@@ -337,8 +315,6 @@ export default {
       interest,
       loanAmount,
       term,
-      shopPayoutType,
-      customerAccount,
       errorMessage,
     };
   },
@@ -369,20 +345,7 @@ export default {
       } else {
         this.errorMessage.term = "";
       }
-
-      if (!this.shopPayoutType) {
-        this.errorMessage.shopPayoutType = "กรุณาเลือกรูปแบบการชำระเงิน";
-        valid = false;
-      } else {
-        this.errorMessage.shopPayoutType = "";
-      }
-
-      if (!this.customerAccount && this.shopPayoutType == "transaction") {
-        this.errorMessage.customerAccount = "กรุณาใส่เลขบัญชีลูกค้า";
-        valid = false;
-      } else {
-        this.errorMessage.customerAccount = "";
-      }
+     
 
       return valid;
     },
@@ -396,8 +359,7 @@ export default {
         const formData = new FormData();
         formData.append("loan_amount", this.loanAmount);
         formData.append("total_term", this.term);
-        formData.append("shop_payout_type", this.shopPayoutType);
-        formData.append("customer_account", this.customerAccount);
+      
         formData.append("customer_id", this.nationalId);
         formData.append("examination_id", this.examinationId);
         formData.append("interest_rate", this.interest);
@@ -416,14 +378,11 @@ export default {
 
         // Reset the form after submission
         this.loanAmount = "";
-        this.term = "";
-        this.shopPayoutType = "";
-        this.customerAccount = "";
+        this.term = ""
         this.errorMessage = {
           loanAmount: "",
           term: "",
-          shopPayoutType: "",
-          customerAccount: "",
+  
         };
 
         window.location.href("/pawn/add")

@@ -143,9 +143,7 @@
           </div>
           <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
             <div class="text-center mb-10">
-              <h1 class="font-bold text-3xl text-gray-900">
-                จ่ายค่างวด
-              </h1>
+              <h1 class="font-bold text-3xl text-gray-900">จ่ายค่างวด</h1>
             </div>
 
             <div class="flex -mx-3">
@@ -209,6 +207,10 @@
                 >
                   ยืนยัน
                 </button>
+
+                <div class="text-red-500 text-center mt-1" v-if="statusNotMatch">
+             ไม่สามารถจ่ายค่างวดได้
+            </div>
               </div>
             </div>
           </div>
@@ -243,6 +245,7 @@ export default {
       userNotFoundError: false,
       idNotFoundError: false,
       dataNotMatchError: false,
+      statusNotMatch: false,
     };
   },
   computed: {
@@ -261,6 +264,7 @@ export default {
     async checkData() {
       this.dataNotMatchError = false;
       this.customerId = "";
+       const payError = document.getElementById("cant-pay-error");
 
       try {
         const { data: user } = await useMyFetch(
@@ -287,6 +291,7 @@ export default {
           `pawn/check/${this.pawn_id}`,
           {}
         );
+
         console.log(this.pawn_id);
         console.log(pawn.value.expiry_date);
         console.log(pawn.value.id);
@@ -303,6 +308,14 @@ export default {
           this.paid_term = pawn.value.paid_term;
           this.next_payment = pawn.value.next_payment;
           console.log(pawn.value.customer_id);
+          console.log(pawn.value.status)
+          if (pawn.value.status === 'finish') {
+
+            this.statusNotMatch = true;
+          } else {
+            this.statusNotMatch = false;
+          }
+
           this.pawnNotFoundError = false;
 
           console.log("Pawn found:", this.pawn_id);
@@ -316,7 +329,7 @@ export default {
         console.error("Error:", error);
       }
       console.error(this.national_id, this.customerId);
-      if (!this.userNotFoundError & !this.pawnNotFoundError) {
+      if (!this.userNotFoundError && !this.pawnNotFoundError && !this.statusNotMatch ) {
         if (this.national_id.toString() === this.customerId.toString()) {
           this.dataNotMatchError = false;
           localStorage.setItem("national_id", this.national_id);
