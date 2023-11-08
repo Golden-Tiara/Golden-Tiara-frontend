@@ -47,13 +47,13 @@
 
         <div class="flex flex-col justify-between p-4 ml-5 leading-normal">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            {{ gold.id }}
+            รหัสทอง: {{ gold.id }}
           </h5>
           <p class="mb-3 font-normal text-sm text-gray-700 mr-5">
-            น้ำหนักทอง: {{ gold.weight }}
+            น้ำหนักทอง: {{ gold.weight }} บาท
           </p>
           <p class="mb-3 font-normal text-gray-700 text-sm">
-            ความบริสุทธ์: {{ gold.purity }}
+            ความบริสุทธ์: {{ gold.purity }}%
           </p>
           <p class="mb-3 font-normal text-gray-700 text-sm">
             สถานะ:

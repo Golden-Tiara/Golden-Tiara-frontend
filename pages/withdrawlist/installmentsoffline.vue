@@ -136,7 +136,7 @@
                     จำนวนงวด: {{ total_term }}
                   </p>
                   <p class="mb-3 font-normal text-gray-700 text-[8px]">
-                    สถานะการจำนำ: {{ shop_payout_status }}
+                    สถานะการจ่ายเงินให้ลูกค้า: {{ shop_payout_status }} 
                   </p>
                 </div>
               </div>
@@ -270,7 +270,7 @@
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gold rounded-t-lg text-center"
         >
           <tr>
-            <th scope="col" class="px-6 py-3">รหัส</th>
+            <th scope="col" class="px-6 py-3">รหัสการชำระ</th>
             <th scope="col" class="px-6 py-3">ประเภทการจ่าย</th>
             <th scope="col" class="px-6 py-3">จำนวนงวด</th>
             <th scope="col" class="px-6 py-3">จำนวนเงิน</th>

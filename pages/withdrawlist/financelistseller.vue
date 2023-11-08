@@ -2,13 +2,13 @@
   <section class="max-w-7xl mx-auto p-0">
     <div class="p-5">
       <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        class="mb-2 text-4xl font-bold tracking-tight text-gold mt-20 dark:text-white"
       >
-        ประวัติการเบิกเงินของฉัน
+        ประวัติการเบิกเงิน
       </h5>
     </div>
 
-    <div class="flex mt-20 mb-5">
+    <div class="flex  mb-5">
       <input
         v-model="searchIdText"
         @input="applyFilter_id"

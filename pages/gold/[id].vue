@@ -19,7 +19,7 @@
 
         <div class="flex flex-col justify-between p-4 ml-7 leading-normal">
           <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
-            {{ gold.id }}
+            รหัสทอง: {{ gold.id }}
           </h5>
           <p class="mb-3 font-bold text-gray-700 text-base">
             เลขสัญญาตรวจสอบทอง: {{ gold.examination_id }}
@@ -28,11 +28,11 @@
             เลขสัญญาจำนำทอง: {{ gold.pawn_id }}
           </p>
           <p class="mb-3 font-normal text-base text-gray-700 mr-5">
-            น้ำหนักทอง: {{ gold.weight }}
+            น้ำหนักทอง: {{ gold.weight }} บาท
           </p>
 
           <p class="mb-3 font-normal text-gray-700 text-base">
-            ความบริสุทธ์: {{ gold.purity }}
+            ความบริสุทธ์: {{ gold.purity }}%
           </p>
           <p class="mb-3 font-normal text-gray-700 text-sm">
             สถานะ:

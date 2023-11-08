@@ -143,7 +143,7 @@
           </div>
           <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
             <div class="text-center mb-10">
-              <h1 class="font-bold text-3xl text-gray-900">จ่ายค่างวด</h1>
+              <h1 class="font-bold text-3xl text-gray-900">เช็คข้อมูลลูกค้า</h1>
             </div>
 
             <div class="flex -mx-3">
@@ -191,8 +191,11 @@
               </div>
             </div>
 
-            <div class="text-red-500" v-if="dataNotMatchError">
-              ไม่พบสัญญาจำนำทองของผู้ใช้
+            <div class="text-red-500 text-center mb-1" v-if="dataNotMatchError">
+              ไม่พบสัญญาจำนำทองของผู้ใช้บัญชีนี้
+            </div>
+            <div class="text-red-500 text-center mb-1" v-if="statusNotMatch">
+             ไม่สามารถจ่ายค่างวดได้
             </div>
             <div class="flex -mx-3">
               <div class="w-full px-3 mb-5">
@@ -208,9 +211,7 @@
                   ยืนยัน
                 </button>
 
-                <div class="text-red-500 text-center mt-1" v-if="statusNotMatch">
-             ไม่สามารถจ่ายค่างวดได้
-            </div>
+          
               </div>
             </div>
           </div>

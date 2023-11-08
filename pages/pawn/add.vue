@@ -197,7 +197,7 @@
               ไม่พบสัญญาตรวจสอบของผู้ใช้
             </div>
             <div class="flex -mx-3">
-              <div class="w-full px-3 ">
+              <div class="w-full px-3">
                 <button
                   type="submit"
                   @click="
@@ -210,11 +210,10 @@
                   คำนวณราคาและดอกเบี้ย
                 </button>
               </div>
-              
             </div>
             <div class="text-red-500 text-center mt-1" v-if="statusNotMatch">
-                กรุณารอการยืนยันสถานะของทอง
-              </div>
+              กรุณารอการยืนยันสถานะของทอง
+            </div>
           </div>
         </div>
       </div>
@@ -286,7 +285,9 @@ export default {
       console.log("start calculate:");
 
       for (const gold of this.examination.golds) {
-        loanCalc += gold.weight * goldPrice;
+        if (gold.status === "verified") {
+          loanCalc += gold.weight * goldPrice;
+        }
       }
 
       if (loanCalc < 5001) {
@@ -346,7 +347,7 @@ export default {
 
           console.log("No examination found");
         }
-        if (examination.value.status === "inprogress" ) {
+        if (examination.value.status === "inprogress") {
           this.statusNotMatch = true;
         } else {
           this.statusNotMatch = false;
@@ -356,7 +357,11 @@ export default {
         console.error("Error:", error);
       }
 
-      if (!this.userNotFoundError &&  !this.examinationNotFoundError && !this.statusNotMatch) {
+      if (
+        !this.userNotFoundError &&
+        !this.examinationNotFoundError &&
+        !this.statusNotMatch
+      ) {
         if (this.nationalId == this.customerId) {
           this.dataNotMatchError = false;
 
